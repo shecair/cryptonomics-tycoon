@@ -1,0 +1,248 @@
+[gd_scene format=3 uid="uid://bkg85ac02i7pr"]
+
+[ext_resource type="Script" uid="uid://cvrrd76u150tn" path="res://scripts/main_menu.gd" id="1_flqon"]
+[ext_resource type="Texture2D" uid="uid://ngc5mkmd2q88" path="res://assets/loading/background.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://crlfh2jm5a71g" path="res://assets/main_menu/menu_panel.png" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://c7s0tg2ejwxru" path="res://assets/main_menu/crown.png" id="3_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://dmuubonapwfk5" path="res://assets/main_menu/button_normal.png" id="4_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://b581w17evycx" path="res://assets/main_menu/button_pressed.png" id="5_oa1go"]
+[ext_resource type="Texture2D" uid="uid://b5vg3g6v61ryv" path="res://assets/main_menu/button_disabled.png" id="6_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://doecbwn1xok7k" path="res://assets/main_menu/icon_start.png" id="7_oa1go"]
+[ext_resource type="Texture2D" uid="uid://b2lvqkcmbc8y8" path="res://assets/main_menu/icon_continue.png" id="9_rcqid"]
+[ext_resource type="Texture2D" uid="uid://mi8hsu4bi5jl" path="res://assets/main_menu/icon_settings.png" id="10_1ajci"]
+[ext_resource type="Texture2D" uid="uid://dsn0ohqgbqc5" path="res://assets/main_menu/icon_about.png" id="11_7b55j"]
+[ext_resource type="Texture2D" uid="uid://dce0rmtm1b36b" path="res://assets/main_menu/icon_exit.png" id="12_5pajh"]
+
+[node name="MainMenu" type="Control" unique_id=552631749]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_flqon")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1494276713]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_l6cm7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MenuPanel" type="Control" parent="." unique_id=273692669]
+z_index = 1
+anchors_preset = 0
+offset_left = 90.0
+offset_top = 350.0
+offset_right = 990.0
+offset_bottom = 1700.0
+pivot_offset = Vector2(450, 675)
+mouse_filter = 2
+
+[node name="PanelFrame" type="TextureRect" parent="MenuPanel" unique_id=239121871]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_ekxnf")
+expand_mode = 1
+
+[node name="Crown" type="TextureRect" parent="MenuPanel" unique_id=1042954747]
+z_index = 2
+layout_mode = 1
+offset_left = 225.0
+offset_top = -230.0
+offset_right = 675.0
+offset_bottom = 70.0
+mouse_filter = 2
+texture = ExtResource("3_bqqt6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Buttons" type="VBoxContainer" parent="MenuPanel" unique_id=1148815848]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 140.0
+offset_right = 800.0
+offset_bottom = 1240.0
+mouse_filter = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="StartButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=583055758]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_rtw2f")
+texture_pressed = ExtResource("5_oa1go")
+texture_hover = ExtResource("4_rtw2f")
+texture_disabled = ExtResource("6_tbmy8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="StartIcon" type="TextureRect" parent="MenuPanel/Buttons/StartButton" unique_id=385287441]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 165.0
+offset_bottom = 165.0
+texture = ExtResource("7_oa1go")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StartLabel" type="Label" parent="MenuPanel/Buttons/StartButton" unique_id=1349082024]
+layout_mode = 1
+offset_left = 200.0
+offset_right = 670.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "شروع بازی"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 2
+
+[node name="ContinueButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=2043138717]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_rtw2f")
+texture_pressed = ExtResource("5_oa1go")
+texture_hover = ExtResource("4_rtw2f")
+texture_disabled = ExtResource("6_tbmy8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ContinueIcon" type="TextureRect" parent="MenuPanel/Buttons/ContinueButton" unique_id=816777059]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 165.0
+offset_bottom = 165.0
+texture = ExtResource("9_rcqid")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ContinueLabel" type="Label" parent="MenuPanel/Buttons/ContinueButton" unique_id=1068732300]
+layout_mode = 1
+offset_left = 200.0
+offset_right = 670.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "ادامه"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 2
+
+[node name="SettingsButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1267123079]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_rtw2f")
+texture_pressed = ExtResource("5_oa1go")
+texture_hover = ExtResource("4_rtw2f")
+texture_disabled = ExtResource("6_tbmy8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SettingsIcon" type="TextureRect" parent="MenuPanel/Buttons/SettingsButton" unique_id=1440264077]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 165.0
+offset_bottom = 165.0
+texture = ExtResource("10_1ajci")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SettingsLabel" type="Label" parent="MenuPanel/Buttons/SettingsButton" unique_id=170327797]
+layout_mode = 1
+offset_left = 200.0
+offset_right = 670.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "تنظیمات"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 2
+
+[node name="AboutButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=5863458]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_rtw2f")
+texture_pressed = ExtResource("5_oa1go")
+texture_hover = ExtResource("4_rtw2f")
+texture_disabled = ExtResource("6_tbmy8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AboutIcon" type="TextureRect" parent="MenuPanel/Buttons/AboutButton" unique_id=1483628815]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 165.0
+offset_bottom = 165.0
+texture = ExtResource("11_7b55j")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AboutLabel" type="Label" parent="MenuPanel/Buttons/AboutButton" unique_id=171021861]
+layout_mode = 1
+offset_left = 200.0
+offset_right = 670.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "درباره بازی"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 2
+
+[node name="ExitButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1191438687]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_rtw2f")
+texture_pressed = ExtResource("5_oa1go")
+texture_hover = ExtResource("4_rtw2f")
+texture_disabled = ExtResource("6_tbmy8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ExitIcon" type="TextureRect" parent="MenuPanel/Buttons/ExitButton" unique_id=1435110892]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 165.0
+offset_bottom = 165.0
+texture = ExtResource("12_5pajh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ExitLabel" type="Label" parent="MenuPanel/Buttons/ExitButton" unique_id=1467812327]
+layout_mode = 1
+offset_left = 200.0
+offset_right = 670.0
+offset_bottom = 200.0
+theme_override_colors/font_outline_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "خروج"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 2

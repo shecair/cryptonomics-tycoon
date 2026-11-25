@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://b1w5i43e062h3"]
+
+[ext_resource type="Script" uid="uid://db274dcrs4qvq" path="res://scripts/loading_screen.gd" id="1_amnj2"]
+[ext_resource type="Texture2D" uid="uid://ngc5mkmd2q88" path="res://assets/loading/background.png" id="1_ep5rh"]
+[ext_resource type="Texture2D" uid="uid://cdvq2kc2htaww" path="res://assets/loading/logo.png" id="2_hprjd"]
+[ext_resource type="Texture2D" uid="uid://dd8wutifamqdb" path="res://assets/loading/cloud_large.png" id="3_djmwj"]
+[ext_resource type="Texture2D" uid="uid://bdixjn3eetsbr" path="res://assets/loading/cloud_medium.png" id="4_qygbf"]
+[ext_resource type="Texture2D" uid="uid://sieg16a8yvg1" path="res://assets/loading/cloud_small.png" id="5_pu4a1"]
+[ext_resource type="Texture2D" uid="uid://wuftm8o4vxqw" path="res://assets/loading/globe.png" id="6_qygbf"]
+[ext_resource type="Texture2D" uid="uid://dx7kyx1r7rv4o" path="res://assets/loading/bitcoin.png" id="8_if62a"]
+[ext_resource type="Texture2D" uid="uid://dcjn61y1wksdq" path="res://assets/loading/progress_frame.png" id="9_gcv3i"]
+[ext_resource type="Texture2D" uid="uid://dacvda47dkyjd" path="res://assets/loading/progress_fill.png" id="10_amnj2"]
+[ext_resource type="Shader" uid="uid://dhb6xygyq6cf3" path="res://scripts/loading_screen.gdshader" id="10_v1mdd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1mdd"]
+shader = ExtResource("10_v1mdd")
+shader_parameter/progress = 1.0
+shader_parameter/bar_size = Vector2(886, 120)
+shader_parameter/corner_radius = 60.0
+shader_parameter/edge_softness = 1.5
+
+[node name="LoadingScreen" type="Control" unique_id=319319946]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_amnj2")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1511434441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_ep5rh")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Logo" type="TextureRect" parent="." unique_id=402390071]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_top = 90.0
+offset_right = 480.0
+offset_bottom = 594.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("2_hprjd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Clouds" type="Control" parent="." unique_id=364076682]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CloudLarge" type="TextureRect" parent="Clouds" unique_id=938962821]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 105.0
+offset_right = 205.0
+offset_bottom = 190.0
+mouse_filter = 2
+texture = ExtResource("3_djmwj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudMedium" type="TextureRect" parent="Clouds" unique_id=623876490]
+layout_mode = 1
+offset_left = 865.0
+offset_top = 120.0
+offset_right = 1025.0
+offset_bottom = 196.0
+mouse_filter = 2
+texture = ExtResource("4_qygbf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CloudSmall" type="TextureRect" parent="Clouds" unique_id=427014157]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 620.0
+offset_right = 115.0
+offset_bottom = 662.0
+mouse_filter = 2
+texture = ExtResource("5_pu4a1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GlobeGroup" type="Control" parent="." unique_id=635783818]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -200.0
+offset_right = 400.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(400, 400)
+mouse_filter = 2
+
+[node name="Globe" type="TextureRect" parent="GlobeGroup" unique_id=66111235]
+layout_mode = 1
+offset_left = 70.0
+offset_top = 70.0
+offset_right = 730.0
+offset_bottom = 730.0
+pivot_offset = Vector2(330, 330)
+mouse_filter = 2
+texture = ExtResource("6_qygbf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bitcoin" type="TextureRect" parent="GlobeGroup" unique_id=41003990]
+layout_mode = 1
+offset_left = 230.0
+offset_top = 180.0
+offset_right = 570.0
+offset_bottom = 535.0
+pivot_offset = Vector2(170, 177.5)
+mouse_filter = 2
+texture = ExtResource("8_if62a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ProgressBar" type="Control" parent="." unique_id=70848471]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -350.0
+offset_right = 450.0
+offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Frame" type="TextureRect" parent="ProgressBar" unique_id=1407955585]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_gcv3i")
+expand_mode = 1
+
+[node name="FillClip" type="Control" parent="ProgressBar" unique_id=1306227983]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 22.0
+offset_right = 891.0
+offset_bottom = 142.0
+mouse_filter = 2
+
+[node name="Fill" type="TextureRect" parent="ProgressBar/FillClip" unique_id=1858003812]
+material = SubResource("ShaderMaterial_v1mdd")
+layout_mode = 1
+offset_right = 886.0
+offset_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource("10_amnj2")
+expand_mode = 1
+
+[node name="StatusLabel" type="Label" parent="." unique_id=728668695]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -170.0
+offset_right = 450.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.95686275, 0.85882354, 1)
+theme_override_colors/font_outline_color = Color(0.023529412, 0.23529412, 0.27450982, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1

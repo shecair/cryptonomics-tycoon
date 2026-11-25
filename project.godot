@@ -11,13 +11,22 @@ config_version=5
 [application]
 
 config/name="Cryptonomics Tycoon"
+run/main_scene="uid://b1w5i43e062h3"
 config/features=PackedStringArray("4.7", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/resizable=false
+window/size/window_width_override=405
+window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [physics]
 
