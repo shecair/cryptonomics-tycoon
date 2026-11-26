@@ -71,7 +71,10 @@ func refresh() -> void:
 	var balance := int(data.get("balance_usdt", 0))
 	var cost := int(COSTS[company_size])
 	amount_label.text = "%s USDT" % str(balance) if not data.is_empty() else "—"
+	$TreasurySummary.text = "موجودی خزانه: %d USDT" % balance if not data.is_empty() else "موجودی خزانه: —"
 	$Cost.text = "هزینه تأسیس: %d USDT" % cost
+	$Cost.add_theme_color_override("font_color", Color("FFB4A8"))
+	$Remaining.add_theme_color_override("font_color", Color("FFB4A8") if balance < cost else Color("B8F58A"))
 	if data.is_empty():
 		$Remaining.text = "موجودی پس از تأسیس: —"
 	elif balance < cost:
@@ -216,7 +219,7 @@ func setup_wizard() -> void:
 	show_step(false)
 
 func show_step(animate: bool = true) -> void:
-	var groups := [[$Mining, $Exchange, $Blockchain], [$CompanyIdentityPanel, $CompanyLogoFrame, $CompanyLogoTitle, $Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyNameTitle, $CompanyNameGuide, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $Cost, $Remaining]]
+	var groups := [[$Mining, $Exchange, $Blockchain], [$CompanyIdentityPanel, $CompanyLogoFrame, $CompanyLogoTitle, $Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyNameTitle, $CompanyNameGuide, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $FinanceTitle, $TreasurySummary, $Cost, $Remaining, $FinanceWarning]]
 	if step_tween and step_tween.is_valid():
 		step_tween.kill()
 	if animate:
@@ -244,6 +247,14 @@ func show_step(animate: bool = true) -> void:
 	for i in range(2):
 		get_node("Connector%d" % i).color = Color("E9AD32") if i < step else Color("C6B681")
 	$Create.text = "تأسیس شرکت" if step == 2 else "ادامه"
+	for state in ["normal", "hover", "pressed"]:
+		var button_style := $Create.get_meta("base_" + state, null) as StyleBoxFlat if $Create.has_meta("base_" + state) else $Create.get_theme_stylebox(state).duplicate() as StyleBoxFlat
+		if not $Create.has_meta("base_" + state):
+			$Create.set_meta("base_" + state, button_style)
+		var visual := button_style.duplicate() as StyleBoxFlat
+		if step == 2:
+			visual.bg_color = Color("65CF23") if state != "pressed" else Color("4FA91B")
+		$Create.add_theme_stylebox_override(state, visual)
 
 func update_wizard_state(balance: int, cost: int) -> void:
 	var warning := ""
@@ -260,6 +271,10 @@ func update_wizard_state(balance: int, cost: int) -> void:
 	if step == 1:
 		$CompanyNameGuide.text = warning if not warning.is_empty() else "✓ نام شرکت معتبر است."
 		$CompanyNameGuide.add_theme_color_override("font_color", Color("FFB4A8") if not warning.is_empty() else Color("B8F58A"))
+		$Status.text = ""
+	elif step == 2:
+		$FinanceWarning.text = warning
+		$FinanceWarning.add_theme_color_override("font_color", Color("FFB4A8"))
 		$Status.text = ""
 	else:
 		$Status.text = warning

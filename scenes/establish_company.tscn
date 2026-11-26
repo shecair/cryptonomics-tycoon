@@ -669,7 +669,7 @@ offset_left = 75.0
 offset_top = 720.0
 offset_right = 1005.0
 offset_bottom = 800.0
-text = "اندازه شرکت"
+text = "شرکتت را تأسیس کن!"
 horizontal_alignment = 1
 vertical_alignment = 1
 mouse_filter = 2
@@ -865,26 +865,70 @@ layout_mode = 0
 offset_left = 55.0
 offset_top = 1260.0
 offset_right = 1025.0
-offset_bottom = 1530.0
+offset_bottom = 1630.0
 theme_override_styles/panel = SubResource("CapitalPlate")
 mouse_filter = 2
 visible = false
 
 
+[node name="FinanceTitle" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 85.0
+offset_top = 1265.0
+offset_right = 995.0
+offset_bottom = 1330.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "خلاصه مالی تأسیس شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TreasurySummary" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 85.0
+offset_top = 1335.0
+offset_right = 995.0
+offset_bottom = 1400.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "موجودی خزانه: —"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinanceWarning" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 85.0
+offset_top = 1550.0
+offset_right = 995.0
+offset_bottom = 1615.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Cost" type="Label" parent="."]
 layout_mode = 0
 offset_left = 75.0
-offset_top = 1270.0
+offset_top = 1405.0
 offset_right = 1005.0
-offset_bottom = 1370.0
+offset_bottom = 1470.0
 text = "هزینه تأسیس: 1,000 USDT"
 horizontal_alignment = 1
 vertical_alignment = 1
 mouse_filter = 2
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 8
 visible = false
 theme_override_fonts/font = SubResource("Bold")
 
@@ -892,17 +936,16 @@ theme_override_fonts/font = SubResource("Bold")
 [node name="Remaining" type="Label" parent="."]
 layout_mode = 0
 offset_left = 75.0
-offset_top = 1380.0
+offset_top = 1475.0
 offset_right = 1005.0
-offset_bottom = 1490.0
+offset_bottom = 1540.0
 text = "موجودی پس از تأسیس: — USDT"
 horizontal_alignment = 1
 vertical_alignment = 1
 mouse_filter = 2
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 8
 visible = false
 theme_override_fonts/font = SubResource("Bold")
 
