@@ -118,9 +118,9 @@ func show_page(index: int) -> void:
 				cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 				grid.add_child(cell)
 				var pic := TextureRect.new()
-				var icon_path := "res://assets/ui/icons/" + path + ".png"
+				var icon_path: String = "res://assets/ui/icons/" + str(path) + ".png"
 				if not ResourceLoader.exists(icon_path):
-					icon_path = "res://assets/ui/icons/" + path + ".svg"
+					icon_path = "res://assets/ui/icons/" + str(path) + ".svg"
 				pic.texture = load(icon_path) as Texture2D
 				pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
