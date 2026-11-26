@@ -1,4 +1,5 @@
 extends Control
+const Capacity = preload("res://scripts/company_capacity.gd")
 const SAVE = "user://savegame.json"
 const GREEN = Color("075440")
 const GOLD = Color("FFE4A0")
@@ -110,7 +111,7 @@ func _ready() -> void:
 	var heading := label("شرکت‌های من",44,Color.WHITE)
 	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header_row.add_child(heading)
-	var count := label(str(companies.size()) + " شرکت",34,GOLD)
+	var count := label("%d/9 شرکت" % Capacity.count(companies),34,GOLD)
 	header_row.add_child(count)
 	business_tabs = HBoxContainer.new()
 	business_tabs.layout_direction = Control.LAYOUT_DIRECTION_RTL
@@ -205,7 +206,8 @@ func render() -> void:
 		nav.remove_child(child)
 		child.queue_free()
 	create.visible = tab == 0 and not data.is_empty()
-	create.disabled = int(data.get("balance_usdt",0)) < 1000
+	create.disabled = int(data.get("balance_usdt",0)) < 1000 or not Capacity.has_capacity(companies)
+	funding_hint.text = "ظرفیت تأسیس شرکت تکمیل شده است." if not Capacity.has_capacity(companies) else "موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT"
 	list_header.visible = tab == 0 and not data.is_empty()
 	business_tabs.visible = list_header.visible
 	refresh_business_tabs()
@@ -220,7 +222,7 @@ func render() -> void:
 	if tab == 0:
 		var shown := 0
 		for c in companies:
-			if c is Dictionary and c.get("business","") == business_tab:
+			if Capacity.occupies_slot(c) and c.get("business","") == business_tab:
 				company_card(c)
 				shown += 1
 		if shown == 0:
@@ -254,12 +256,9 @@ func refresh_business_tabs() -> void:
 		child.queue_free()
 	for i in range(BUSINESS_KEYS.size()):
 		var key: String = BUSINESS_KEYS[i]
-		var count := 0
-		for c in companies:
-			if c is Dictionary and c.get("business","") == key:
-				count += 1
+		var count := Capacity.count(companies, key)
 		var selected := business_tab == key
-		var b := action(BUSINESS_NAMES[i] + "\n" + str(count) + " شرکت",select_business.bind(key),false,Vector2(0,112))
+		var b := action(BUSINESS_NAMES[i] + "\n" + "%d/3 شرکت" % count,select_business.bind(key),false,Vector2(0,112))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.add_theme_font_size_override("font_size",30)
 		for state in ["normal","hover","pressed"]:

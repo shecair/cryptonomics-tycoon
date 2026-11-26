@@ -1,4 +1,5 @@
 extends Control
+const Capacity = preload("res://scripts/company_capacity.gd")
 const SAVE = "user://savegame.json"
 const NEXT = "res://scenes/holding_dashboard.tscn"
 const COSTS = {"small": 1000, "medium": 3000, "large": 6000}
@@ -38,6 +39,10 @@ func _ready() -> void:
 	$Back.pressed.connect(go_back)
 	data = read_save()
 	setup_wizard()
+	for kind in Capacity.TYPES:
+		if Capacity.can_create(data.get("companies", []), kind):
+			business = kind
+			break
 	refresh()
 	if data.is_empty():
 		$Status.text = "فایل ذخیره نامعتبر است." if FileAccess.file_exists(SAVE) else "ابتدا هلدینگ را ایجاد کنید (F5)."
@@ -53,6 +58,8 @@ func read_save() -> Dictionary:
 	return {}
 
 func select_business(value: String) -> void:
+	if not Capacity.can_create(data.get("companies", []), value):
+		return
 	business = value
 	refresh()
 
@@ -85,8 +92,14 @@ func refresh() -> void:
 		for child in button.get_children():
 			if child is Label:
 				child.add_theme_color_override("font_color", Color("FFFFFF") if selected else Color("075440"))
+	for i in range(3):
+		var card: Button = [$Mining, $Exchange, $Blockchain][i]
+		var kind: String = Capacity.TYPES[i]
+		var used := Capacity.count(data.get("companies", []), kind)
+		card.disabled = not Capacity.can_create(data.get("companies", []), kind)
+		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i] + "\n" + ("%d/3 — ظرفیت تکمیل" % used if card.disabled else "%d/3 شرکت" % used)
 	for i in range(checks.size()):
-		checks[i].visible = ["mining", "exchange", "blockchain"][i] == business and step == 0
+		checks[i].visible = ["mining", "exchange", "blockchain"][i] == business and step == 0 and Capacity.can_create(data.get("companies", []), business)
 	update_wizard_state(balance, cost)
 
 func change_logo(direction: int) -> void:
@@ -136,6 +149,11 @@ func create_company() -> void:
 		data = latest
 		refresh()
 		notice("موجودی کافی نیست یا فایل ذخیره معتبر نیست.")
+		return
+	if not Capacity.can_create(latest["companies"], business):
+		data = latest
+		refresh()
+		notice("ظرفیت تأسیس شرکت تکمیل شده است.")
 		return
 	var company_name: String = $CompanyName.text.strip_edges()
 	if company_name.length() < 2 or company_name.length() > 30:
@@ -293,6 +311,8 @@ func update_wizard_state(balance: int, cost: int) -> void:
 	var length: int = $CompanyName.text.strip_edges().length()
 	if data.is_empty():
 		warning = "ابتدا هلدینگ معتبر ایجاد کنید."
+	elif not Capacity.can_create(data.get("companies", []), business):
+		warning = "ظرفیت این کسب‌وکار یا هلدینگ تکمیل شده است."
 	elif step == 1 and (length < 2 or length > 30):
 		warning = "نام شرکت باید بین ۲ تا ۳۰ حرف باشد."
 	elif step == 2 and balance < cost:
