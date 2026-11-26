@@ -1,5 +1,7 @@
 extends Control
 
+const UI = preload("res://scripts/ui/game_ui.gd")
+
 const SETTINGS_PATH = "user://settings.cfg"
 const SAVE_PATH = "user://savegame.json"
 const START_PATH = "res://scenes/profile_holding.tscn"
@@ -34,6 +36,7 @@ var language: String = "fa"
 
 func _ready() -> void:
 	menu_buttons = [start_button, continue_button, settings_button, about_button, exit_button]
+	apply_menu_art()
 	language_option.clear()
 	language_option.add_item("English", 0)
 	language_option.add_item("فارسی", 1)
@@ -60,6 +63,35 @@ func _ready() -> void:
 	crown.modulate.a = 0.0
 	await get_tree().process_frame
 	await play_intro_animation()
+
+func apply_menu_art() -> void:
+	var frame := $MenuPanel/PanelFrame as TextureRect
+	var patch := NinePatchRect.new()
+	patch.texture = preload("res://assets/ui/panels/panel_main.png")
+	patch.patch_margin_left = 48
+	patch.patch_margin_right = 48
+	patch.patch_margin_top = 48
+	patch.patch_margin_bottom = 48
+	patch.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	menu_panel.add_child(patch)
+	menu_panel.move_child(patch, frame.get_index())
+	patch.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	frame.hide()
+	var families := ["primary", "upgrade", "management", "information", "danger"]
+	for i in range(menu_buttons.size()):
+		var button := menu_buttons[i]
+		var path := "res://assets/ui/buttons/%s/" % families[i]
+		button.texture_normal = load(path + "normal.svg") as Texture2D
+		button.texture_hover = button.texture_normal
+		button.texture_pressed = load(path + "pressed.svg") as Texture2D
+		button.texture_disabled = load(path + "disabled.svg") as Texture2D
+		var label := button.get_child(1) as Label
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		label.add_theme_font_override("font", UI.bold_persian())
+		label.add_theme_font_size_override("font_size", 56)
+		label.add_theme_constant_override("outline_size", 3)
+		label.add_theme_color_override("font_color", Color("#092E26") if i < 2 else Color("#F9F5E7"))
+		label.add_theme_color_override("font_outline_color", Color("#FFE5B4") if i < 2 else Color("#092E26"))
 
 func play_intro_animation() -> void:
 	menu_panel.pivot_offset = menu_panel.size / 2.0
@@ -88,6 +120,10 @@ func play_intro_animation() -> void:
 	for button in menu_buttons:
 		button.disabled = false
 	continue_button.disabled = read_save().is_empty()
+	if continue_button.disabled:
+		var label := continue_button.get_child(1) as Label
+		label.text = tr_menu("No saved game", "بازی ذخیره نشده")
+		label.add_theme_font_size_override("font_size", 40)
 	animation_finished = true
 
 func _on_button_down(button: TextureButton) -> void:
@@ -189,6 +225,10 @@ func apply_settings() -> void:
 	for i in range(menu_buttons.size()):
 		var label = menu_buttons[i].get_child(1) as Label
 		label.text = tr_menu(en[i], fa[i])
+		label.add_theme_font_override("font", UI.bold_persian() if language == "fa" else UI.weighted_font(UI.ENGLISH, 700))
+		if i == 1 and read_save().is_empty():
+			label.text = tr_menu("No saved game", "بازی ذخیره نشده")
+			label.add_theme_font_size_override("font_size", 40)
 		label.text_direction = Control.TEXT_DIRECTION_RTL if language == "fa" else Control.TEXT_DIRECTION_LTR
 	exit_dialog.title = tr_menu("Exit Game", "خروج از بازی")
 	exit_dialog.dialog_text = tr_menu("Are you sure you want to exit the game?", "آیا می‌خواهید از بازی خارج شوید؟")
@@ -222,10 +262,11 @@ func show_notice(message: String) -> void:
 
 func setup_dialog_theme() -> void:
 	var dialog_theme  = Theme.new()
+	dialog_theme.default_font = UI.PERSIAN
 	dialog_theme.default_font_size = 32
 	var panel = StyleBoxFlat.new()
-	panel.bg_color = Color("16444e")
-	panel.border_color = Color("c7a45c")
+	panel.bg_color = Color("#075440")
+	panel.border_color = Color("#E9AD32")
 	panel.set_border_width_all(3)
 	panel.set_corner_radius_all(18)
 	panel.content_margin_left = 24
@@ -236,9 +277,9 @@ func setup_dialog_theme() -> void:
 	dialog_theme.set_color("title_color", "Window", Color("e9c77c"))
 	dialog_theme.set_font_size("title_font_size", "Window", 32)
 	var normal = panel.duplicate() as StyleBoxFlat
-	normal.bg_color = Color("21606a")
+	normal.bg_color = Color("#087F69")
 	var hover = normal.duplicate() as StyleBoxFlat
-	hover.bg_color = Color("327681")
+	hover.bg_color = Color("#159B80")
 	for kind in ["Button", "OptionButton"]:
 		dialog_theme.set_stylebox("normal", kind, normal)
 		dialog_theme.set_stylebox("hover", kind, hover)
