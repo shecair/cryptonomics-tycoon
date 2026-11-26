@@ -1,5 +1,7 @@
 extends Control
 
+const UI = preload("res://scripts/ui/game_ui.gd")
+
 const ASSETS = "res://assets/profile_holding/"
 const SAVE = "user://savegame.json"
 const NEXT = "res://scenes/establish_company.tscn"
@@ -11,6 +13,7 @@ var drag_target := 0
 var saved := false
 
 func _ready() -> void:
+	apply_profile_art()
 	$AvatarPrev.pressed.connect(change_item.bind(true, -1))
 	$AvatarNext.pressed.connect(change_item.bind(true, 1))
 	$LogoPrev.pressed.connect(change_item.bind(false, -1))
@@ -21,6 +24,40 @@ func _ready() -> void:
 	$Back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
 	$Help.pressed.connect(func(): message("دو نام وارد کنید. آواتار و لوگو اختیاری هستند. سرمایه اولیه هلدینگ ۱۰٬۰۰۰ تتر است."))
 	update_start("")
+
+func apply_profile_art() -> void:
+	theme = UI.THEME
+	for button in [$AvatarPrev, $AvatarNext, $LogoPrev, $LogoNext]:
+		UI.apply_button(button, "management")
+		button.add_theme_font_size_override("font_size", 56)
+	UI.apply_button($Back, "danger")
+	UI.apply_button($Help, "information")
+	UI.apply_button($Start, "primary")
+	$Start.add_theme_font_size_override("font_size", 48)
+	UI.apply_text($Title, "hero")
+	$Title.add_theme_color_override("font_color", Color("#FFE46D"))
+	$Title.add_theme_color_override("font_outline_color", Color("#092E26"))
+	$Title.add_theme_constant_override("outline_size", 8)
+	UI.apply_panel($AvatarHalo, "main")
+	var logo_frame := Panel.new()
+	logo_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(logo_frame)
+	move_child(logo_frame, $HoldingLogo.get_index())
+	logo_frame.position = $HoldingLogo.position - Vector2(12, 12)
+	logo_frame.size = $HoldingLogo.size + Vector2(24, 24)
+	UI.apply_panel(logo_frame, "main")
+	for field in [$PlayerName, $HoldingName]:
+		field.add_theme_font_override("font", UI.weighted_font(UI.PERSIAN, 500))
+		field.add_theme_font_size_override("font_size", 48)
+		field.add_theme_stylebox_override("normal", UI.texture_style("res://assets/ui/panels/panel_finance.png", 48, 48))
+	UI.apply_panel($CapitalPlate, "finance")
+	UI.apply_text($CapitalLabel, "title")
+	UI.apply_text($Capital, "money")
+	for label in [$CapitalLabel, $Capital]:
+		label.add_theme_color_override("font_color", Color("#092E26"))
+		label.add_theme_constant_override("outline_size", 0)
+	UI.apply_text($Status, "hint")
+	$Status.add_theme_font_size_override("font_size", 32)
 
 func update_start(_value: String) -> void:
 	var player_length: int = $PlayerName.text.strip_edges().length()
