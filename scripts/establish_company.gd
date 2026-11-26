@@ -97,7 +97,12 @@ func refresh() -> void:
 		var kind: String = Capacity.TYPES[i]
 		var used := Capacity.count(data.get("companies", []), kind)
 		card.disabled = not Capacity.can_create(data.get("companies", []), kind)
-		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i] + "\n" + ("%d/3 — ظرفیت تکمیل" % used if card.disabled else "%d/3 شرکت" % used)
+		var capacity_label: Label = card.get_node("CapacityLabel")
+		capacity_label.text = "%d از ۳ — ظرفیت تکمیل" % used if card.disabled else "%d از ۳ شرکت" % used
+		capacity_label.add_theme_color_override("font_color", Color("8B291C") if card.disabled else (Color("FFE5B4") if kind == business else Color("075440")))
+		for slot in range(3):
+			var marker: ColorRect = card.get_node("Slot%d" % slot)
+			marker.color = Color("E9AD32") if slot < used else Color("B6B6A7")
 		var disabled_style := card.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
 		disabled_style.bg_color = Color("D5D5CF")
 		disabled_style.border_color = Color("A6A69D")

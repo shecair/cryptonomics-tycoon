@@ -402,11 +402,11 @@ stretch_mode = 5
 [node name="Caption" type="Label" parent="Mining"]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 10.0
+offset_top = 12.0
 offset_right = 700.0
-offset_bottom = 195.0
+offset_bottom = 78.0
 mouse_filter = 2
-text = "استخراج"
+text = "استخراج رمزارز"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 48
@@ -449,11 +449,11 @@ stretch_mode = 5
 [node name="Caption" type="Label" parent="Exchange"]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 10.0
+offset_top = 12.0
 offset_right = 700.0
-offset_bottom = 195.0
+offset_bottom = 78.0
 mouse_filter = 2
-text = "صرافی"
+text = "صرافی رمزارز"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 48
@@ -496,9 +496,9 @@ stretch_mode = 5
 [node name="Caption" type="Label" parent="Blockchain"]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 10.0
+offset_top = 12.0
 offset_right = 700.0
-offset_bottom = 195.0
+offset_bottom = 78.0
 mouse_filter = 2
 text = "توسعه بلاکچین"
 horizontal_alignment = 1
@@ -1167,3 +1167,129 @@ theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
 theme_override_fonts/font = SubResource("Bold")
 
+
+[node name="CapacityLabel" type="Label" parent="Mining"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 80.0
+offset_right = 710.0
+offset_bottom = 135.0
+mouse_filter = 2
+text = "۰ از ۳ شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
+
+[node name="Slot0" type="ColorRect" parent="Mining"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 151.0
+offset_right = 379.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot1" type="ColorRect" parent="Mining"]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 151.0
+offset_right = 459.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot2" type="ColorRect" parent="Mining"]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 151.0
+offset_right = 539.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="CapacityLabel" type="Label" parent="Exchange"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 80.0
+offset_right = 710.0
+offset_bottom = 135.0
+mouse_filter = 2
+text = "۰ از ۳ شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
+
+[node name="Slot0" type="ColorRect" parent="Exchange"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 151.0
+offset_right = 379.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot1" type="ColorRect" parent="Exchange"]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 151.0
+offset_right = 459.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot2" type="ColorRect" parent="Exchange"]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 151.0
+offset_right = 539.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="CapacityLabel" type="Label" parent="Blockchain"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 80.0
+offset_right = 710.0
+offset_bottom = 135.0
+mouse_filter = 2
+text = "۰ از ۳ شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
+
+[node name="Slot0" type="ColorRect" parent="Blockchain"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 151.0
+offset_right = 379.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot1" type="ColorRect" parent="Blockchain"]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 151.0
+offset_right = 459.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="Slot2" type="ColorRect" parent="Blockchain"]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 151.0
+offset_right = 539.0
+offset_bottom = 169.0
+mouse_filter = 2
+color = Color(0.71, 0.71, 0.65, 1)
