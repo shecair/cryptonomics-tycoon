@@ -35,7 +35,14 @@ func section_panel(y: float, h: float) -> void:
 	add_child(panel)
 	move_child(panel, $GameLogo.get_index())
 	place(panel, 65, y, 950, h)
-	UI.apply_panel(panel, "main")
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("#075440")
+	style.border_color = Color("#E9AD32")
+	style.set_border_width_all(4)
+	style.set_corner_radius_all(28)
+	style.shadow_color = Color(0.02, 0.13, 0.09, 0.25)
+	style.shadow_size = 4
+	panel.add_theme_stylebox_override("panel", style)
 
 func guide(value: String, y: float, size_px: int, gold: bool = false) -> void:
 	var label := Label.new()
@@ -105,6 +112,7 @@ func apply_profile_art() -> void:
 	$CapitalPlate.hide()
 	$CapitalLabel.hide()
 	place($CapitalIcon, 145, 1510, 95, 95)
+	$CapitalIcon.texture = load("res://assets/profile_holding/tether_simple.svg") as Texture2D
 	place($Capital, 245, 1505, 700, 105)
 	UI.apply_text($Capital, "money")
 	$Capital.add_theme_constant_override("outline_size", 0)
