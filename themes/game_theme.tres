@@ -1,78 +1,78 @@
-[gd_resource type="Theme" load_steps=12 format=3]
+[gd_resource type="Theme" format=3 uid="uid://nsfsmjqpbpg6"]
 
-[ext_resource type="FontFile" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="1"]
-[ext_resource type="Texture2D" path="res://assets/ui/panels/panel_main.png" id="2"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/normal.svg" id="3"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/pressed.svg" id="4"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/selected.svg" id="5"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/disabled.svg" id="6"]
-
-[sub_resource type="StyleBoxTexture" id="panel"]
-texture = ExtResource("2")
-texture_margin_left = 48.0
-texture_margin_top = 48.0
-texture_margin_right = 48.0
-texture_margin_bottom = 48.0
-content_margin_left = 28.0
-content_margin_right = 28.0
-content_margin_top = 24.0
-content_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="normal"]
-texture = ExtResource("3")
-texture_margin_left = 40.0
-texture_margin_top = 32.0
-texture_margin_right = 40.0
-texture_margin_bottom = 32.0
-content_margin_left = 28.0
-content_margin_right = 28.0
-content_margin_top = 24.0
-content_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="pressed"]
-texture = ExtResource("4")
-texture_margin_left = 40.0
-texture_margin_top = 32.0
-texture_margin_right = 40.0
-texture_margin_bottom = 32.0
-content_margin_left = 28.0
-content_margin_right = 28.0
-content_margin_top = 24.0
-content_margin_bottom = 24.0
-
-[sub_resource type="StyleBoxTexture" id="selected"]
-texture = ExtResource("5")
-texture_margin_left = 40.0
-texture_margin_top = 32.0
-texture_margin_right = 40.0
-texture_margin_bottom = 32.0
-content_margin_left = 28.0
-content_margin_right = 28.0
-content_margin_top = 24.0
-content_margin_bottom = 24.0
+[ext_resource type="FontFile" uid="uid://6gwg57p0mnmo" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://drlnvuaehni3e" path="res://assets/ui/panels/panel_main.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ck7hkg0jl7tt8" path="res://assets/ui/buttons/management/normal.svg" id="3"]
+[ext_resource type="Texture2D" uid="uid://byx5hi4lqk4ux" path="res://assets/ui/buttons/management/pressed.svg" id="4"]
+[ext_resource type="Texture2D" uid="uid://bdwsxo1qxgw4h" path="res://assets/ui/buttons/management/selected.svg" id="5"]
+[ext_resource type="Texture2D" uid="uid://b3g6gbb8sulg8" path="res://assets/ui/buttons/management/disabled.svg" id="6"]
 
 [sub_resource type="StyleBoxTexture" id="disabled"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
 texture = ExtResource("6")
 texture_margin_left = 40.0
 texture_margin_top = 32.0
 texture_margin_right = 40.0
 texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="selected"]
 content_margin_left = 28.0
-content_margin_right = 28.0
 content_margin_top = 24.0
+content_margin_right = 28.0
 content_margin_bottom = 24.0
+texture = ExtResource("5")
+texture_margin_left = 40.0
+texture_margin_top = 32.0
+texture_margin_right = 40.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="normal"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+texture = ExtResource("3")
+texture_margin_left = 40.0
+texture_margin_top = 32.0
+texture_margin_right = 40.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="pressed"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+texture = ExtResource("4")
+texture_margin_left = 40.0
+texture_margin_top = 32.0
+texture_margin_right = 40.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+texture = ExtResource("2")
+texture_margin_left = 48.0
+texture_margin_top = 48.0
+texture_margin_right = 48.0
+texture_margin_bottom = 48.0
 
 [resource]
 default_font = ExtResource("1")
 default_font_size = 36
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.18, 0.23, 0.18, 1)
-Button/styles/normal = SubResource("normal")
-Button/styles/hover = SubResource("normal")
-Button/styles/pressed = SubResource("pressed")
-Button/styles/hover_pressed = SubResource("pressed")
 Button/styles/disabled = SubResource("disabled")
 Button/styles/focus = SubResource("selected")
+Button/styles/hover = SubResource("normal")
+Button/styles/hover_pressed = SubResource("pressed")
+Button/styles/normal = SubResource("normal")
+Button/styles/pressed = SubResource("pressed")
+Label/colors/font_color = Color(0.976, 0.961, 0.906, 1)
 Panel/styles/panel = SubResource("panel")
 PanelContainer/styles/panel = SubResource("panel")
-Label/colors/font_color = Color(0.976, 0.961, 0.906, 1)

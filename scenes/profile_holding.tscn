@@ -1,175 +1,170 @@
-[gd_scene load_steps=38 format=3]
+[gd_scene format=3 uid="uid://yk0ecbv5reqs"]
 
-[ext_resource type="Script" path="res://scripts/profile_holding.gd" id="1"]
-
-[ext_resource type="Texture2D" path="res://assets/loading/background.png" id="2"]
-
-[ext_resource type="Texture2D" path="res://assets/loading/logo.png" id="3"]
-
-[ext_resource type="Texture2D" path="res://assets/profile_holding/avatar_01.png" id="4"]
-
-[ext_resource type="Texture2D" path="res://assets/profile_holding/holding_logo_01.png" id="5"]
-
-[ext_resource type="Texture2D" path="res://assets/profile_holding/tether_simple.svg" id="6"]
-
+[ext_resource type="Script" uid="uid://ckmbvj5s0jg12" path="res://scripts/profile_holding.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cagh8ug4balj5" path="res://assets/loading/background.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://uvlnx4t1x5be" path="res://assets/loading/logo.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cwrutinwenp1d" path="res://assets/profile_holding/avatar_01.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cebbn37p7fhcc" path="res://assets/profile_holding/holding_logo_01.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bwbbsshspbhc7" path="res://assets/profile_holding/tether_simple.svg" id="6"]
 [ext_resource type="Theme" path="res://themes/game_theme.tres" id="7"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="8"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/RobotoMono/RobotoMono.ttf" id="9"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/normal.svg" id="management_normal"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/pressed.svg" id="management_pressed"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/disabled.svg" id="management_disabled"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/normal.svg" id="danger_normal"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/pressed.svg" id="danger_pressed"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/disabled.svg" id="danger_disabled"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/normal.svg" id="information_normal"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/pressed.svg" id="information_pressed"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/disabled.svg" id="information_disabled"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/normal.svg" id="primary_normal"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/pressed.svg" id="primary_pressed"]
-[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/disabled.svg" id="primary_disabled"]
-
-[sub_resource type="FontVariation" id="Bold"]
-base_font = ExtResource("8")
-variation_opentype = {2003265652: 700}
+[ext_resource type="FontFile" uid="uid://6gwg57p0mnmo" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="8"]
+[ext_resource type="Texture2D" uid="uid://dk22c35otw884" path="res://assets/ui/buttons/danger/disabled.svg" id="danger_disabled"]
+[ext_resource type="Texture2D" uid="uid://d26pljovureyb" path="res://assets/ui/buttons/danger/normal.svg" id="danger_normal"]
+[ext_resource type="Texture2D" uid="uid://bcshxrsat0jx8" path="res://assets/ui/buttons/danger/pressed.svg" id="danger_pressed"]
+[ext_resource type="Texture2D" uid="uid://786lgi3j2gud" path="res://assets/ui/buttons/information/disabled.svg" id="information_disabled"]
+[ext_resource type="Texture2D" uid="uid://bf8w755w5rrf1" path="res://assets/ui/buttons/information/normal.svg" id="information_normal"]
+[ext_resource type="Texture2D" uid="uid://cc4wpya2050lr" path="res://assets/ui/buttons/information/pressed.svg" id="information_pressed"]
+[ext_resource type="Texture2D" uid="uid://b3g6gbb8sulg8" path="res://assets/ui/buttons/management/disabled.svg" id="management_disabled"]
+[ext_resource type="Texture2D" uid="uid://ck7hkg0jl7tt8" path="res://assets/ui/buttons/management/normal.svg" id="management_normal"]
+[ext_resource type="Texture2D" uid="uid://byx5hi4lqk4ux" path="res://assets/ui/buttons/management/pressed.svg" id="management_pressed"]
+[ext_resource type="Texture2D" uid="uid://cm82qrmbw4o2j" path="res://assets/ui/buttons/primary/disabled.svg" id="primary_disabled"]
+[ext_resource type="Texture2D" uid="uid://diw472164bqa1" path="res://assets/ui/buttons/primary/normal.svg" id="primary_normal"]
+[ext_resource type="Texture2D" uid="uid://bwfb5iaj1ip65" path="res://assets/ui/buttons/primary/pressed.svg" id="primary_pressed"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
+content_margin_left = 12.0
+content_margin_right = 12.0
 bg_color = Color(0.027, 0.33, 0.25, 1)
-border_color = Color(0.91, 0.68, 0.20, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
+border_color = Color(0.91, 0.68, 0.2, 1)
 corner_radius_top_left = 30
 corner_radius_top_right = 30
-corner_radius_bottom_left = 30
 corner_radius_bottom_right = 30
-content_margin_left = 12.0
-content_margin_right = 12.0
+corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id="Cream"]
-bg_color = Color(1, 0.973, 0.90, 1)
-border_color = Color(0.91, 0.68, 0.20, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_left = 20
-corner_radius_bottom_right = 20
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="Badge"]
-bg_color = Color(1, 0.89, 0.43, 1)
-border_color = Color(0.91, 0.68, 0.20, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 35
-corner_radius_top_right = 35
-corner_radius_bottom_left = 35
-corner_radius_bottom_right = 35
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxTexture" id="management_normal"]
-texture = ExtResource("management_normal")
-texture_margin_left = 48.0
-texture_margin_right = 48.0
-texture_margin_top = 32.0
-texture_margin_bottom = 32.0
-
-[sub_resource type="StyleBoxTexture" id="management_pressed"]
-texture = ExtResource("management_pressed")
-texture_margin_left = 48.0
-texture_margin_right = 48.0
-texture_margin_top = 32.0
-texture_margin_bottom = 32.0
-
-[sub_resource type="StyleBoxTexture" id="management_disabled"]
-texture = ExtResource("management_disabled")
-texture_margin_left = 48.0
-texture_margin_right = 48.0
-texture_margin_top = 32.0
-texture_margin_bottom = 32.0
+[sub_resource type="FontVariation" id="Bold"]
+base_font = ExtResource("8")
+variation_opentype = {
+2003265652: 700
+}
 
 [sub_resource type="StyleBoxTexture" id="danger_normal"]
 texture = ExtResource("danger_normal")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="danger_pressed"]
 texture = ExtResource("danger_pressed")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="danger_disabled"]
 texture = ExtResource("danger_disabled")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="information_normal"]
 texture = ExtResource("information_normal")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="information_pressed"]
 texture = ExtResource("information_pressed")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="information_disabled"]
 texture = ExtResource("information_disabled")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxFlat" id="Badge"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(1, 0.89, 0.43, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.91, 0.68, 0.2, 1)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+
+[sub_resource type="StyleBoxTexture" id="management_normal"]
+texture = ExtResource("management_normal")
+texture_margin_left = 48.0
+texture_margin_top = 32.0
+texture_margin_right = 48.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="management_pressed"]
+texture = ExtResource("management_pressed")
+texture_margin_left = 48.0
+texture_margin_top = 32.0
+texture_margin_right = 48.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="management_disabled"]
+texture = ExtResource("management_disabled")
+texture_margin_left = 48.0
+texture_margin_top = 32.0
+texture_margin_right = 48.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxFlat" id="Cream"]
+content_margin_left = 12.0
+content_margin_right = 12.0
+bg_color = Color(1, 0.973, 0.9, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.91, 0.68, 0.2, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxTexture" id="primary_normal"]
 texture = ExtResource("primary_normal")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="primary_pressed"]
 texture = ExtResource("primary_pressed")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxTexture" id="primary_disabled"]
 texture = ExtResource("primary_disabled")
 texture_margin_left = 48.0
-texture_margin_right = 48.0
 texture_margin_top = 32.0
+texture_margin_right = 48.0
 texture_margin_bottom = 32.0
 
-[node name="ProfileHolding" type="Control"]
+[node name="ProfileHolding" type="Control" unique_id=1395934244]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("7")
 script = ExtResource("1")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1990335169]
 layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 1080.0
 offset_bottom = 1920.0
 mouse_filter = 2
@@ -177,7 +172,7 @@ texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="PlayerPanel" type="Panel" parent="."]
+[node name="PlayerPanel" type="Panel" parent="." unique_id=1327562393]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 330.0
@@ -186,7 +181,7 @@ offset_bottom = 870.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Panel")
 
-[node name="HoldingPanel" type="Panel" parent="."]
+[node name="HoldingPanel" type="Panel" parent="." unique_id=145527836]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 890.0
@@ -195,7 +190,7 @@ offset_bottom = 1380.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Panel")
 
-[node name="CapitalPanel" type="Panel" parent="."]
+[node name="CapitalPanel" type="Panel" parent="." unique_id=311128784]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 1400.0
@@ -204,7 +199,7 @@ offset_bottom = 1655.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Panel")
 
-[node name="GameLogo" type="TextureRect" parent="."]
+[node name="GameLogo" type="TextureRect" parent="." unique_id=914677801]
 layout_mode = 0
 offset_left = 265.0
 offset_top = 15.0
@@ -215,178 +210,161 @@ texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Back" type="Button" parent="."]
+[node name="Back" type="Button" parent="." unique_id=687731707]
 layout_mode = 0
 offset_left = 35.0
 offset_top = 45.0
 offset_right = 145.0
 offset_bottom = 155.0
-text = "‹"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 72
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 72
 theme_override_styles/normal = SubResource("danger_normal")
-theme_override_styles/hover = SubResource("danger_normal")
 theme_override_styles/pressed = SubResource("danger_pressed")
+theme_override_styles/hover = SubResource("danger_normal")
 theme_override_styles/disabled = SubResource("danger_disabled")
+text = "‹"
 
-
-[node name="Help" type="Button" parent="."]
+[node name="Help" type="Button" parent="." unique_id=173503155]
 layout_mode = 0
 offset_left = 935.0
 offset_top = 45.0
 offset_right = 1045.0
 offset_bottom = 155.0
-text = "i"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 56
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 56
 theme_override_styles/normal = SubResource("information_normal")
-theme_override_styles/hover = SubResource("information_normal")
 theme_override_styles/pressed = SubResource("information_pressed")
+theme_override_styles/hover = SubResource("information_normal")
 theme_override_styles/disabled = SubResource("information_disabled")
+text = "i"
 
-
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=1489738176]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 246.0
 offset_right = 1015.0
 offset_bottom = 322.0
-mouse_filter = 2
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
 text = "امپراتوری اقتصادی خودت را بساز!"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="PlayerHeading" type="Label" parent="."]
+[node name="PlayerHeading" type="Label" parent="." unique_id=1407653764]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 345.0
-offset_right = 830.0
-offset_bottom = 415.0
-mouse_filter = 2
+offset_left = 435.0
+offset_top = 341.0
+offset_right = 934.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
 text = "شخصیت خودت را بساز"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="PlayerBadge" type="Label" parent="."]
+[node name="PlayerBadge" type="Label" parent="." unique_id=1629201260]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 345.0
-offset_right = 905.0
-offset_bottom = 415.0
-mouse_filter = 2
+offset_left = 938.0
+offset_top = 351.0
+offset_right = 1008.0
+offset_bottom = 421.0
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("Badge")
 text = "۱"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_styles/normal = SubResource("Badge")
 
-[node name="HoldingHeading" type="Label" parent="."]
+[node name="HoldingHeading" type="Label" parent="." unique_id=1087098119]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 905.0
-offset_right = 830.0
-offset_bottom = 975.0
-mouse_filter = 2
+offset_left = 321.0
+offset_top = 898.0
+offset_right = 940.0
+offset_bottom = 983.0
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
 text = "هلدینگ خودت را تأسیس کن"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="HoldingBadge" type="Label" parent="."]
+[node name="HoldingBadge" type="Label" parent="." unique_id=2142358935]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 905.0
-offset_right = 905.0
-offset_bottom = 975.0
-mouse_filter = 2
+offset_left = 945.0
+offset_top = 906.0
+offset_right = 1015.0
+offset_bottom = 976.0
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("Badge")
 text = "۲"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_styles/normal = SubResource("Badge")
 
-[node name="CapitalHeading" type="Label" parent="."]
+[node name="CapitalHeading" type="Label" parent="." unique_id=1208975233]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 1415.0
-offset_right = 830.0
-offset_bottom = 1485.0
-mouse_filter = 2
-text = "سرمایه آغاز ماجراجویی"
+offset_left = 449.0
+offset_top = 1413.0
+offset_right = 943.0
+offset_bottom = 1498.0
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+text = "سرمایه آغاز ماجراجویی"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="CapitalBadge" type="Label" parent="."]
+[node name="CapitalBadge" type="Label" parent="." unique_id=49654916]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 1415.0
-offset_right = 905.0
-offset_bottom = 1485.0
-mouse_filter = 2
-text = "۳"
+offset_left = 946.0
+offset_top = 1412.0
+offset_right = 1016.0
+offset_bottom = 1482.0
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("Badge")
+text = "۳"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_styles/normal = SubResource("Badge")
 
-[node name="PlayerGuide" type="Label" parent="."]
+[node name="PlayerGuide" type="Label" parent="." unique_id=696709969]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 410.0
 offset_right = 990.0
 offset_bottom = 455.0
-mouse_filter = 2
-text = "دوست داری در دنیای کسب‌وکار چه کسی باشی؟"
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 34
-theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+text = "دوست داری در دنیای کسب‌وکار چه کسی باشی؟"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="HoldingGuide" type="Label" parent="."]
+[node name="HoldingGuide" type="Label" parent="." unique_id=251871860]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 970.0
 offset_right = 990.0
 offset_bottom = 1015.0
-mouse_filter = 2
-text = "نام و نشان امپراتوری خودت را انتخاب کن."
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 34
-theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+text = "نام و نشان امپراتوری خودت را انتخاب کن."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="AvatarHalo" type="Panel" parent="."]
+[node name="AvatarHalo" type="Panel" parent="." unique_id=565548301]
 layout_mode = 0
 offset_left = 415.0
 offset_top = 460.0
@@ -395,7 +373,7 @@ offset_bottom = 680.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Panel")
 
-[node name="Avatar" type="TextureRect" parent="."]
+[node name="Avatar" type="TextureRect" parent="." unique_id=1830308497]
 layout_mode = 0
 offset_left = 375.0
 offset_top = 460.0
@@ -406,58 +384,54 @@ texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AvatarPrev" type="Button" parent="."]
+[node name="AvatarPrev" type="Button" parent="." unique_id=1625424315]
 layout_mode = 0
 offset_left = 210.0
 offset_top = 510.0
 offset_right = 330.0
 offset_bottom = 630.0
-text = "‹"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 68
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
 theme_override_styles/normal = SubResource("management_normal")
-theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/disabled = SubResource("management_disabled")
+text = "‹"
 
-
-[node name="AvatarNext" type="Button" parent="."]
+[node name="AvatarNext" type="Button" parent="." unique_id=1262949255]
 layout_mode = 0
 offset_left = 750.0
 offset_top = 510.0
 offset_right = 870.0
 offset_bottom = 630.0
-text = "›"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 68
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
 theme_override_styles/normal = SubResource("management_normal")
-theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/disabled = SubResource("management_disabled")
+text = "›"
 
-
-[node name="AvatarCount" type="Label" parent="."]
+[node name="AvatarCount" type="Label" parent="." unique_id=623872919]
 layout_mode = 0
 offset_left = 390.0
 offset_top = 680.0
 offset_right = 690.0
 offset_bottom = 725.0
-mouse_filter = 2
-text = "● ○ ○ ○ ○ ○"
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 35
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+text = "● ○ ○ ○ ○ ○"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="HoldingLogo" type="TextureRect" parent="."]
+[node name="HoldingLogo" type="TextureRect" parent="." unique_id=1809612512]
 layout_mode = 0
 offset_left = 430.0
 offset_top = 1015.0
@@ -468,155 +442,143 @@ texture = ExtResource("5")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LogoPrev" type="Button" parent="."]
+[node name="LogoPrev" type="Button" parent="." unique_id=1822298095]
 layout_mode = 0
 offset_left = 275.0
 offset_top = 1045.0
 offset_right = 395.0
 offset_bottom = 1165.0
-text = "‹"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 68
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
 theme_override_styles/normal = SubResource("management_normal")
-theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/disabled = SubResource("management_disabled")
+text = "‹"
 
-
-[node name="LogoNext" type="Button" parent="."]
+[node name="LogoNext" type="Button" parent="." unique_id=1235424656]
 layout_mode = 0
 offset_left = 685.0
 offset_top = 1045.0
 offset_right = 805.0
 offset_bottom = 1165.0
-text = "›"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 68
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
 theme_override_styles/normal = SubResource("management_normal")
-theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/hover = SubResource("management_normal")
 theme_override_styles/disabled = SubResource("management_disabled")
+text = "›"
 
-
-[node name="LogoCount" type="Label" parent="."]
+[node name="LogoCount" type="Label" parent="." unique_id=1987286713]
 layout_mode = 0
 offset_left = 390.0
 offset_top = 1195.0
 offset_right = 690.0
 offset_bottom = 1240.0
-mouse_filter = 2
-text = "● ○ ○ ○ ○"
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 35
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+text = "● ○ ○ ○ ○"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="PlayerName" type="LineEdit" parent="."]
+[node name="PlayerName" type="LineEdit" parent="." unique_id=1460840880]
 layout_mode = 0
 offset_left = 105.0
 offset_top = 738.0
-offset_right = 715.0
-offset_bottom = 808.0
-max_length = 12
-alignment = 2
+offset_right = 758.0
+offset_bottom = 810.0
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = ExtResource("8")
 theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_styles/normal = SubResource("Cream")
+alignment = 2
+max_length = 12
 
-[node name="PlayerNameLabel" type="Label" parent="."]
+[node name="PlayerNameLabel" type="Label" parent="." unique_id=478917415]
 layout_mode = 0
 offset_left = 725.0
 offset_top = 738.0
 offset_right = 970.0
 offset_bottom = 808.0
-mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 48
 text = "نام بازیکن:"
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 horizontal_alignment = 2
 vertical_alignment = 1
 
-
-[node name="PlayerNameHint" type="Label" parent="."]
+[node name="PlayerNameHint" type="Label" parent="." unique_id=1839607966]
 layout_mode = 0
-offset_left = 105.0
+offset_left = 320.0
 offset_top = 810.0
-offset_right = 970.0
-offset_bottom = 855.0
-mouse_filter = 2
-text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+offset_right = 740.0
+offset_bottom = 861.0
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-
-[node name="HoldingName" type="LineEdit" parent="."]
+[node name="HoldingName" type="LineEdit" parent="." unique_id=1851334741]
 layout_mode = 0
 offset_left = 105.0
 offset_top = 1245.0
-offset_right = 715.0
-offset_bottom = 1315.0
-max_length = 12
-alignment = 2
+offset_right = 720.0
+offset_bottom = 1317.0
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = ExtResource("8")
 theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_styles/normal = SubResource("Cream")
+alignment = 2
+max_length = 12
 
-[node name="HoldingNameLabel" type="Label" parent="."]
+[node name="HoldingNameLabel" type="Label" parent="." unique_id=539663670]
 layout_mode = 0
 offset_left = 725.0
 offset_top = 1245.0
 offset_right = 970.0
 offset_bottom = 1315.0
-mouse_filter = 2
-text = "نام هلدینگ:"
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+text = "نام هلدینگ:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-
-[node name="HoldingNameHint" type="Label" parent="."]
+[node name="HoldingNameHint" type="Label" parent="." unique_id=1477295018]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 1317.0
-offset_right = 970.0
-offset_bottom = 1362.0
-mouse_filter = 2
-text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+offset_left = 273.0
+offset_top = 1322.0
+offset_right = 702.0
+offset_bottom = 1373.0
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-
-[node name="CapitalIcon" type="TextureRect" parent="."]
+[node name="CapitalIcon" type="TextureRect" parent="." unique_id=1906257921]
 layout_mode = 0
-offset_left = 140.0
-offset_top = 1490.0
-offset_right = 245.0
-offset_bottom = 1595.0
+offset_left = 95.0
+offset_top = 1483.0
+offset_right = 200.0
+offset_bottom = 1588.0
 mouse_filter = 2
 texture = ExtResource("6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CapitalSeparator" type="ColorRect" parent="."]
+[node name="CapitalSeparator" type="ColorRect" parent="." unique_id=679919241]
 layout_mode = 0
 offset_left = 265.0
 offset_top = 1500.0
@@ -625,68 +587,62 @@ offset_bottom = 1580.0
 mouse_filter = 2
 color = Color(1, 0.89, 0.43, 1)
 
-[node name="Capital" type="Label" parent="."]
+[node name="Capital" type="Label" parent="." unique_id=655358452]
 layout_mode = 0
-offset_left = 285.0
-offset_top = 1485.0
-offset_right = 945.0
-offset_bottom = 1590.0
-mouse_filter = 2
-text = "10,000 USDT"
+offset_left = 271.0
+offset_top = 1487.0
+offset_right = 695.0
+offset_bottom = 1600.0
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 72
-theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+text = "10,000 USDT"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 1
 
-[node name="CapitalGuide" type="Label" parent="."]
+[node name="CapitalGuide" type="Label" parent="." unique_id=1697601871]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 1595.0
 offset_right = 990.0
 offset_bottom = 1640.0
-mouse_filter = 2
-text = "اولین سرمایه برای ساخت آینده اقتصادی تو!"
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+text = "اولین سرمایه برای ساخت آینده اقتصادی تو!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="Start" type="Button" parent="."]
+[node name="Start" type="Button" parent="." unique_id=475277816]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 1690.0
 offset_right = 1015.0
 offset_bottom = 1825.0
-text = "شروع ماجراجویی"
 focus_mode = 0
-theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 54
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
 theme_override_styles/normal = SubResource("primary_normal")
-theme_override_styles/hover = SubResource("primary_normal")
 theme_override_styles/pressed = SubResource("primary_pressed")
+theme_override_styles/hover = SubResource("primary_normal")
 theme_override_styles/disabled = SubResource("primary_disabled")
 disabled = true
+text = "شروع ماجراجویی"
 
-[node name="Status" type="Label" parent="."]
+[node name="Status" type="Label" parent="." unique_id=2108242843]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 1830.0
 offset_right = 1015.0
 offset_bottom = 1895.0
-mouse_filter = 2
-text = ""
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-
-[node name="Notice" type="AcceptDialog" parent="."]
+[node name="Notice" type="AcceptDialog" parent="." unique_id=1032113481]
 title = "راهنما"
