@@ -12,6 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://bbm1fl2slomu" path="res://assets/loading/progress_fill.png" id="10_amnj2"]
 [ext_resource type="Shader" uid="uid://dhb6xygyq6cf3" path="res://scripts/loading_screen.gdshader" id="10_v1mdd"]
 
+[ext_resource type="FontFile" path="res://assets/ui/fonts/Fredoka/Fredoka.ttf" id="12_font"]
+
+[sub_resource type="FontVariation" id="FontVariation_loading"]
+base_font = ExtResource("12_font")
+variation_opentype = { 2003265652: 700 }
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1mdd"]
 shader = ExtResource("10_v1mdd")
 shader_parameter/progress = 1.0
@@ -191,9 +197,10 @@ offset_right = 450.0
 offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.95686275, 0.85882354, 1)
+theme_override_colors/font_color = Color(1, 0.89411765, 0.42745098, 1)
 theme_override_colors/font_outline_color = Color(0.023529412, 0.23529412, 0.27450982, 1)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = SubResource("FontVariation_loading")
 theme_override_font_sizes/font_size = 64
 text = "Loading..."
 horizontal_alignment = 1
