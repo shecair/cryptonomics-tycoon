@@ -8,12 +8,8 @@ var data: Dictionary = {}
 var companies: Array = []
 var body: VBoxContainer
 var nav: HBoxContainer
-var create: Button
-var list_header: PanelContainer
-var funding_hint: Label
+var groups: VBoxContainer
 var tab := 0
-var business_tab := "mining"
-var business_tabs: HBoxContainer
 var company_scroll: ScrollContainer
 const BUSINESS_KEYS = ["mining","exchange","blockchain"]
 const BUSINESS_NAMES = ["استخراج","صرافی","بلاکچین"]
@@ -41,12 +37,12 @@ func _ready() -> void:
 			profit += int(c.get("profit_usdt",0))
 	root.get_node("Header/Stack/Metrics/Active/Content/Value").text = "%d/9" % Capacity.count(companies)
 	root.get_node("Header/Stack/Metrics/Profit/Content/Value").text = money(profit)
-	create = root.get_node("Create")
-	create.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"))
-	funding_hint = root.get_node("Hint/Content/FundingHint")
-	list_header = root.get_node("ListHeader")
-	root.get_node("ListHeader/Content/Row/Count").text = "%d/9 شرکت" % Capacity.count(companies)
-	business_tabs = root.get_node("BusinessTabs")
+	groups = root.get_node("CompanyGroups")
+	for i in range(3):
+		var group := groups.get_child(i)
+		for j in range(3):
+			var slot := group.get_node("Content/Slots").get_child(j) as Button
+			slot.pressed.connect(open_slot.bind(i,j))
 	company_scroll = root.get_node("Scroll")
 	body = root.get_node("Scroll/Body")
 	nav = root.get_node("Nav")
@@ -126,13 +122,10 @@ func render() -> void:
 	for child in nav.get_children():
 		nav.remove_child(child)
 		child.queue_free()
-	create.visible = tab == 0 and not data.is_empty()
-	create.disabled = int(data.get("balance_usdt",0)) < 1000 or not Capacity.has_capacity(companies)
-	funding_hint.text = "ظرفیت تأسیس شرکت تکمیل شده است." if not Capacity.has_capacity(companies) else "موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT"
-	list_header.visible = tab == 0 and not data.is_empty()
-	business_tabs.visible = list_header.visible
-	refresh_business_tabs()
-	funding_hint.get_parent().get_parent().visible = create.visible and create.disabled
+	groups.visible = tab == 0 and not data.is_empty()
+	company_scroll.visible = not groups.visible
+	if groups.visible:
+		refresh_slots()
 	for i in [2,1,0]:
 		var b := action(["▥\nهلدینگ","▤\nمالی","♙\nپروفایل"][i],select_tab.bind(i),tab==i)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -141,18 +134,7 @@ func render() -> void:
 		body.add_child(label("فایل ذخیره معتبر نیست. به منوی اصلی بازگردید.",36,GREEN))
 		return
 	if tab == 0:
-		var shown := 0
-		for c in companies:
-			if Capacity.occupies_slot(c) and c.get("business","") == business_tab:
-				company_card(c)
-				shown += 1
-		if shown == 0:
-			var empty := panel(body,CREAM)
-			var msg := label("هنوز در این حوزه شرکتی تأسیس نکرده‌اید.",34,GREEN)
-			msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			empty.add_child(msg)
-		if int(data.get("balance_usdt",0)) < 1000:
-			create.disabled = true
+		return
 	elif tab == 1:
 		var p := panel(body,CREAM)
 		p.add_child(label("گزارش مالی هلدینگ",44,GREEN))
@@ -171,31 +153,50 @@ func render() -> void:
 		p.add_child(label(str(data.get("player_name","—")),48,GREEN))
 		p.add_child(label("مدیر " + str(data.get("holding_name","—")),36,GREEN))
 
-func refresh_business_tabs() -> void:
-	for child in business_tabs.get_children():
-		business_tabs.remove_child(child)
-		child.queue_free()
-	for i in range(BUSINESS_KEYS.size()):
-		var key: String = BUSINESS_KEYS[i]
-		var count := Capacity.count(companies, key)
-		var selected := business_tab == key
-		var b := action(BUSINESS_NAMES[i] + "\n" + "%d/3 شرکت" % count,select_business.bind(key),false,Vector2(0,112))
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		b.add_theme_font_size_override("font_size",30)
-		for state in ["normal","hover","pressed"]:
-			var skin := style(Color("087F69") if selected else CREAM)
-			skin.border_color = Color("DDAA38")
-			for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:
-				skin.set_content_margin(side,8)
-			b.add_theme_stylebox_override(state,skin)
-		for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:
-			b.add_theme_color_override(state,Color.WHITE if selected else GREEN)
-		business_tabs.add_child(b)
+func group_companies(index: int) -> Array:
+	var result: Array = []
+	for c in companies:
+		if Capacity.occupies_slot(c) and c.get("business","") == BUSINESS_KEYS[index]:
+			result.append(c)
+	return result
 
-func select_business(key: String) -> void:
-	business_tab = key
-	render()
-	company_scroll.set_deferred("scroll_vertical",0)
+func refresh_slots() -> void:
+	for i in range(3):
+		var entries := group_companies(i)
+		var group := groups.get_child(i)
+		group.get_node("Content/Heading").text = ["استخراج رمزارز","صرافی رمزارز","توسعه بلاکچین"][i] + "  |  %d/3" % entries.size()
+		for j in range(3):
+			var slot := group.get_node("Content/Slots").get_child(j) as Button
+			var occupied := j < entries.size()
+			var content := slot.get_node("Content")
+			content.get_node("Plus").visible = not occupied
+			content.get_node("Icon").visible = occupied
+			var ink := GREEN if occupied else Color("FFE4A0")
+			for n in ["Name","Status","Plus"]:
+				content.get_node(n).add_theme_color_override("font_color",ink)
+			for state in ["normal","hover","pressed"]:
+				var skin := style(CREAM if occupied else Color("176B53"))
+				skin.border_color = Color("E9AD32")
+				slot.add_theme_stylebox_override(state,skin)
+			if occupied:
+				var c: Dictionary = entries[j]
+				content.get_node("Icon").texture = load("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(c.get("logo",1)),1,5))
+				content.get_node("Name").text = str(c.get("name","—"))
+				content.get_node("Status").text = "فعال" if c.get("status","active") == "active" else str(c.get("status"))
+			else:
+				content.get_node("Name").text = "تأسیس شرکت"
+				content.get_node("Status").text = "جایگاه آزاد" if int(data.get("balance_usdt",0)) >= 1000 else "سرمایه ناکافی"
+
+func open_slot(index: int, slot: int) -> void:
+	var entries := group_companies(index)
+	if slot < entries.size():
+		notice("داشبورد اختصاصی شرکت در صحنه ششم ساخته خواهد شد.")
+	elif int(data.get("balance_usdt",0)) < 1000:
+		notice("موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT")
+	elif Capacity.can_create(companies,BUSINESS_KEYS[index]):
+		get_tree().change_scene_to_file("res://scenes/establish_company.tscn")
+	else:
+		notice("ظرفیت تأسیس شرکت تکمیل شده است.")
 
 func select_tab(value: int) -> void:
 	tab = value
