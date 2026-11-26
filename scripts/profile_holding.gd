@@ -48,6 +48,18 @@ func section_panel(y: float, h: float) -> void:
 	style.shadow_color = Color(0.02, 0.13, 0.09, 0.25)
 	style.shadow_size = 4
 	panel.add_theme_stylebox_override("panel", style)
+	var gradient := Gradient.new()
+	gradient.colors = PackedColorArray([Color("#09634F"), Color("#064538")])
+	var texture := GradientTexture2D.new()
+	texture.gradient = gradient
+	texture.fill_to = Vector2(0, 1)
+	var fill := TextureRect.new()
+	fill.texture = texture
+	fill.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(fill)
+	place(fill, 28, 4, 894, h - 8)
+	# Keep the rounded outer corners and gold border visible.
 
 func guide(value: String, y: float, size_px: int, gold: bool = false) -> void:
 	var label := Label.new()
@@ -62,35 +74,46 @@ func guide(value: String, y: float, size_px: int, gold: bool = false) -> void:
 	label.add_theme_color_override("font_color", Color("#FFE46D") if gold else Color("#F9F5E7"))
 
 func section_title(value: String, number: String, y: float) -> void:
+	var heading := Label.new()
+	heading.text = value
+	heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	heading.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	add_child(heading)
+	UI.apply_text(heading, "title")
+	heading.add_theme_font_size_override("font_size", 50)
+	heading.add_theme_color_override("font_color", Color("#FFE46D"))
+	var width := heading.get_minimum_size().x + 12.0
+	var left := (1080.0 - width - 82.0) / 2.0
+	place(heading, left, y, width, 70)
 	var badge := Label.new()
 	badge.text = number
 	badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	badge.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(badge)
-	place(badge, 820, y, 64, 64)
 	UI.apply_text(badge, "title")
+	badge.add_theme_font_size_override("font_size", 40)
 	badge.add_theme_color_override("font_color", Color("#092E26"))
 	var circle := StyleBoxFlat.new()
 	circle.bg_color = Color("#FFE46D")
-	circle.set_corner_radius_all(32)
+	circle.set_corner_radius_all(35)
 	circle.border_color = Color("#E9AD32")
 	circle.set_border_width_all(2)
 	badge.add_theme_stylebox_override("normal", circle)
-	guide(value, y, 48, true)
-	var heading := get_child(get_child_count() - 1) as Label
-	place(heading, 100, y, 700, 64)
+	place(badge, left + width + 12, y, 70, 70)
 
 func apply_profile_art() -> void:
 	theme = UI.THEME
 	for button in [$AvatarPrev, $AvatarNext, $LogoPrev, $LogoNext]:
 		UI.apply_button(button, "management")
-		button.add_theme_font_size_override("font_size", 56)
+		button.add_theme_font_size_override("font_size", 68)
 	UI.apply_button($Back, "danger")
 	UI.apply_button($Help, "information")
 	UI.apply_button($Start, "primary")
 	$Start.add_theme_font_size_override("font_size", 44)
 	$Start.text = "شروع ماجراجویی"
+	$Start.add_theme_color_override("font_disabled_color", Color("#263C34"))
 	place($GameLogo, 265, 15, 550, 235)
 	place($Title, 65, 246, 950, 76)
 	$Title.text = "امپراتوری اقتصادی خودت را بساز!"
@@ -109,16 +132,21 @@ func apply_profile_art() -> void:
 	section_title("سرمایه آغاز ماجراجویی", "۳", 1450)
 	guide("اولین سرمایه برای ساخت آینده اقتصادی تو!", 1610, 30)
 	$AvatarHalo.show()
-	place($AvatarHalo, 415, 450, 250, 235)
-	UI.apply_panel($AvatarHalo, "main")
+	place($AvatarHalo, 402, 450, 276, 235)
+	var avatar_style := StyleBoxFlat.new()
+	avatar_style.bg_color = Color("#087F69")
+	avatar_style.border_color = Color("#E9AD32")
+	avatar_style.set_border_width_all(3)
+	avatar_style.set_corner_radius_all(24)
+	$AvatarHalo.add_theme_stylebox_override("panel", avatar_style)
 	place($Avatar, 375, 450, 330, 235)
-	place($AvatarPrev, 220, 515, 100, 100)
-	place($AvatarNext, 760, 515, 100, 100)
+	place($AvatarPrev, 210, 505, 120, 120)
+	place($AvatarNext, 750, 505, 120, 120)
 	place($AvatarCount, 390, 680, 300, 45)
 	place($PlayerName, 115, 738, 850, 102)
 	place($HoldingLogo, 430, 1030, 220, 180)
-	place($LogoPrev, 295, 1070, 100, 100)
-	place($LogoNext, 685, 1070, 100, 100)
+	place($LogoPrev, 275, 1060, 120, 120)
+	place($LogoNext, 685, 1060, 120, 120)
 	place($LogoCount, 390, 1208, 300, 45)
 	place($HoldingName, 115, 1268, 850, 102)
 	for field in [$PlayerName, $HoldingName]:
@@ -140,7 +168,12 @@ func apply_profile_art() -> void:
 	$CapitalLabel.hide()
 	place($CapitalIcon, 145, 1510, 95, 95)
 	$CapitalIcon.texture = load("res://assets/profile_holding/tether_simple.svg") as Texture2D
-	place($Capital, 245, 1505, 700, 105)
+	var separator := ColorRect.new()
+	separator.color = Color("#E9AD32")
+	separator.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(separator)
+	place(separator, 265, 1525, 3, 70)
+	place($Capital, 285, 1515, 660, 95)
 	UI.apply_text($Capital, "money")
 	$Capital.add_theme_constant_override("outline_size", 0)
 	place($Start, 105, 1700, 870, 125)
@@ -151,7 +184,7 @@ func apply_profile_art() -> void:
 func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	var y := field.position.y
 	field.position.y += 10
-	field.size = Vector2(570, 70)
+	field.size = Vector2(540, 70)
 	field.max_length = limit
 	field.alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	field.placeholder_text = ""
@@ -159,11 +192,11 @@ func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	title.text = caption + ":"
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(title)
-	place(title, 695, y + 10, 260, 70)
+	place(title, 665, y + 10, 290, 70)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	UI.apply_text(title, "title")
-	title.add_theme_font_size_override("font_size", 40)
+	title.add_theme_font_size_override("font_size", 48)
 	title.add_theme_color_override("font_color", Color("#FFE46D"))
 	title.show()
 	var hint := Label.new()
@@ -172,7 +205,7 @@ func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	place(hint, field.position.x, y + 80, 850, 40)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	UI.apply_text(hint, "hint")
-	hint.add_theme_font_size_override("font_size", 28)
+	hint.add_theme_font_size_override("font_size", 32)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	field_guides[field] = [title, hint, caption, limit]
 	field.focus_entered.connect(func(): refresh_name_field(field))
@@ -214,7 +247,12 @@ func update_start(_value: String) -> void:
 		elif not valid_name($HoldingName.text, 12):
 			warning = "نام هلدینگ را کامل کنید."
 	$Start.disabled = saved or not warning.is_empty()
-	$Status.text = warning
+	$Status.text = ""
+	if not warning.is_empty():
+		var invalid_field: LineEdit = $PlayerName if not valid_name($PlayerName.text, 12) else $HoldingName
+		if invalid_field.text.is_empty():
+			var hint: Label = field_guides[invalid_field][1]
+			hint.text = "نام الزامی است؛ ۲ تا ۱۲ کاراکتر | 0/12"
 	$Status.add_theme_color_override("font_color", Color("8B291C"))
 
 func change_item(is_avatar: bool, direction: int) -> void:
