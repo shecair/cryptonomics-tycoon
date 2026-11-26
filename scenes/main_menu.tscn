@@ -1,28 +1,28 @@
 [gd_scene format=3 uid="uid://bkg85ac02i7pr"]
 
-[ext_resource type="Script" uid="uid://cvrrd76u150tn" path="res://scripts/main_menu.gd" id="1_flqon"]
-[ext_resource type="Texture2D" uid="uid://ngc5mkmd2q88" path="res://assets/loading/background.png" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://crlfh2jm5a71g" path="res://assets/main_menu/menu_panel.png" id="2_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://c7s0tg2ejwxru" path="res://assets/main_menu/crown.png" id="3_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://dmuubonapwfk5" path="res://assets/main_menu/button_normal.png" id="4_rtw2f"]
-[ext_resource type="Texture2D" uid="uid://b581w17evycx" path="res://assets/main_menu/button_pressed.png" id="5_oa1go"]
-[ext_resource type="Texture2D" uid="uid://b5vg3g6v61ryv" path="res://assets/main_menu/button_disabled.png" id="6_tbmy8"]
-[ext_resource type="Texture2D" uid="uid://doecbwn1xok7k" path="res://assets/main_menu/icon_start.png" id="7_oa1go"]
-[ext_resource type="Texture2D" uid="uid://b2lvqkcmbc8y8" path="res://assets/main_menu/icon_continue.png" id="9_rcqid"]
-[ext_resource type="Texture2D" uid="uid://mi8hsu4bi5jl" path="res://assets/main_menu/icon_settings.png" id="10_1ajci"]
-[ext_resource type="Texture2D" uid="uid://dsn0ohqgbqc5" path="res://assets/main_menu/icon_about.png" id="11_7b55j"]
-[ext_resource type="Texture2D" uid="uid://dce0rmtm1b36b" path="res://assets/main_menu/icon_exit.png" id="12_5pajh"]
+[ext_resource type="Texture2D" uid="uid://cagh8ug4balj5" path="res://assets/loading/background.png" id="background"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/button_disabled.png" id="button_disabled"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/button_normal.png" id="button_normal"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/button_pressed.png" id="button_pressed"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/crown.png" id="crown"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/icon_about.png" id="icon_about"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/icon_continue.png" id="icon_continue"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/icon_exit.png" id="icon_exit"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/icon_settings.png" id="icon_settings"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/icon_start.png" id="icon_start"]
+[ext_resource type="Texture2D" path="res://assets/main_menu/menu_panel.png" id="menu_panel"]
+[ext_resource type="Script" uid="uid://cvrrd76u150tn" path="res://scripts/main_menu.gd" id="script"]
 
-[node name="MainMenu" type="Control" unique_id=552631749]
+[node name="MainMenu" type="Control" unique_id=1481141047]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_flqon")
+script = ExtResource("script")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1494276713]
+[node name="Background" type="TextureRect" parent="." unique_id=367414183]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,11 +30,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("1_l6cm7")
+texture = ExtResource("background")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="MenuPanel" type="Control" parent="." unique_id=273692669]
+[node name="MenuPanel" type="Control" parent="." unique_id=1696771265]
 z_index = 1
 anchors_preset = 0
 offset_left = 90.0
@@ -44,7 +44,7 @@ offset_bottom = 1700.0
 pivot_offset = Vector2(450, 675)
 mouse_filter = 2
 
-[node name="PanelFrame" type="TextureRect" parent="MenuPanel" unique_id=239121871]
+[node name="PanelFrame" type="TextureRect" parent="MenuPanel" unique_id=332368955]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,10 +52,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_ekxnf")
+texture = ExtResource("menu_panel")
 expand_mode = 1
 
-[node name="Crown" type="TextureRect" parent="MenuPanel" unique_id=1042954747]
+[node name="Crown" type="TextureRect" parent="MenuPanel" unique_id=1283017489]
 z_index = 2
 layout_mode = 1
 offset_left = 225.0
@@ -63,11 +63,11 @@ offset_top = -230.0
 offset_right = 675.0
 offset_bottom = 70.0
 mouse_filter = 2
-texture = ExtResource("3_bqqt6")
+texture = ExtResource("crown")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Buttons" type="VBoxContainer" parent="MenuPanel" unique_id=1148815848]
+[node name="Buttons" type="VBoxContainer" parent="MenuPanel" unique_id=334785908]
 layout_mode = 1
 offset_left = 100.0
 offset_top = 140.0
@@ -77,28 +77,29 @@ mouse_filter = 2
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="StartButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=583055758]
+[node name="StartButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=2123415725]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("4_rtw2f")
-texture_pressed = ExtResource("5_oa1go")
-texture_hover = ExtResource("4_rtw2f")
-texture_disabled = ExtResource("6_tbmy8")
+texture_normal = ExtResource("button_normal")
+texture_pressed = ExtResource("button_pressed")
+texture_hover = ExtResource("button_normal")
+texture_disabled = ExtResource("button_disabled")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="StartIcon" type="TextureRect" parent="MenuPanel/Buttons/StartButton" unique_id=385287441]
+[node name="StartIcon" type="TextureRect" parent="MenuPanel/Buttons/StartButton" unique_id=1047109626]
 layout_mode = 1
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 165.0
 offset_bottom = 165.0
-texture = ExtResource("7_oa1go")
+mouse_filter = 2
+texture = ExtResource("icon_start")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="StartLabel" type="Label" parent="MenuPanel/Buttons/StartButton" unique_id=1349082024]
+[node name="StartLabel" type="Label" parent="MenuPanel/Buttons/StartButton" unique_id=627669198]
 layout_mode = 1
 offset_left = 200.0
 offset_right = 670.0
@@ -111,28 +112,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 2
 
-[node name="ContinueButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=2043138717]
+[node name="ContinueButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1704792159]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("4_rtw2f")
-texture_pressed = ExtResource("5_oa1go")
-texture_hover = ExtResource("4_rtw2f")
-texture_disabled = ExtResource("6_tbmy8")
+texture_normal = ExtResource("button_normal")
+texture_pressed = ExtResource("button_pressed")
+texture_hover = ExtResource("button_normal")
+texture_disabled = ExtResource("button_disabled")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ContinueIcon" type="TextureRect" parent="MenuPanel/Buttons/ContinueButton" unique_id=816777059]
+[node name="ContinueIcon" type="TextureRect" parent="MenuPanel/Buttons/ContinueButton" unique_id=1688577674]
 layout_mode = 1
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 165.0
 offset_bottom = 165.0
-texture = ExtResource("9_rcqid")
+mouse_filter = 2
+texture = ExtResource("icon_continue")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ContinueLabel" type="Label" parent="MenuPanel/Buttons/ContinueButton" unique_id=1068732300]
+[node name="ContinueLabel" type="Label" parent="MenuPanel/Buttons/ContinueButton" unique_id=1861805090]
 layout_mode = 1
 offset_left = 200.0
 offset_right = 670.0
@@ -145,28 +147,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 2
 
-[node name="SettingsButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1267123079]
+[node name="SettingsButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=2133044104]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("4_rtw2f")
-texture_pressed = ExtResource("5_oa1go")
-texture_hover = ExtResource("4_rtw2f")
-texture_disabled = ExtResource("6_tbmy8")
+texture_normal = ExtResource("button_normal")
+texture_pressed = ExtResource("button_pressed")
+texture_hover = ExtResource("button_normal")
+texture_disabled = ExtResource("button_disabled")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="SettingsIcon" type="TextureRect" parent="MenuPanel/Buttons/SettingsButton" unique_id=1440264077]
+[node name="SettingsIcon" type="TextureRect" parent="MenuPanel/Buttons/SettingsButton" unique_id=148582565]
 layout_mode = 1
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 165.0
 offset_bottom = 165.0
-texture = ExtResource("10_1ajci")
+mouse_filter = 2
+texture = ExtResource("icon_settings")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SettingsLabel" type="Label" parent="MenuPanel/Buttons/SettingsButton" unique_id=170327797]
+[node name="SettingsLabel" type="Label" parent="MenuPanel/Buttons/SettingsButton" unique_id=115669974]
 layout_mode = 1
 offset_left = 200.0
 offset_right = 670.0
@@ -179,28 +182,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 2
 
-[node name="AboutButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=5863458]
+[node name="AboutButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1152956634]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("4_rtw2f")
-texture_pressed = ExtResource("5_oa1go")
-texture_hover = ExtResource("4_rtw2f")
-texture_disabled = ExtResource("6_tbmy8")
+texture_normal = ExtResource("button_normal")
+texture_pressed = ExtResource("button_pressed")
+texture_hover = ExtResource("button_normal")
+texture_disabled = ExtResource("button_disabled")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AboutIcon" type="TextureRect" parent="MenuPanel/Buttons/AboutButton" unique_id=1483628815]
+[node name="AboutIcon" type="TextureRect" parent="MenuPanel/Buttons/AboutButton" unique_id=492081320]
 layout_mode = 1
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 165.0
 offset_bottom = 165.0
-texture = ExtResource("11_7b55j")
+mouse_filter = 2
+texture = ExtResource("icon_about")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AboutLabel" type="Label" parent="MenuPanel/Buttons/AboutButton" unique_id=171021861]
+[node name="AboutLabel" type="Label" parent="MenuPanel/Buttons/AboutButton" unique_id=868524547]
 layout_mode = 1
 offset_left = 200.0
 offset_right = 670.0
@@ -213,28 +217,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 2
 
-[node name="ExitButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1191438687]
+[node name="ExitButton" type="TextureButton" parent="MenuPanel/Buttons" unique_id=1781114749]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 focus_mode = 0
-texture_normal = ExtResource("4_rtw2f")
-texture_pressed = ExtResource("5_oa1go")
-texture_hover = ExtResource("4_rtw2f")
-texture_disabled = ExtResource("6_tbmy8")
+texture_normal = ExtResource("button_normal")
+texture_pressed = ExtResource("button_pressed")
+texture_hover = ExtResource("button_normal")
+texture_disabled = ExtResource("button_disabled")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ExitIcon" type="TextureRect" parent="MenuPanel/Buttons/ExitButton" unique_id=1435110892]
+[node name="ExitIcon" type="TextureRect" parent="MenuPanel/Buttons/ExitButton" unique_id=1483622883]
 layout_mode = 1
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 165.0
 offset_bottom = 165.0
-texture = ExtResource("12_5pajh")
+mouse_filter = 2
+texture = ExtResource("icon_exit")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ExitLabel" type="Label" parent="MenuPanel/Buttons/ExitButton" unique_id=1467812327]
+[node name="ExitLabel" type="Label" parent="MenuPanel/Buttons/ExitButton" unique_id=780064356]
 layout_mode = 1
 offset_left = 200.0
 offset_right = 670.0
@@ -246,3 +251,63 @@ text = "خروج"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_direction = 2
+
+[node name="ExitDialog" type="ConfirmationDialog" parent="." unique_id=1838769266]
+title = "Exit"
+size = Vector2i(800, 350)
+unresizable = true
+dialog_autowrap = true
+
+[node name="AboutDialog" type="AcceptDialog" parent="." unique_id=144431863]
+title = "About"
+size = Vector2i(850, 650)
+unresizable = true
+dialog_autowrap = true
+
+[node name="SettingsDialog" type="ConfirmationDialog" parent="." unique_id=2140866534]
+title = "Settings"
+size = Vector2i(850, 700)
+unresizable = true
+dialog_autowrap = true
+
+[node name="SettingsContent" type="VBoxContainer" parent="SettingsDialog" unique_id=485814534]
+custom_minimum_size = Vector2(750, 500)
+theme_override_constants/separation = 25
+
+[node name="MusicLabel" type="Label" parent="SettingsDialog/SettingsContent" unique_id=2019954028]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsDialog/SettingsContent" unique_id=792306305]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+step = 5.0
+value = 80.0
+
+[node name="SoundLabel" type="Label" parent="SettingsDialog/SettingsContent" unique_id=1733997736]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sound"
+
+[node name="SoundSlider" type="HSlider" parent="SettingsDialog/SettingsContent" unique_id=1800669343]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+step = 5.0
+value = 100.0
+
+[node name="LanguageLabel" type="Label" parent="SettingsDialog/SettingsContent" unique_id=1136047736]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Language"
+
+[node name="LanguageOption" type="OptionButton" parent="SettingsDialog/SettingsContent" unique_id=465978446]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="NoticeDialog" type="AcceptDialog" parent="." unique_id=1868271166]
+title = "Notice"
+size = Vector2i(800, 350)
+unresizable = true
+dialog_autowrap = true

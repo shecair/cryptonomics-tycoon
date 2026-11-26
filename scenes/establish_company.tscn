@@ -1,0 +1,748 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://scripts/establish_company.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/loading/background.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/profile_holding/holding_logo_01.png" id="3"]
+
+[ext_resource type="Texture2D" path="res://assets/establish_company/mining.webp" id="mining"]
+[ext_resource type="Texture2D" path="res://assets/establish_company/exchange.webp" id="exchange"]
+[ext_resource type="Texture2D" path="res://assets/establish_company/blockchain.webp" id="blockchain"]
+[ext_resource type="Texture2D" path="res://assets/establish_company/small.webp" id="small"]
+[ext_resource type="Texture2D" path="res://assets/establish_company/medium.webp" id="medium"]
+[ext_resource type="Texture2D" path="res://assets/establish_company/large.webp" id="large"]
+
+[sub_resource type="StyleBoxFlat" id="Cream"]
+bg_color = Color(0.99, 0.96, 0.86, 1)
+border_color = Color(0.83, 0.59, 0.20, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_left = 24
+corner_radius_bottom_right = 24
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="FieldFocus"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(1, 0.80, 0.35, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_left = 24
+corner_radius_bottom_right = 24
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 0
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="Emerald"]
+bg_color = Color(0.03, 0.34, 0.26, 1)
+border_color = Color(0.91, 0.68, 0.23, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_left = 25
+corner_radius_bottom_right = 25
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 5
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="EmeraldHover"]
+bg_color = Color(0.05, 0.46, 0.34, 1)
+border_color = Color(1, 0.83, 0.40, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_left = 25
+corner_radius_bottom_right = 25
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 5
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="EmeraldPressed"]
+bg_color = Color(0.02, 0.25, 0.19, 1)
+border_color = Color(0.83, 0.59, 0.20, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_left = 25
+corner_radius_bottom_right = 25
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 1
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="Gold"]
+bg_color = Color(0.98, 0.73, 0.23, 1)
+border_color = Color(1, 0.88, 0.53, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_left = 30
+corner_radius_bottom_right = 30
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="GoldHover"]
+bg_color = Color(1, 0.82, 0.36, 1)
+border_color = Color(1, 0.94, 0.66, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_left = 30
+corner_radius_bottom_right = 30
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="GoldPressed"]
+bg_color = Color(0.85, 0.57, 0.13, 1)
+border_color = Color(0.98, 0.75, 0.30, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_left = 30
+corner_radius_bottom_right = 30
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 2
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="GoldDisabled"]
+bg_color = Color(0.82, 0.68, 0.36, 1)
+border_color = Color(0.94, 0.80, 0.47, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_left = 30
+corner_radius_bottom_right = 30
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="CapitalPlate"]
+bg_color = Color(0.02, 0.24, 0.18, 0.92)
+border_color = Color(0.91, 0.68, 0.23, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_left = 28
+corner_radius_bottom_right = 28
+shadow_color = Color(0.02, 0.13, 0.09, 0.35)
+shadow_size = 5
+shadow_offset = Vector2(0, 4)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[node name="EstablishCompany" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 145.0
+offset_bottom = 125.0
+text = "‹"
+focus_mode = 0
+theme_override_font_sizes/font_size = 72
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+[node name="Help" type="Button" parent="."]
+layout_mode = 0
+offset_left = 935.0
+offset_top = 25.0
+offset_right = 1045.0
+offset_bottom = 125.0
+text = "i"
+focus_mode = 0
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 25.0
+offset_right = 925.0
+offset_bottom = 125.0
+text = "تأسیس شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_outline_color = Color(1, 0.94, 0.79, 1)
+theme_override_constants/outline_size = 5
+
+[node name="BalancePlate" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 130.0
+offset_right = 1005.0
+offset_bottom = 230.0
+theme_override_styles/panel = SubResource("CapitalPlate")
+mouse_filter = 2
+
+[node name="Balance" type="Label" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 135.0
+offset_right = 995.0
+offset_bottom = 225.0
+text = "موجودی هلدینگ: — USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 49
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_constants/outline_size = 8
+
+[node name="BusinessTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 235.0
+offset_right = 1056.0
+offset_bottom = 285.0
+text = "نوع کسب‌وکار"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_outline_color = Color(1, 0.94, 0.79, 1)
+theme_override_constants/outline_size = 5
+
+[node name="Mining" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 295.0
+offset_right = 360.0
+offset_bottom = 635.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Mining"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("mining")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Mining"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 330.0
+mouse_filter = 2
+text = "استخراج"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Exchange" type="Button" parent="."]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 295.0
+offset_right = 708.0
+offset_bottom = 635.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Exchange"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("exchange")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Exchange"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 330.0
+mouse_filter = 2
+text = "صرافی"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Blockchain" type="Button" parent="."]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 295.0
+offset_right = 1056.0
+offset_bottom = 635.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Blockchain"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("blockchain")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Blockchain"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 330.0
+mouse_filter = 2
+text = "توسعه بلاکچین"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 645.0
+offset_right = 630.0
+offset_bottom = 825.0
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="LogoPrev" type="Button" parent="."]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 685.0
+offset_right = 365.0
+offset_bottom = 785.0
+text = "‹"
+focus_mode = 0
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+[node name="LogoNext" type="Button" parent="."]
+layout_mode = 0
+offset_left = 715.0
+offset_top = 685.0
+offset_right = 815.0
+offset_bottom = 785.0
+text = "›"
+focus_mode = 0
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+[node name="LogoCount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 825.0
+offset_right = 780.0
+offset_bottom = 860.0
+text = "● ○ ○ ○ ○"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_constants/outline_size = 8
+
+[node name="CompanyName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 865.0
+offset_right = 1005.0
+offset_bottom = 965.0
+placeholder_text = "نام شرکت"
+max_length = 30
+alignment = 1
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_placeholder_color = Color(0.3, 0.35, 0.3, 1)
+theme_override_styles/normal = SubResource("Cream")
+theme_override_styles/focus = SubResource("FieldFocus")
+
+[node name="SizeTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 970.0
+offset_right = 1056.0
+offset_bottom = 1020.0
+text = "اندازه شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_outline_color = Color(1, 0.94, 0.79, 1)
+theme_override_constants/outline_size = 5
+
+[node name="Small" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 1030.0
+offset_right = 360.0
+offset_bottom = 1370.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Small"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("small")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Small"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 292.0
+mouse_filter = 2
+text = "کوچک"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Price" type="Label" parent="Small"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 293.0
+offset_right = 332.0
+offset_bottom = 332.0
+mouse_filter = 2
+text = "1,000 USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(1, 0.82, 0.42, 1)
+
+[node name="Medium" type="Button" parent="."]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 1030.0
+offset_right = 708.0
+offset_bottom = 1370.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Medium"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("medium")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Medium"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 292.0
+mouse_filter = 2
+text = "متوسط"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Price" type="Label" parent="Medium"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 293.0
+offset_right = 332.0
+offset_bottom = 332.0
+mouse_filter = 2
+text = "3,000 USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(1, 0.82, 0.42, 1)
+
+[node name="Large" type="Button" parent="."]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 1030.0
+offset_right = 1056.0
+offset_bottom = 1370.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("Emerald")
+theme_override_styles/hover = SubResource("EmeraldHover")
+theme_override_styles/pressed = SubResource("EmeraldPressed")
+theme_override_styles/disabled = SubResource("Emerald")
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+
+
+
+[node name="Art" type="TextureRect" parent="Large"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 5.0
+offset_right = 288.0
+offset_bottom = 245.0
+mouse_filter = 2
+texture = ExtResource("large")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Caption" type="Label" parent="Large"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 292.0
+mouse_filter = 2
+text = "بزرگ"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+
+[node name="Price" type="Label" parent="Large"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 293.0
+offset_right = 332.0
+offset_bottom = 332.0
+mouse_filter = 2
+text = "6,000 USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(1, 0.82, 0.42, 1)
+
+[node name="CostPlate" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 1385.0
+offset_right = 1005.0
+offset_bottom = 1565.0
+theme_override_styles/panel = SubResource("CapitalPlate")
+mouse_filter = 2
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 1390.0
+offset_right = 995.0
+offset_bottom = 1475.0
+text = "هزینه تأسیس: 1,000 USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 44
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_constants/outline_size = 8
+
+[node name="Remaining" type="Label" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 1475.0
+offset_right = 995.0
+offset_bottom = 1560.0
+text = "موجودی پس از تأسیس: — USDT"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_constants/outline_size = 8
+
+[node name="Create" type="Button" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 1580.0
+offset_right = 1005.0
+offset_bottom = 1720.0
+text = "تأسیس شرکت"
+focus_mode = 0
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("Gold")
+theme_override_styles/hover = SubResource("GoldHover")
+theme_override_styles/pressed = SubResource("GoldPressed")
+theme_override_styles/disabled = SubResource("GoldDisabled")
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.02, 0.24, 0.18, 1)
+
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 1730.0
+offset_right = 1005.0
+offset_bottom = 1850.0
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_constants/outline_size = 8
+
+[node name="Notice" type="AcceptDialog" parent="."]
+title = "راهنما"
