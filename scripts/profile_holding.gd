@@ -43,7 +43,7 @@ func section_panel(y: float, h: float) -> void:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color("#075440")
 	style.border_color = Color("#E9AD32")
-	style.set_border_width_all(4)
+	style.set_border_width_all(3)
 	style.set_corner_radius_all(28)
 	style.shadow_color = Color(0.02, 0.13, 0.09, 0.25)
 	style.shadow_size = 4
@@ -60,6 +60,26 @@ func guide(value: String, y: float, size_px: int, gold: bool = false) -> void:
 	UI.apply_text(label, "title" if gold else "body")
 	label.add_theme_font_size_override("font_size", size_px)
 	label.add_theme_color_override("font_color", Color("#FFE46D") if gold else Color("#F9F5E7"))
+
+func section_title(value: String, number: String, y: float) -> void:
+	var badge := Label.new()
+	badge.text = number
+	badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	badge.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(badge)
+	place(badge, 820, y, 64, 64)
+	UI.apply_text(badge, "title")
+	badge.add_theme_color_override("font_color", Color("#092E26"))
+	var circle := StyleBoxFlat.new()
+	circle.bg_color = Color("#FFE46D")
+	circle.set_corner_radius_all(32)
+	circle.border_color = Color("#E9AD32")
+	circle.set_border_width_all(2)
+	badge.add_theme_stylebox_override("normal", circle)
+	guide(value, y, 48, true)
+	var heading := get_child(get_child_count() - 1) as Label
+	place(heading, 100, y, 700, 64)
 
 func apply_profile_art() -> void:
 	theme = UI.THEME
@@ -80,15 +100,17 @@ func apply_profile_art() -> void:
 	section_panel(330, 540)
 	section_panel(910, 490)
 	section_panel(1440, 235)
-	guide("۱ • شخصیت خودت را بساز", 345, 42, true)
-	guide("دوست داری در دنیای کسب‌وکار چه کسی باشی؟", 398, 30)
-	guide("۲ • هلدینگ خودت را تأسیس کن", 925, 42, true)
-	guide("نام و نشان امپراتوری خودت را انتخاب کن.", 978, 30)
+	section_title("شخصیت خودت را بساز", "۱", 345)
+	guide("دوست داری در دنیای کسب‌وکار چه کسی باشی؟", 408, 32)
+	section_title("هلدینگ خودت را تأسیس کن", "۲", 925)
+	guide("نام و نشان امپراتوری خودت را انتخاب کن.", 988, 32)
 	guide("↓", 866, 42, true)
 	guide("↓", 1396, 42, true)
-	guide("۳ • سرمایه آغاز ماجراجویی", 1450, 40, true)
+	section_title("سرمایه آغاز ماجراجویی", "۳", 1450)
 	guide("اولین سرمایه برای ساخت آینده اقتصادی تو!", 1610, 30)
-	$AvatarHalo.hide()
+	$AvatarHalo.show()
+	place($AvatarHalo, 415, 450, 250, 235)
+	UI.apply_panel($AvatarHalo, "main")
 	place($Avatar, 375, 450, 330, 235)
 	place($AvatarPrev, 220, 515, 100, 100)
 	place($AvatarNext, 760, 515, 100, 100)
@@ -134,13 +156,14 @@ func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	field.alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	field.placeholder_text = ""
 	var title := Label.new()
-	title.text = caption
+	title.text = caption + ":"
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(title)
-	place(title, 710, y + 10, 245, 70)
+	place(title, 695, y + 10, 260, 70)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	UI.apply_text(title, "hint")
+	UI.apply_text(title, "title")
+	title.add_theme_font_size_override("font_size", 40)
 	title.add_theme_color_override("font_color", Color("#FFE46D"))
 	title.show()
 	var hint := Label.new()
@@ -149,7 +172,7 @@ func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	place(hint, field.position.x, y + 80, 850, 40)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	UI.apply_text(hint, "hint")
-	hint.add_theme_font_size_override("font_size", 24)
+	hint.add_theme_font_size_override("font_size", 28)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	field_guides[field] = [title, hint, caption, limit]
 	field.focus_entered.connect(func(): refresh_name_field(field))
