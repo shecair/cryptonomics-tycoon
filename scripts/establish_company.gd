@@ -12,7 +12,6 @@ var animation: Tween
 var swipe_start := Vector2.ZERO
 var swiping := false
 var step := 0
-var step_label: Label
 var player_label: Label
 var holding_label: Label
 var avatar_view: TextureRect
@@ -23,6 +22,7 @@ var dots: Array[Label] = []
 var checks: Array[Label] = []
 var subtitle: Label
 var amount_label: Label
+var logo_origin_x: float
 
 func _ready() -> void:
 	$Mining.pressed.connect(select_business.bind("mining"))
@@ -98,6 +98,12 @@ func refresh() -> void:
 		var used := Capacity.count(data.get("companies", []), kind)
 		card.disabled = not Capacity.can_create(data.get("companies", []), kind)
 		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i] + "\n" + ("%d/3 — ظرفیت تکمیل" % used if card.disabled else "%d/3 شرکت" % used)
+		var disabled_style := card.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
+		disabled_style.bg_color = Color("D5D5CF")
+		disabled_style.border_color = Color("A6A69D")
+		card.add_theme_stylebox_override("disabled", disabled_style)
+		if card.disabled:
+			card.get_node("Caption").add_theme_color_override("font_color", Color("8B291C"))
 	for i in range(checks.size()):
 		checks[i].visible = ["mining", "exchange", "blockchain"][i] == business and step == 0 and Capacity.can_create(data.get("companies", []), business)
 	update_wizard_state(balance, cost)
@@ -110,10 +116,10 @@ func change_logo(direction: int) -> void:
 		$LogoCount.text += "● " if i == logo_index else "○ "
 	if animation and animation.is_valid():
 		animation.kill()
-	$Logo.position.x = 360.0 + direction * 45.0
+	$Logo.position.x = logo_origin_x + direction * 45.0
 	$Logo.modulate.a = 0.4
 	animation = create_tween().set_parallel(true)
-	animation.tween_property($Logo, "position:x", 360.0, 0.2)
+	animation.tween_property($Logo, "position:x", logo_origin_x, 0.2)
 	animation.tween_property($Logo, "modulate:a", 1.0, 0.2)
 
 func _input(event: InputEvent) -> void:
@@ -188,98 +194,20 @@ func create_company() -> void:
 		$Status.text = "شرکت تأسیس شد؛ داشبورد هنوز آماده نیست."
 
 
-func place(node: Control, x: float, y: float, w: float, h: float) -> void:
-	node.position = Vector2(x, y)
-	node.size = Vector2(w, h)
-
-func make_label(value: String, x: float, y: float, w: float, h: float, font_size: int, color: Color) -> Label:
-	var label := Label.new()
-	label.text = value
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", color)
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(label)
-	place(label, x, y, w, h)
-	return label
-
-func make_texture(path: String, x: float, y: float, w: float, h: float) -> TextureRect:
-	var view := TextureRect.new()
-	view.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	view.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	view.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if ResourceLoader.exists(path):
-		view.texture = load(path) as Texture2D
-	add_child(view)
-	place(view, x, y, w, h)
-	return view
-
 func setup_wizard() -> void:
-	$Title.hide()
-	$Background.show()
-	make_texture("res://assets/loading/logo.png", 260, 10, 560, 195)
-	place($Back, 900, 55, 110, 85)
-	place($Help, 65, 55, 90, 85)
-	place($BalancePlate, 65, 215, 950, 320)
-	avatar_view = make_texture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar", 1)), 1, 6), 845, 235, 140, 140)
-	holding_view = make_texture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo", 1)), 1, 5), 350, 245, 115, 115)
-	player_label = make_label(str(data.get("player_name", "—")), 500, 240, 330, 65, 38, Color("FFF5D9"))
-	holding_label = make_label(str(data.get("holding_name", "—")), 75, 245, 265, 115, 38, Color("FFF5D9"))
-	make_label("مدیر هلدینگ", 500, 305, 330, 65, 30, Color("F5D68B"))
-	var line := ColorRect.new()
-	line.color = Color("4D8979")
-	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(line)
-	place(line, 95, 405, 890, 3)
-	place($Balance, 565, 425, 400, 80)
-	$Balance.text = "خزانه هلدینگ"
-	amount_label = make_label("", 95, 425, 440, 80, 42, Color("FFE4A0"))
-	for i in range(3):
-		var x := 850 - i * 365
-		var dot := make_label(str(i + 1), x, 570, 90, 90, 42, Color("075440"))
-		dots.append(dot)
-		make_label(["کسب‌وکار", "هویت شرکت", "تأسیس"][i], x - 80, 660, 250, 60, 30, Color("075440"))
-		if i < 2:
-			var connector := ColorRect.new()
-			connector.color = Color("CDBD8A")
-			connector.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			add_child(connector)
-			place(connector, x - 255, 613, 220, 5)
-	step_label = make_label("", 0, 0, 1, 1, 1, Color.TRANSPARENT)
-	subtitle = make_label("", 65, 800, 950, 70, 34, Color("526B51"))
-	place($BusinessTitle, 35, 720, 1010, 80)
-	$BusinessTitle.text = "آینده‌ات را انتخاب کن!"
-	for i in range(3):
-		var card: Button = [$Mining, $Exchange, $Blockchain][i]
-		place(card, 75, 890 + i * 230, 930, 205)
-		var art: TextureRect = card.get_node("Art")
-		art.show()
-		place(art, 715, 15, 175, 175)
-		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		place(card.get_node("Caption"), 180, 10, 520, 185)
-		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i]
-		var check := make_label("✓", 95, 945 + i * 230, 90, 90, 50, Color("F5D68B"))
-		checks.append(check)
-	place($Logo, 360, 900, 360, 360)
-	place($LogoPrev, 180, 1025, 110, 110)
-	place($LogoNext, 790, 1025, 110, 110)
-	place($LogoCount, 200, 1280, 680, 70)
-	place($CompanyName, 75, 1370, 930, 120)
-	place($SizeTitle, 35, 720, 1010, 80)
-	$SizeTitle.text = "از کجا شروع می‌کنی؟"
-	for i in range(3):
-		var card: Button = [$Small, $Medium, $Large][i]
-		place(card, 24 + i * 348, 890, 336, 340)
-	place($CostPlate, 55, 1260, 970, 270)
-	place($Cost, 75, 1270, 930, 100)
-	place($Remaining, 75, 1380, 930, 110)
-	place($Create, 75, 1690, 930, 140)
-	place($Status, 45, 1560, 990, 120)
-	$Status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	logo_origin_x = $Logo.position.x
+	avatar_view = $AvatarView
+	holding_view = $HoldingView
+	player_label = $PlayerLabel
+	holding_label = $HoldingLabel
+	amount_label = $AmountLabel
+	subtitle = $Subtitle
+	avatar_view.texture = load("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar", 1)), 1, 6)) as Texture2D
+	holding_view.texture = load("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo", 1)), 1, 5)) as Texture2D
+	player_label.text = str(data.get("player_name", "—"))
+	holding_label.text = str(data.get("holding_name", "—"))
+	dots.assign([$Dot0, $Dot1, $Dot2])
+	checks.assign([$Check0, $Check1, $Check2])
 	show_step(false)
 
 func show_step(animate: bool = true) -> void:
