@@ -11,9 +11,14 @@ var animations: Dictionary = {}
 var drag_start := Vector2.ZERO
 var drag_target := 0
 var saved := false
+var name_pattern := RegEx.new()
+var field_guides: Dictionary = {}
 
 func _ready() -> void:
 	apply_profile_art()
+	name_pattern.compile("^[\\p{L}\\p{M}\\p{N}‌ -]+$")
+	setup_name_field($PlayerName, "نام بازیکن", 20)
+	setup_name_field($HoldingName, "نام هلدینگ", 30)
 	$AvatarPrev.pressed.connect(change_item.bind(true, -1))
 	$AvatarNext.pressed.connect(change_item.bind(true, 1))
 	$LogoPrev.pressed.connect(change_item.bind(false, -1))
@@ -121,15 +126,66 @@ func apply_profile_art() -> void:
 	UI.apply_text($Status, "hint")
 	$Status.add_theme_font_size_override("font_size", 32)
 
+func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
+	var y := field.position.y
+	field.position.y += 10
+	field.size.y = 70
+	field.placeholder_text = caption
+	var title := Label.new()
+	title.text = caption
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(title)
+	place(title, field.position.x + 18, y - 26, 600, 34)
+	UI.apply_text(title, "hint")
+	title.add_theme_color_override("font_color", Color("#FFE46D"))
+	title.hide()
+	var hint := Label.new()
+	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(hint)
+	place(hint, field.position.x, y + 80, field.size.x, 40)
+	UI.apply_text(hint, "hint")
+	hint.add_theme_font_size_override("font_size", 24)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	field_guides[field] = [title, hint, caption, limit]
+	field.focus_entered.connect(func(): refresh_name_field(field))
+	field.focus_exited.connect(func(): refresh_name_field(field))
+	refresh_name_field(field)
+
+func valid_name(value: String, limit: int) -> bool:
+	var clean := value.strip_edges()
+	return clean.length() >= 2 and clean.length() <= limit and name_pattern.search(clean) != null
+
+func refresh_name_field(field: LineEdit) -> void:
+	var info: Array = field_guides[field]
+	var title: Label = info[0]
+	var hint: Label = info[1]
+	var limit: int = info[3]
+	var active := field.has_focus() or not field.text.is_empty()
+	var valid := valid_name(field.text, limit)
+	title.visible = active
+	field.placeholder_text = "" if active else str(info[2])
+	var color := Color("#E9AD32") if field.text.is_empty() else (Color("#65CF23") if valid else Color("#D83C32"))
+	var style := field.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
+	style.border_color = color
+	field.add_theme_stylebox_override("normal", style)
+	var focus := style.duplicate() as StyleBoxFlat
+	focus.set_border_width_all(3)
+	field.add_theme_stylebox_override("focus", focus)
+	var message_text := "۲ تا %d حرف، عدد یا فاصله" % limit
+	if not field.text.is_empty():
+		message_text = "✓ نام معتبر است" if valid else "نام نامعتبر؛ حروف، اعداد و فاصله مجازند"
+	hint.text = "%s   |   %d/%d" % [message_text, field.text.length(), limit]
+	hint.add_theme_color_override("font_color", Color("#FFE5B4") if field.text.is_empty() else (Color("#A8EF80") if valid else Color("#FFB6AB")))
+
 func update_start(_value: String) -> void:
-	var player_length: int = $PlayerName.text.strip_edges().length()
-	var holding_length: int = $HoldingName.text.strip_edges().length()
+	refresh_name_field($PlayerName)
+	refresh_name_field($HoldingName)
 	var warning := ""
 	if not saved:
-		if player_length < 2:
-			warning = "نام بازیکن باید حداقل ۲ حرف باشد."
-		elif holding_length < 2:
-			warning = "نام هلدینگ باید حداقل ۲ حرف باشد."
+		if not valid_name($PlayerName.text, 20):
+			warning = "نام بازیکن را کامل کنید."
+		elif not valid_name($HoldingName.text, 30):
+			warning = "نام هلدینگ را کامل کنید."
 	$Start.disabled = saved or not warning.is_empty()
 	$Status.text = warning
 	$Status.add_theme_color_override("font_color", Color("8B291C"))
