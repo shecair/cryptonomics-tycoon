@@ -17,8 +17,8 @@ var field_guides: Dictionary = {}
 func _ready() -> void:
 	apply_profile_art()
 	name_pattern.compile("^[\\p{L}\\p{M}\\p{N}‌ -]+$")
-	setup_name_field($PlayerName, "نام بازیکن", 20)
-	setup_name_field($HoldingName, "نام هلدینگ", 30)
+	setup_name_field($PlayerName, "نام بازیکن", 12)
+	setup_name_field($HoldingName, "نام هلدینگ", 12)
 	$AvatarPrev.pressed.connect(change_item.bind(true, -1))
 	$AvatarNext.pressed.connect(change_item.bind(true, 1))
 	$LogoPrev.pressed.connect(change_item.bind(false, -1))
@@ -129,23 +129,28 @@ func apply_profile_art() -> void:
 func setup_name_field(field: LineEdit, caption: String, limit: int) -> void:
 	var y := field.position.y
 	field.position.y += 10
-	field.size.y = 70
-	field.placeholder_text = caption
+	field.size = Vector2(570, 70)
+	field.max_length = limit
+	field.alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	field.placeholder_text = ""
 	var title := Label.new()
 	title.text = caption
 	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(title)
-	place(title, field.position.x + 18, y - 26, 600, 34)
+	place(title, 710, y + 10, 245, 70)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	UI.apply_text(title, "hint")
 	title.add_theme_color_override("font_color", Color("#FFE46D"))
-	title.hide()
+	title.show()
 	var hint := Label.new()
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(hint)
-	place(hint, field.position.x, y + 80, field.size.x, 40)
+	place(hint, field.position.x, y + 80, 850, 40)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	UI.apply_text(hint, "hint")
 	hint.add_theme_font_size_override("font_size", 24)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	field_guides[field] = [title, hint, caption, limit]
 	field.focus_entered.connect(func(): refresh_name_field(field))
 	field.focus_exited.connect(func(): refresh_name_field(field))
@@ -160,10 +165,9 @@ func refresh_name_field(field: LineEdit) -> void:
 	var title: Label = info[0]
 	var hint: Label = info[1]
 	var limit: int = info[3]
-	var active := field.has_focus() or not field.text.is_empty()
 	var valid := valid_name(field.text, limit)
-	title.visible = active
-	field.placeholder_text = "" if active else str(info[2])
+	title.visible = true
+	field.placeholder_text = ""
 	var color := Color("#E9AD32") if field.text.is_empty() else (Color("#65CF23") if valid else Color("#D83C32"))
 	var style := field.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
 	style.border_color = color
@@ -182,9 +186,9 @@ func update_start(_value: String) -> void:
 	refresh_name_field($HoldingName)
 	var warning := ""
 	if not saved:
-		if not valid_name($PlayerName.text, 20):
+		if not valid_name($PlayerName.text, 12):
 			warning = "نام بازیکن را کامل کنید."
-		elif not valid_name($HoldingName.text, 30):
+		elif not valid_name($HoldingName.text, 12):
 			warning = "نام هلدینگ را کامل کنید."
 	$Start.disabled = saved or not warning.is_empty()
 	$Status.text = warning
