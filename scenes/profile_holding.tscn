@@ -517,16 +517,18 @@ vertical_alignment = 1
 
 [node name="PlayerNameHint" type="Label" parent="." unique_id=1839607966]
 layout_mode = 0
-offset_left = 320.0
+offset_left = 105.0
 offset_top = 810.0
-offset_right = 740.0
+offset_right = 715.0
 offset_bottom = 861.0
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
 text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+text_overrun_behavior = 3
 horizontal_alignment = 2
 vertical_alignment = 1
+text_direction = 2
 
 [node name="HoldingName" type="LineEdit" parent="." unique_id=1851334741]
 layout_mode = 0
@@ -556,16 +558,18 @@ vertical_alignment = 1
 
 [node name="HoldingNameHint" type="Label" parent="." unique_id=1477295018]
 layout_mode = 0
-offset_left = 273.0
+offset_left = 105.0
 offset_top = 1322.0
-offset_right = 702.0
+offset_right = 715.0
 offset_bottom = 1373.0
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
 text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+text_overrun_behavior = 3
 horizontal_alignment = 2
 vertical_alignment = 1
+text_direction = 2
 
 [node name="CapitalIcon" type="TextureRect" parent="." unique_id=1906257921]
 layout_mode = 0
