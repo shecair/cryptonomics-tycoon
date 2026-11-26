@@ -200,13 +200,7 @@ func make_texture(path: String, x: float, y: float, w: float, h: float) -> Textu
 
 func setup_wizard() -> void:
 	$Title.hide()
-	$Background.hide()
-	var backdrop := ColorRect.new()
-	backdrop.color = Color("F5E5B0")
-	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(backdrop)
-	move_child(backdrop, 0)
-	place(backdrop, 0, 0, 1080, 1920)
+	$Background.show()
 	make_texture("res://assets/loading/logo.png", 260, 10, 560, 195)
 	place($Back, 900, 55, 110, 85)
 	place($Help, 65, 55, 90, 85)
