@@ -23,7 +23,17 @@ func _ready() -> void:
 	update_start("")
 
 func update_start(_value: String) -> void:
-	$Start.disabled = saved or $PlayerName.text.strip_edges().length() < 2 or $HoldingName.text.strip_edges().length() < 2
+	var player_length: int = $PlayerName.text.strip_edges().length()
+	var holding_length: int = $HoldingName.text.strip_edges().length()
+	var warning := ""
+	if not saved:
+		if player_length < 2:
+			warning = "نام بازیکن باید حداقل ۲ حرف باشد."
+		elif holding_length < 2:
+			warning = "نام هلدینگ باید حداقل ۲ حرف باشد."
+	$Start.disabled = saved or not warning.is_empty()
+	$Status.text = warning
+	$Status.add_theme_color_override("font_color", Color("8B291C"))
 
 func change_item(is_avatar: bool, direction: int) -> void:
 	var preview: TextureRect = $Avatar if is_avatar else $HoldingLogo
