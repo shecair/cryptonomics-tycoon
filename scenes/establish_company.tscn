@@ -682,9 +682,9 @@ theme_override_fonts/font = SubResource("Bold")
 
 [node name="Small" type="Button" parent="."]
 layout_mode = 0
-offset_left = 24.0
+offset_left = 720.0
 offset_top = 890.0
-offset_right = 360.0
+offset_right = 1056.0
 offset_bottom = 1230.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
@@ -802,9 +802,9 @@ theme_override_fonts/font = SubResource("Bold")
 
 [node name="Large" type="Button" parent="."]
 layout_mode = 0
-offset_left = 720.0
+offset_left = 24.0
 offset_top = 890.0
-offset_right = 1056.0
+offset_right = 360.0
 offset_bottom = 1230.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
@@ -889,16 +889,16 @@ vertical_alignment = 1
 [node name="TreasurySummary" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 85.0
+offset_left = 545.0
 offset_top = 1335.0
-offset_right = 995.0
+offset_right = 975.0
 offset_bottom = 1400.0
 mouse_filter = 2
 theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-text = "موجودی خزانه: —"
-horizontal_alignment = 1
+text = "موجودی خزانه"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="FinanceWarning" type="Label" parent="."]
@@ -918,15 +918,15 @@ vertical_alignment = 1
 
 [node name="Cost" type="Label" parent="."]
 layout_mode = 0
-offset_left = 75.0
+offset_left = 545.0
 offset_top = 1405.0
-offset_right = 1005.0
+offset_right = 975.0
 offset_bottom = 1470.0
-text = "هزینه تأسیس: 1,000 USDT"
-horizontal_alignment = 1
+text = "هزینه تأسیس"
+horizontal_alignment = 2
 vertical_alignment = 1
 mouse_filter = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
 visible = false
@@ -935,15 +935,15 @@ theme_override_fonts/font = SubResource("Bold")
 
 [node name="Remaining" type="Label" parent="."]
 layout_mode = 0
-offset_left = 75.0
+offset_left = 545.0
 offset_top = 1475.0
-offset_right = 1005.0
+offset_right = 975.0
 offset_bottom = 1540.0
-text = "موجودی پس از تأسیس: — USDT"
-horizontal_alignment = 1
+text = "موجودی پس از تأسیس"
+horizontal_alignment = 2
 vertical_alignment = 1
 mouse_filter = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
 visible = false
@@ -1401,3 +1401,68 @@ offset_right = 539.0
 offset_bottom = 169.0
 mouse_filter = 2
 color = Color(0.71, 0.71, 0.65, 1)
+
+[node name="TreasurySummaryValue" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1335.0
+offset_right = 535.0
+offset_bottom = 1400.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "— USDT"
+text_direction = 1
+vertical_alignment = 1
+
+[node name="CostValue" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1405.0
+offset_right = 535.0
+offset_bottom = 1470.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "— USDT"
+text_direction = 1
+vertical_alignment = 1
+
+[node name="RemainingValue" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1475.0
+offset_right = 535.0
+offset_bottom = 1540.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "— USDT"
+text_direction = 1
+vertical_alignment = 1
+
+[node name="FinanceLine0" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1401.0
+offset_right = 985.0
+offset_bottom = 1403.0
+mouse_filter = 2
+color = Color(0.32, 0.55, 0.46, 1)
+
+[node name="FinanceLine1" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1471.0
+offset_right = 985.0
+offset_bottom = 1473.0
+mouse_filter = 2
+color = Color(0.32, 0.55, 0.46, 1)

@@ -70,17 +70,13 @@ func select_size(value: String) -> void:
 func refresh() -> void:
 	var balance := int(data.get("balance_usdt", 0))
 	var cost := int(COSTS[company_size])
-	amount_label.text = "%s USDT" % str(balance) if not data.is_empty() else "—"
-	$TreasurySummary.text = "موجودی خزانه: %d USDT" % balance if not data.is_empty() else "موجودی خزانه: —"
-	$Cost.text = "هزینه تأسیس: %d USDT" % cost
-	$Cost.add_theme_color_override("font_color", Color("FFB4A8"))
-	$Remaining.add_theme_color_override("font_color", Color("FFB4A8") if balance < cost else Color("B8F58A"))
-	if data.is_empty():
-		$Remaining.text = "موجودی پس از تأسیس: —"
-	elif balance < cost:
-		$Remaining.text = "کمبود سرمایه: %d USDT" % (cost - balance)
-	else:
-		$Remaining.text = "موجودی پس از تأسیس: %d USDT" % (balance - cost)
+	amount_label.text = money(balance) if not data.is_empty() else "—"
+	$TreasurySummaryValue.text = money(balance) if not data.is_empty() else "—"
+	$CostValue.text = money(cost)
+	$CostValue.add_theme_color_override("font_color", Color("FFB4A8"))
+	$RemainingValue.add_theme_color_override("font_color", Color("FFB4A8") if balance < cost else Color("B8F58A"))
+	$Remaining.text = "کمبود سرمایه" if balance < cost and not data.is_empty() else "موجودی پس از تأسیس"
+	$RemainingValue.text = "—" if data.is_empty() else money(absi(balance - cost))
 	for pair in [[$Mining,"mining"],[$Exchange,"exchange"],[$Blockchain,"blockchain"],[$Small,"small"],[$Medium,"medium"],[$Large,"large"]]:
 		var button: Button = pair[0]
 		var selected: bool = pair[1] == business or pair[1] == company_size
@@ -219,7 +215,7 @@ func setup_wizard() -> void:
 	show_step(false)
 
 func show_step(animate: bool = true) -> void:
-	var groups := [[$Mining, $Exchange, $Blockchain], [$CompanyIdentityPanel, $CompanyLogoFrame, $CompanyLogoTitle, $Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyNameTitle, $CompanyNameGuide, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $FinanceTitle, $TreasurySummary, $Cost, $Remaining, $FinanceWarning]]
+	var groups := [[$Mining, $Exchange, $Blockchain], [$CompanyIdentityPanel, $CompanyLogoFrame, $CompanyLogoTitle, $Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyNameTitle, $CompanyNameGuide, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $FinanceTitle, $TreasurySummary, $Cost, $Remaining, $FinanceWarning, $TreasurySummaryValue, $CostValue, $RemainingValue, $FinanceLine0, $FinanceLine1]]
 	if step_tween and step_tween.is_valid():
 		step_tween.kill()
 	if animate:
@@ -289,3 +285,13 @@ func advance_step() -> void:
 		refresh()
 	else:
 		create_company()
+
+
+func money(value: int) -> String:
+	var digits := str(absi(value))
+	var formatted := ""
+	for i in range(digits.length()):
+		if i > 0 and (digits.length() - i) % 3 == 0:
+			formatted += ","
+		formatted += digits[i]
+	return ("-" if value < 0 else "") + formatted + " USDT"
