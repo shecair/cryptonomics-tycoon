@@ -10,6 +10,8 @@ static func begin(control: Control) -> Tween:
 	if not control.has_meta("_game_ui_base_scale"):
 		control.set_meta("_game_ui_base_scale", control.scale)
 		control.set_meta("_game_ui_base_color", control.modulate)
+		control.set_meta("_game_ui_base_rotation", control.rotation)
+	control.rotation = control.get_meta("_game_ui_base_rotation", control.rotation)
 	control.scale = control.get_meta("_game_ui_base_scale")
 	control.modulate = control.get_meta("_game_ui_base_color")
 	control.pivot_offset = control.size * 0.5
@@ -37,6 +39,30 @@ static func reveal(control: Control, duration: float) -> Tween:
 	tween.tween_property(control, "modulate", base, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	return tween
 
+static func shine(control: Control, duration: float, factor: float, tint: Color) -> Tween:
+	var tween := begin(control)
+	var base: Vector2 = control.scale
+	var color: Color = control.modulate
+	if reduced_motion:
+		tween.tween_interval(0.01)
+		return tween
+	tween.set_parallel(true)
+	tween.tween_property(control, "scale", base * factor, duration * 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(control, "modulate", color * tint, duration * 0.35)
+	tween.chain().tween_property(control, "scale", base, duration * 0.65).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(control, "modulate", color, duration * 0.65)
+	return tween
+
+static func warning(control: Control, duration: float) -> Tween:
+	var tween := begin(control)
+	var base := control.rotation
+	if reduced_motion:
+		tween.tween_interval(0.01)
+		return tween
+	for angle in [-0.035, 0.035, -0.02, 0.02, 0.0]:
+		tween.tween_property(control, "rotation", base + float(angle), duration / 5.0)
+	return tween
+
 static func play(control: Control, event: String) -> Tween:
 	var duration: float = DURATIONS.get(event, 0.2)
 	match event:
@@ -44,20 +70,20 @@ static func play(control: Control, event: String) -> Tween:
 			return pulse(control, duration, 0.95)
 		"selection":
 			return pulse(control, duration, 1.04)
-		"tab", "scene":
+		"tab", "scene", "worker":
 			return reveal(control, duration)
 		"production":
-			return pulse(control, duration, 1.10)
+			return pulse(control, duration, 0.90)
 		"coin":
-			return pulse(control, duration, 1.16)
+			return shine(control, duration, 1.12, Color(1.35, 1.22, 0.65))
 		"upgrade":
-			return pulse(control, duration, 1.12)
-		"worker":
-			return reveal(control, duration)
-		"company", "airdrop":
-			return pulse(control, duration, 1.10)
+			return shine(control, duration, 1.16, Color(1.5, 1.3, 0.55))
+		"company":
+			return shine(control, duration, 1.22, Color(1.3, 1.3, 0.8))
+		"airdrop":
+			return shine(control, duration, 1.28, Color(1.6, 1.3, 0.55))
 		"warning":
-			return pulse(control, duration, 1.04)
+			return warning(control, duration)
 		_:
 			return pulse(control, duration)
 
