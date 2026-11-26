@@ -17,6 +17,55 @@
 
 [ext_resource type="FontFile" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="persian"]
 
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/normal.svg" id="danger_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/pressed.svg" id="danger_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/disabled.svg" id="danger_disabled"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/normal.svg" id="information_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/pressed.svg" id="information_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/disabled.svg" id="information_disabled"]
+
+[sub_resource type="StyleBoxTexture" id="danger_normal"]
+texture = ExtResource("danger_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="danger_pressed"]
+texture = ExtResource("danger_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="danger_disabled"]
+texture = ExtResource("danger_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_normal"]
+texture = ExtResource("information_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_pressed"]
+texture = ExtResource("information_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_disabled"]
+texture = ExtResource("information_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
 [sub_resource type="FontVariation" id="Bold"]
 base_font = ExtResource("persian")
 variation_opentype = {2003265652: 700}
@@ -212,17 +261,17 @@ mouse_filter = 2
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 935.0
+offset_left = 35.0
 offset_top = 45.0
-offset_right = 1045.0
+offset_right = 145.0
 offset_bottom = 155.0
 text = "‹"
 focus_mode = 0
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/disabled = SubResource("Emerald")
+theme_override_styles/normal = SubResource("danger_normal")
+theme_override_styles/hover = SubResource("danger_normal")
+theme_override_styles/pressed = SubResource("danger_pressed")
+theme_override_styles/disabled = SubResource("danger_disabled")
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
@@ -231,17 +280,17 @@ theme_override_fonts/font = SubResource("Bold")
 
 [node name="Help" type="Button" parent="."]
 layout_mode = 0
-offset_left = 35.0
+offset_left = 935.0
 offset_top = 45.0
-offset_right = 145.0
+offset_right = 1045.0
 offset_bottom = 155.0
 text = "i"
 focus_mode = 0
 theme_override_font_sizes/font_size = 56
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/disabled = SubResource("Emerald")
+theme_override_styles/normal = SubResource("information_normal")
+theme_override_styles/hover = SubResource("information_normal")
+theme_override_styles/pressed = SubResource("information_pressed")
+theme_override_styles/disabled = SubResource("information_disabled")
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
