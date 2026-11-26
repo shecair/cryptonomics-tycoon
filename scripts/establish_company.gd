@@ -233,10 +233,16 @@ func show_step(animate: bool = true) -> void:
 	subtitle.text = ["دوست داری در چه حوزه‌ای فعالیت کنی؟", "نام و نشان تجاری خودت را انتخاب کن.", "اندازه شرکت و هزینه تأسیس را بررسی کن."][step]
 	for i in range(dots.size()):
 		var style := StyleBoxFlat.new()
-		style.bg_color = Color("087F69") if i <= step else Color("DCC88E")
+		style.bg_color = Color("E9AD32") if i < step else (Color("087F69") if i == step else Color("D8CBA5"))
 		style.set_corner_radius_all(45)
+		style.set_border_width_all(6 if i == step else 0)
+		style.border_color = Color("E9AD32")
 		dots[i].add_theme_stylebox_override("normal", style)
-		dots[i].add_theme_color_override("font_color", Color.WHITE if i <= step else Color("72581D"))
+		dots[i].text = "✓" if i < step else str(i + 1)
+		dots[i].add_theme_color_override("font_color", Color.WHITE if i == step else Color("72581D"))
+		get_node("StepCaption%d" % i).add_theme_color_override("font_color", Color("075440") if i <= step else Color("776C4E"))
+	for i in range(2):
+		get_node("Connector%d" % i).color = Color("E9AD32") if i < step else Color("C6B681")
 	$Create.text = "تأسیس شرکت" if step == 2 else "ادامه"
 
 func update_wizard_state(balance: int, cost: int) -> void:
