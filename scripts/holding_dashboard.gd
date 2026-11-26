@@ -24,9 +24,9 @@ func _ready() -> void:
 		data = parsed
 		companies = data["companies"]
 	var root := $Margin/Root
-	root.get_node("Top/Help").pressed.connect(func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."))
-	root.get_node("Top/Menu").pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
-	var identity := root.get_node("Identity/Content")
+	root.get_node("Header/Stack/Top/Help").pressed.connect(func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."))
+	root.get_node("Header/Stack/Top/Menu").pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
+	var identity := root.get_node("Header/Stack/Identity/Content")
 	identity.get_node("Row/HoldingLogo").texture = load("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo",1)),1,5))
 	identity.get_node("Row/Avatar").texture = load("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar",1)),1,6))
 	identity.get_node("Row/HoldingInfo/HoldingName").text = str(data.get("holding_name","—"))
@@ -39,8 +39,8 @@ func _ready() -> void:
 			if c.get("status","active") == "active":
 				active += 1
 			profit += int(c.get("profit_usdt",0))
-	root.get_node("Metrics/Active/Content/Value").text = str(active)
-	root.get_node("Metrics/Profit/Content/Value").text = money(profit)
+	root.get_node("Header/Stack/Metrics/Active/Content/Value").text = "%d/9" % Capacity.count(companies)
+	root.get_node("Header/Stack/Metrics/Profit/Content/Value").text = money(profit)
 	create = root.get_node("Create")
 	create.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"))
 	funding_hint = root.get_node("Hint/Content/FundingHint")

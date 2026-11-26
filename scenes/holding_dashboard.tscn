@@ -55,6 +55,70 @@ corner_radius_top_right = 26
 corner_radius_bottom_left = 26
 corner_radius_bottom_right = 26
 
+[sub_resource type="StyleBoxFlat" id="Red"]
+bg_color = Color(0.85, 0.24, 0.20, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 3
+content_margin_left = 8.0
+border_width_top = 3
+content_margin_top = 8.0
+border_width_right = 3
+content_margin_right = 8.0
+border_width_bottom = 3
+content_margin_bottom = 8.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="Blue"]
+bg_color = Color(0.08, 0.61, 0.84, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 3
+content_margin_left = 8.0
+border_width_top = 3
+content_margin_top = 8.0
+border_width_right = 3
+content_margin_right = 8.0
+border_width_bottom = 3
+content_margin_bottom = 8.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="Metric"]
+bg_color = Color(0.03, 0.50, 0.41, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 3
+content_margin_left = 8.0
+border_width_top = 3
+content_margin_top = 8.0
+border_width_right = 3
+content_margin_right = 8.0
+border_width_bottom = 3
+content_margin_bottom = 8.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="IdentityCompact"]
+bg_color = Color(0.027, 0.329, 0.251, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 0
+content_margin_left = 0.0
+border_width_top = 0
+content_margin_top = 0.0
+border_width_right = 0
+content_margin_right = 0.0
+border_width_bottom = 0
+content_margin_bottom = 0.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
 [node name="HoldingDashboard" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -92,48 +156,55 @@ theme_override_constants/margin_bottom = 48
 [node name="Root" type="VBoxContainer" parent="Margin"]
 theme_override_constants/separation = 18
 
-[node name="Top" type="HBoxContainer" parent="Margin/Root"]
+[node name="Header" type="PanelContainer" parent="Margin/Root"]
+theme_override_styles/panel = SubResource("Green")
+
+[node name="Stack" type="VBoxContainer" parent="Margin/Root/Header"]
+theme_override_constants/separation = 6
+
+[node name="Top" type="HBoxContainer" parent="Margin/Root/Header/Stack"]
+layout_direction = 3
 
 
-[node name="Help" type="Button" parent="Margin/Root/Top"]
-text = "؟"
-custom_minimum_size = Vector2(75, 75)
+[node name="Help" type="Button" parent="Margin/Root/Header/Stack/Top"]
+text = "i"
+custom_minimum_size = Vector2(100, 100)
 focus_mode = 0
 theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("Green")
-theme_override_styles/hover = SubResource("Green")
-theme_override_styles/pressed = SubResource("Green")
+theme_override_styles/normal = SubResource("Blue")
+theme_override_styles/hover = SubResource("Blue")
+theme_override_styles/pressed = SubResource("Blue")
 
-[node name="Logo" type="TextureRect" parent="Margin/Root/Top"]
-custom_minimum_size = Vector2(0, 210)
+[node name="Logo" type="TextureRect" parent="Margin/Root/Header/Stack/Top"]
+custom_minimum_size = Vector2(0, 110)
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="Menu" type="Button" parent="Margin/Root/Top"]
-text = "منو"
-custom_minimum_size = Vector2(90, 75)
+[node name="Menu" type="Button" parent="Margin/Root/Header/Stack/Top"]
+text = "‹"
+custom_minimum_size = Vector2(100, 100)
 focus_mode = 0
 theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("Green")
-theme_override_styles/hover = SubResource("Green")
-theme_override_styles/pressed = SubResource("Green")
+theme_override_styles/normal = SubResource("Red")
+theme_override_styles/hover = SubResource("Red")
+theme_override_styles/pressed = SubResource("Red")
 
-[node name="Identity" type="PanelContainer" parent="Margin/Root"]
-theme_override_styles/panel = SubResource("Green")
+[node name="Identity" type="PanelContainer" parent="Margin/Root/Header/Stack"]
+theme_override_styles/panel = SubResource("IdentityCompact")
 
 
-[node name="Content" type="VBoxContainer" parent="Margin/Root/Identity"]
-theme_override_constants/separation = 12
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Header/Stack/Identity"]
+theme_override_constants/separation = 4
 
-[node name="Row" type="HBoxContainer" parent="Margin/Root/Identity/Content"]
-layout_direction = 3
+[node name="Row" type="HBoxContainer" parent="Margin/Root/Header/Stack/Identity/Content"]
+layout_direction = 2
 
-[node name="HoldingLogo" type="TextureRect" parent="Margin/Root/Identity/Content/Row"]
+[node name="HoldingLogo" type="TextureRect" parent="Margin/Root/Header/Stack/Identity/Content/Row"]
 custom_minimum_size = Vector2(115, 115)
 texture = ExtResource("4")
 expand_mode = 1
@@ -141,10 +212,10 @@ stretch_mode = 5
 mouse_filter = 2
 
 
-[node name="HoldingInfo" type="VBoxContainer" parent="Margin/Root/Identity/Content/Row"]
+[node name="HoldingInfo" type="VBoxContainer" parent="Margin/Root/Header/Stack/Identity/Content/Row"]
 size_flags_horizontal = 3
 
-[node name="HoldingName" type="Label" parent="Margin/Root/Identity/Content/Row/HoldingInfo"]
+[node name="HoldingName" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Row/HoldingInfo"]
 text = "نام هلدینگ"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -153,7 +224,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="Title" type="Label" parent="Margin/Root/Identity/Content/Row/HoldingInfo"]
+[node name="Title" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Row/HoldingInfo"]
 text = "نام هلدینگ"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -161,10 +232,10 @@ theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
 
 
-[node name="Person" type="VBoxContainer" parent="Margin/Root/Identity/Content/Row"]
+[node name="Person" type="VBoxContainer" parent="Margin/Root/Header/Stack/Identity/Content/Row"]
 size_flags_horizontal = 3
 
-[node name="PlayerName" type="Label" parent="Margin/Root/Identity/Content/Row/Person"]
+[node name="PlayerName" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Row/Person"]
 text = "نام بازیکن"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -173,7 +244,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="Title" type="Label" parent="Margin/Root/Identity/Content/Row/Person"]
+[node name="Title" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Row/Person"]
 text = "مدیر هلدینگ"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -181,7 +252,7 @@ theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
 
 
-[node name="Avatar" type="TextureRect" parent="Margin/Root/Identity/Content/Row"]
+[node name="Avatar" type="TextureRect" parent="Margin/Root/Header/Stack/Identity/Content/Row"]
 custom_minimum_size = Vector2(125, 125)
 texture = ExtResource("5")
 expand_mode = 1
@@ -189,13 +260,13 @@ stretch_mode = 5
 mouse_filter = 2
 
 
-[node name="Line" type="HSeparator" parent="Margin/Root/Identity/Content"]
+[node name="Line" type="HSeparator" parent="Margin/Root/Header/Stack/Identity/Content"]
 
 
-[node name="Cash" type="HBoxContainer" parent="Margin/Root/Identity/Content"]
-layout_direction = 3
+[node name="Cash" type="HBoxContainer" parent="Margin/Root/Header/Stack/Identity/Content"]
+layout_direction = 2
 
-[node name="Amount" type="Label" parent="Margin/Root/Identity/Content/Cash"]
+[node name="Amount" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Cash"]
 text = "—"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -203,7 +274,7 @@ theme_override_font_sizes/font_size = 55
 theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
 size_flags_horizontal = 3
 
-[node name="Treasury" type="Label" parent="Margin/Root/Identity/Content/Cash"]
+[node name="Treasury" type="Label" parent="Margin/Root/Header/Stack/Identity/Content/Cash"]
 text = "خزانه هلدینگ"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -211,55 +282,74 @@ theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
 custom_minimum_size = Vector2(360, 0)
 
-[node name="Metrics" type="HBoxContainer" parent="Margin/Root"]
+[node name="Metrics" type="HBoxContainer" parent="Margin/Root/Header/Stack"]
 layout_direction = 3
 theme_override_constants/separation = 20
 
-[node name="Active" type="PanelContainer" parent="Margin/Root/Metrics"]
-theme_override_styles/panel = SubResource("Cream")
+[node name="Active" type="PanelContainer" parent="Margin/Root/Header/Stack/Metrics"]
+theme_override_styles/panel = SubResource("Metric")
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Margin/Root/Metrics/Active"]
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Header/Stack/Metrics/Active"]
 theme_override_constants/separation = 12
 
-[node name="Value" type="Label" parent="Margin/Root/Metrics/Active/Content"]
+[node name="Value" type="Label" parent="Margin/Root/Header/Stack/Metrics/Active/Content"]
 text = "—"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(0.027, 0.329, 0.251, 1)
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 
 
-[node name="Title" type="Label" parent="Margin/Root/Metrics/Active/Content"]
-text = "شرکت‌های فعال"
+[node name="Title" type="Label" parent="Margin/Root/Header/Stack/Metrics/Active/Content"]
+text = "شرکت‌ها"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.027, 0.329, 0.251, 1)
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 
 
-[node name="Profit" type="PanelContainer" parent="Margin/Root/Metrics"]
-theme_override_styles/panel = SubResource("Cream")
+[node name="Profit" type="PanelContainer" parent="Margin/Root/Header/Stack/Metrics"]
+theme_override_styles/panel = SubResource("Metric")
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Margin/Root/Metrics/Profit"]
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Header/Stack/Metrics/Profit"]
 theme_override_constants/separation = 12
 
-[node name="Value" type="Label" parent="Margin/Root/Metrics/Profit/Content"]
+[node name="Value" type="Label" parent="Margin/Root/Header/Stack/Metrics/Profit/Content"]
 text = "—"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(0.027, 0.329, 0.251, 1)
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 
 
-[node name="Title" type="Label" parent="Margin/Root/Metrics/Profit/Content"]
+[node name="Title" type="Label" parent="Margin/Root/Header/Stack/Metrics/Profit/Content"]
 text = "سود عملیاتی"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.027, 0.329, 0.251, 1)
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 
+
+[node name="Reputation" type="PanelContainer" parent="Margin/Root/Header/Stack/Metrics"]
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("Metric")
+
+[node name="Content" type="VBoxContainer" parent="Margin/Root/Header/Stack/Metrics/Reputation"]
+theme_override_constants/separation = 2
+
+[node name="Value" type="Label" parent="Margin/Root/Header/Stack/Metrics/Reputation/Content"]
+text = "100"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="Title" type="Label" parent="Margin/Root/Header/Stack/Metrics/Reputation/Content"]
+text = "اعتبار"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 
 [node name="Create" type="Button" parent="Margin/Root"]
 text = "+ تأسیس شرکت جدید"
