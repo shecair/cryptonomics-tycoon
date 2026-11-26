@@ -23,62 +23,15 @@ func _ready() -> void:
 	if parsed is Dictionary and parsed.get("companies") is Array and typeof(parsed.get("balance_usdt")) in [TYPE_INT, TYPE_FLOAT]:
 		data = parsed
 		companies = data["companies"]
-	var bg := picture("res://assets/loading/background.png", Vector2.ZERO)
-	add_child(bg)
-	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	var margin := MarginContainer.new()
-	add_child(margin)
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left","right","top","bottom"]:
-		margin.add_theme_constant_override("margin_" + side, 48)
-	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 18)
-	margin.add_child(root)
-	var top := HBoxContainer.new()
-	root.add_child(top)
-	top.add_child(action("؟", func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."), false, Vector2(75,75)))
-	var logo := picture("res://assets/loading/logo.png", Vector2(0,210))
-	logo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	top.add_child(logo)
-	top.add_child(action("منو", func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"), false, Vector2(90,75)))
-	var identity := panel(root, GREEN)
-	var row := HBoxContainer.new()
-	row.layout_direction = Control.LAYOUT_DIRECTION_RTL
-	identity.add_child(row)
-	row.add_child(picture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo",1)),1,5), Vector2(115,115)))
-	var holding := label(str(data.get("holding_name","—")),38,Color.WHITE)
-	holding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	holding.clip_text = true
-	holding.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	var holding_info := VBoxContainer.new()
-	holding_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	holding_info.add_child(holding)
-	holding_info.add_child(label("نام هلدینگ",28,GOLD))
-	row.add_child(holding_info)
-	var person := VBoxContainer.new()
-	person.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_child(person)
-	var player := label(str(data.get("player_name","—")),38,Color.WHITE)
-	player.clip_text = true
-	player.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	person.add_child(player)
-	person.add_child(label("مدیر هلدینگ",28,GOLD))
-	row.add_child(picture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar",1)),1,6),Vector2(125,125)))
-	identity.add_child(HSeparator.new())
-	var cash := HBoxContainer.new()
-	cash.layout_direction = Control.LAYOUT_DIRECTION_RTL
-	identity.add_child(cash)
-	var amount := label(money(int(data.get("balance_usdt",0))) if not data.is_empty() else "—",55,GOLD)
-	amount.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	cash.add_child(amount)
-	var treasury := label("خزانه هلدینگ",34,GOLD)
-	treasury.custom_minimum_size.x = 360
-	cash.add_child(treasury)
-	var metrics := HBoxContainer.new()
-	metrics.add_theme_constant_override("separation",20)
-	root.add_child(metrics)
-	metrics.layout_direction = Control.LAYOUT_DIRECTION_RTL
+	var root := $Margin/Root
+	root.get_node("Top/Help").pressed.connect(func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."))
+	root.get_node("Top/Menu").pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
+	var identity := root.get_node("Identity/Content")
+	identity.get_node("Row/HoldingLogo").texture = load("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo",1)),1,5))
+	identity.get_node("Row/Avatar").texture = load("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar",1)),1,6))
+	identity.get_node("Row/HoldingInfo/HoldingName").text = str(data.get("holding_name","—"))
+	identity.get_node("Row/Person/PlayerName").text = str(data.get("player_name","—"))
+	identity.get_node("Cash/Amount").text = money(int(data.get("balance_usdt",0))) if not data.is_empty() else "—"
 	var active := 0
 	var profit := 0
 	for c in companies:
@@ -86,49 +39,17 @@ func _ready() -> void:
 			if c.get("status","active") == "active":
 				active += 1
 			profit += int(c.get("profit_usdt",0))
-	for item in [[str(active),"شرکت‌های فعال","building"],[money(profit),"سود عملیاتی","growth"]]:
-		var card := panel(metrics,CREAM)
-		card.get_parent().size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var accent := HBoxContainer.new()
-		card.add_child(accent)
-		var mark := MetricIcon.new()
-		mark.kind = item[2]
-		mark.custom_minimum_size = Vector2(76,76)
-		accent.add_child(mark)
-		var value := label(item[0],48,GREEN)
-		value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		accent.add_child(value)
-		card.add_child(label(item[1],32,GREEN))
-	create = action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
-	root.add_child(create)
-	funding_hint = label("موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT",28,Color("8B291C"))
-	var hint_panel := panel(root,CREAM)
-	hint_panel.add_child(funding_hint)
-	var header := panel(root,GREEN)
-	list_header = header.get_parent() as PanelContainer
-	var header_row := HBoxContainer.new()
-	header.add_child(header_row)
-	var heading := label("شرکت‌های من",44,Color.WHITE)
-	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	header_row.add_child(heading)
-	var count := label("%d/9 شرکت" % Capacity.count(companies),34,GOLD)
-	header_row.add_child(count)
-	business_tabs = HBoxContainer.new()
-	business_tabs.layout_direction = Control.LAYOUT_DIRECTION_RTL
-	business_tabs.add_theme_constant_override("separation",12)
-	root.add_child(business_tabs)
-	var scroll := ScrollContainer.new()
-	company_scroll = scroll
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	root.add_child(scroll)
-	body = VBoxContainer.new()
-	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	body.add_theme_constant_override("separation",22)
-	scroll.add_child(body)
-	nav = HBoxContainer.new()
-	nav.layout_direction = Control.LAYOUT_DIRECTION_RTL
-	root.add_child(nav)
+	root.get_node("Metrics/Active/Content/Value").text = str(active)
+	root.get_node("Metrics/Profit/Content/Value").text = money(profit)
+	create = root.get_node("Create")
+	create.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"))
+	funding_hint = root.get_node("Hint/Content/FundingHint")
+	list_header = root.get_node("ListHeader")
+	root.get_node("ListHeader/Content/Row/Count").text = "%d/9 شرکت" % Capacity.count(companies)
+	business_tabs = root.get_node("BusinessTabs")
+	company_scroll = root.get_node("Scroll")
+	body = root.get_node("Scroll/Body")
+	nav = root.get_node("Nav")
 	render()
 
 func money(value: int) -> String:
