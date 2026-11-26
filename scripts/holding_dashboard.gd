@@ -7,6 +7,7 @@ var data: Dictionary = {}
 var companies: Array = []
 var body: VBoxContainer
 var nav: HBoxContainer
+var create: Button
 var tab := 0
 
 func _ready() -> void:
@@ -24,38 +25,48 @@ func _ready() -> void:
 	for side in ["left","right","top","bottom"]:
 		margin.add_theme_constant_override("margin_" + side, 48)
 	var root := VBoxContainer.new()
-	root.add_theme_constant_override("separation", 24)
+	root.add_theme_constant_override("separation", 18)
 	margin.add_child(root)
 	var top := HBoxContainer.new()
 	root.add_child(top)
-	top.add_child(action("؟", func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."), false, Vector2(100,100)))
-	var logo := picture("res://assets/loading/logo.png", Vector2(0,180))
+	top.add_child(action("؟", func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."), false, Vector2(75,75)))
+	var logo := picture("res://assets/loading/logo.png", Vector2(0,150))
 	logo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(logo)
-	top.add_child(action("منو", func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"), false, Vector2(120,100)))
+	top.add_child(action("منو", func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"), false, Vector2(90,75)))
 	var identity := panel(root, GREEN)
 	var row := HBoxContainer.new()
+	row.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	identity.add_child(row)
 	row.add_child(picture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo",1)),1,5), Vector2(115,115)))
 	var holding := label(str(data.get("holding_name","—")),38,Color.WHITE)
 	holding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	holding.clip_text = true
+	holding.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	row.add_child(holding)
 	var person := VBoxContainer.new()
 	person.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(person)
-	person.add_child(label(str(data.get("player_name","—")),38,Color.WHITE))
+	var player := label(str(data.get("player_name","—")),38,Color.WHITE)
+	player.clip_text = true
+	player.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	person.add_child(player)
 	person.add_child(label("مدیر هلدینگ",28,GOLD))
 	row.add_child(picture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar",1)),1,6),Vector2(125,125)))
 	identity.add_child(HSeparator.new())
 	var cash := HBoxContainer.new()
+	cash.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	identity.add_child(cash)
 	var amount := label(money(int(data.get("balance_usdt",0))) if not data.is_empty() else "—",55,GOLD)
 	amount.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	cash.add_child(amount)
-	cash.add_child(label("خزانه هلدینگ",34,GOLD))
+	var treasury := label("خزانه هلدینگ",34,GOLD)
+	treasury.custom_minimum_size.x = 360
+	cash.add_child(treasury)
 	var metrics := HBoxContainer.new()
 	metrics.add_theme_constant_override("separation",20)
 	root.add_child(metrics)
+	metrics.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	var active := 0
 	var profit := 0
 	for c in companies:
@@ -76,7 +87,10 @@ func _ready() -> void:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation",22)
 	scroll.add_child(body)
+	create = action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
+	root.add_child(create)
 	nav = HBoxContainer.new()
+	nav.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	root.add_child(nav)
 	render()
 
@@ -104,7 +118,7 @@ func label(value: String, font: int, color: Color) -> Label:
 	l.text = value
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.autowrap_mode = TextServer.AUTOWRAP_OFF
 	l.add_theme_font_size_override("font_size",font)
 	l.add_theme_color_override("font_color",color)
 	return l
@@ -148,22 +162,23 @@ func render() -> void:
 	for child in nav.get_children():
 		nav.remove_child(child)
 		child.queue_free()
+	create.visible = tab == 0 and not data.is_empty()
+	create.disabled = int(data.get("balance_usdt",0)) < 1000
 	for i in [2,1,0]:
-		var b := action(["هلدینگ","مالی","پروفایل"][i],select_tab.bind(i),tab==i)
+		var b := action(["▥\nهلدینگ","▤\nمالی","♙\nپروفایل"][i],select_tab.bind(i),tab==i)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		nav.add_child(b)
 	if data.is_empty():
 		body.add_child(label("فایل ذخیره معتبر نیست. به منوی اصلی بازگردید.",36,GREEN))
 		return
 	if tab == 0:
-		body.add_child(label("شرکت‌های من",46,GREEN))
+		var heading := panel(body,CREAM)
+		heading.add_child(label("شرکت‌های من  •  " + str(companies.size()),36,GREEN))
 		for c in companies:
 			if c is Dictionary:
 				company_card(c)
 		if companies.is_empty():
 			body.add_child(label("هنوز شرکتی تأسیس نکرده‌اید.",34,GREEN))
-		var create := action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
-		body.add_child(create)
 		if int(data.get("balance_usdt",0)) < 1000:
 			create.disabled = true
 			body.add_child(label("برای تأسیس شرکت حداقل ۱٬۰۰۰ USDT لازم است.",32,Color("8B291C")))
@@ -192,11 +207,15 @@ func select_tab(value: int) -> void:
 func company_card(c: Dictionary) -> void:
 	var p := panel(body,CREAM)
 	var row := HBoxContainer.new()
+	row.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	p.add_child(row)
 	var details := VBoxContainer.new()
 	details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(details)
-	details.add_child(label(str(c.get("name","—")),42,GREEN))
+	var company_name := label(str(c.get("name","—")),42,GREEN)
+	company_name.clip_text = true
+	company_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	details.add_child(company_name)
 	var kind := str(c.get("business","mining"))
 	var size_name: String = {"small":"کوچک","medium":"متوسط","large":"بزرگ"}.get(str(c.get("size","small")),"—")
 	var kind_name: String = {"mining":"استخراج رمزارز","exchange":"صرافی رمزارز","blockchain":"توسعه بلاکچین"}.get(kind,"—")
@@ -205,7 +224,12 @@ func company_card(c: Dictionary) -> void:
 	row.add_child(picture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(c.get("logo",1)),1,5),Vector2(125,125)))
 	var extra := VBoxContainer.new()
 	extra.hide()
-	p.add_child(action("جزئیات شرکت",func(): extra.visible = not extra.visible))
+	var toggle := action("‹",func(): extra.visible = not extra.visible,false,Vector2(75,80))
+	row.add_child(toggle)
+	row.mouse_filter = Control.MOUSE_FILTER_STOP
+	row.gui_input.connect(func(event: InputEvent):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			extra.visible = not extra.visible)
 	p.add_child(extra)
 	extra.add_child(label("هزینه تأسیس: " + money(int(c.get("establishment_cost_usdt",0))),32,GREEN))
 	extra.add_child(label("واحدهای راه‌اندازی‌شده: %d از ۹" % (c.get("units",[]) as Array).size(),32,GREEN))
