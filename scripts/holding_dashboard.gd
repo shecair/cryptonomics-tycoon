@@ -8,6 +8,8 @@ var companies: Array = []
 var body: VBoxContainer
 var nav: HBoxContainer
 var create: Button
+var list_header: PanelContainer
+var funding_hint: Label
 var tab := 0
 
 func _ready() -> void:
@@ -30,7 +32,7 @@ func _ready() -> void:
 	var top := HBoxContainer.new()
 	root.add_child(top)
 	top.add_child(action("؟", func(): notice("شرکت‌های خود را مدیریت کنید یا با سرمایه خزانه شرکت جدید بسازید."), false, Vector2(75,75)))
-	var logo := picture("res://assets/loading/logo.png", Vector2(0,150))
+	var logo := picture("res://assets/loading/logo.png", Vector2(0,210))
 	logo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(logo)
 	top.add_child(action("منو", func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"), false, Vector2(90,75)))
@@ -43,7 +45,11 @@ func _ready() -> void:
 	holding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	holding.clip_text = true
 	holding.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	row.add_child(holding)
+	var holding_info := VBoxContainer.new()
+	holding_info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	holding_info.add_child(holding)
+	holding_info.add_child(label("نام هلدینگ",28,GOLD))
+	row.add_child(holding_info)
 	var person := VBoxContainer.new()
 	person.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(person)
@@ -74,11 +80,28 @@ func _ready() -> void:
 			if c.get("status","active") == "active":
 				active += 1
 			profit += int(c.get("profit_usdt",0))
-	for item in [[str(active),"شرکت‌های فعال"],[money(profit),"سود عملیاتی"]]:
+	for item in [[str(active),"شرکت‌های فعال","building"],[money(profit),"سود عملیاتی","growth"]]:
 		var card := panel(metrics,CREAM)
 		card.get_parent().size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		card.add_child(label(item[0],48,GREEN))
+		var accent := HBoxContainer.new()
+		card.add_child(accent)
+		var mark := MetricIcon.new()
+		mark.kind = item[2]
+		mark.custom_minimum_size = Vector2(76,76)
+		accent.add_child(mark)
+		var value := label(item[0],48,GREEN)
+		value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		accent.add_child(value)
 		card.add_child(label(item[1],32,GREEN))
+	var header := panel(root,GREEN)
+	list_header = header.get_parent() as PanelContainer
+	var header_row := HBoxContainer.new()
+	header.add_child(header_row)
+	var heading := label("شرکت‌های من",44,Color.WHITE)
+	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header_row.add_child(heading)
+	var count := label(str(companies.size()) + " شرکت",34,GOLD)
+	header_row.add_child(count)
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -89,6 +112,9 @@ func _ready() -> void:
 	scroll.add_child(body)
 	create = action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
 	root.add_child(create)
+	funding_hint = label("موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT",28,Color("8B291C"))
+	var hint_panel := panel(root,CREAM)
+	hint_panel.add_child(funding_hint)
 	nav = HBoxContainer.new()
 	nav.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	root.add_child(nav)
@@ -129,6 +155,9 @@ func style(color: Color) -> StyleBoxFlat:
 	s.border_color = Color("DCC88E")
 	s.set_border_width_all(3)
 	s.set_corner_radius_all(26)
+	s.shadow_color = Color(0.08,0.20,0.12,0.16)
+	s.shadow_size = 5
+	s.shadow_offset = Vector2(0,4)
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:
 		s.set_content_margin(side,22)
 	return s
@@ -147,11 +176,14 @@ func action(value: String, callback: Callable, gold: bool = false, minimum: Vect
 	b.text = value
 	b.custom_minimum_size = minimum
 	b.focus_mode = Control.FOCUS_NONE
-	b.add_theme_font_size_override("font_size",34)
+	b.add_theme_font_size_override("font_size",38 if gold else 34)
+	b.add_theme_color_override("font_disabled_color",Color("455B45"))
 	for state in ["normal","hover","pressed","disabled"]:
 		b.add_theme_stylebox_override(state,style(Color("DDAA38") if gold else GREEN))
 	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:
 		b.add_theme_color_override(state,GREEN if gold else Color.WHITE)
+	if gold:
+		b.add_theme_stylebox_override("disabled",style(Color("E5D5A5")))
 	b.pressed.connect(callback)
 	return b
 
@@ -164,6 +196,8 @@ func render() -> void:
 		child.queue_free()
 	create.visible = tab == 0 and not data.is_empty()
 	create.disabled = int(data.get("balance_usdt",0)) < 1000
+	list_header.visible = tab == 0 and not data.is_empty()
+	funding_hint.get_parent().get_parent().visible = create.visible and create.disabled
 	for i in [2,1,0]:
 		var b := action(["▥\nهلدینگ","▤\nمالی","♙\nپروفایل"][i],select_tab.bind(i),tab==i)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -172,8 +206,6 @@ func render() -> void:
 		body.add_child(label("فایل ذخیره معتبر نیست. به منوی اصلی بازگردید.",36,GREEN))
 		return
 	if tab == 0:
-		var heading := panel(body,CREAM)
-		heading.add_child(label("شرکت‌های من  •  " + str(companies.size()),36,GREEN))
 		for c in companies:
 			if c is Dictionary:
 				company_card(c)
@@ -181,7 +213,6 @@ func render() -> void:
 			body.add_child(label("هنوز شرکتی تأسیس نکرده‌اید.",34,GREEN))
 		if int(data.get("balance_usdt",0)) < 1000:
 			create.disabled = true
-			body.add_child(label("برای تأسیس شرکت حداقل ۱٬۰۰۰ USDT لازم است.",32,Color("8B291C")))
 	elif tab == 1:
 		var p := panel(body,CREAM)
 		p.add_child(label("گزارش مالی هلدینگ",44,GREEN))
@@ -242,3 +273,20 @@ func notice(value: String) -> void:
 	dialog.canceled.connect(dialog.queue_free)
 	add_child(dialog)
 	dialog.popup_centered(Vector2i(800,320))
+
+class MetricIcon extends Control:
+	var kind := "building"
+	func _draw() -> void:
+		var ink := Color("075440")
+		draw_circle(Vector2(38,38),36,Color("E7D8A4") if kind == "building" else Color("D9EBD9"))
+		if kind == "building":
+			draw_rect(Rect2(19,20,23,38),ink,false,4)
+			draw_rect(Rect2(42,34,15,24),ink,false,4)
+			for y in [28,39,50]:
+				draw_line(Vector2(26,y),Vector2(35,y),ink,3,true)
+			draw_line(Vector2(15,59),Vector2(62,59),ink,4,true)
+		else:
+			draw_line(Vector2(18,57),Vector2(18,20),ink,3,true)
+			draw_line(Vector2(18,57),Vector2(60,57),ink,3,true)
+			draw_polyline(PackedVector2Array([Vector2(23,48),Vector2(35,36),Vector2(44,42),Vector2(59,23)]),ink,4,true)
+			draw_polyline(PackedVector2Array([Vector2(47,23),Vector2(59,23),Vector2(59,35)]),ink,4,true)
