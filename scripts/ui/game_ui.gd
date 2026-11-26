@@ -23,10 +23,17 @@ static func apply_panel(control: Control, kind: String = "main") -> void:
 		kind = "main"
 	control.add_theme_stylebox_override("panel", texture_style("res://assets/ui/panels/panel_%s.png" % kind, 48, 48))
 
+static func bold_persian() -> FontVariation:
+	var font := FontVariation.new()
+	font.base_font = PERSIAN
+	font.variation_opentype = {TextServer.name_to_tag("wght"): 700}
+	return font
+
 static func apply_button(button: Button, family: String = "management") -> void:
 	if not FAMILIES.has(family):
 		family = "management"
 	button.theme = THEME
+	button.add_theme_font_override("font", bold_persian())
 	button.custom_minimum_size.y = maxf(button.custom_minimum_size.y, 100.0)
 	var path := "res://assets/ui/buttons/%s/" % family
 	for state in ["normal", "pressed", "disabled"]:

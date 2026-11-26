@@ -1,6 +1,7 @@
 extends Control
 const UI = preload("res://scripts/ui/game_ui.gd")
 const Motion = preload("res://scripts/ui/ui_animations.gd")
+var tab_buttons: Array[Button] = []
 var body: VBoxContainer
 var scroll: ScrollContainer
 var status: Label
@@ -36,7 +37,8 @@ func _ready() -> void:
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tabs.add_child(b)
 		UI.apply_button(b, "management")
-		b.add_theme_font_size_override("font_size", 26)
+		tab_buttons.append(b)
+		b.add_theme_font_size_override("font_size", 30)
 		b.pressed.connect(show_page.bind(i))
 		if i == 0:
 			b.set_pressed_no_signal(true)
@@ -65,6 +67,12 @@ func title_line(parent: Node, value: String, kind: String = "body") -> Label:
 	return l
 
 func show_page(index: int) -> void:
+	for i in range(tab_buttons.size()):
+		UI.apply_button(tab_buttons[i], "upgrade" if i == index else "management")
+		if i == index:
+			var gold := UI.texture_style("res://assets/ui/buttons/upgrade/normal.svg", 40, 32)
+			tab_buttons[i].add_theme_stylebox_override("pressed", gold)
+			tab_buttons[i].add_theme_stylebox_override("hover_pressed", gold)
 	for child in body.get_children():
 		body.remove_child(child)
 		child.queue_free()
@@ -77,7 +85,12 @@ func show_page(index: int) -> void:
 				body.add_child(p)
 				UI.apply_panel(p, kind)
 				var l := title_line(p, kind, "english")
-				if kind in ["finance", "selection"]:
+				l.add_theme_font_override("font", UI.bold_persian())
+				if kind == "selection":
+					l.add_theme_color_override("font_color", Color("#FFFFFF"))
+					l.add_theme_color_override("font_outline_color", Color("#092E26"))
+					l.add_theme_constant_override("outline_size", 6)
+				if kind == "finance":
 					l.add_theme_color_override("font_color", Color("#092E26"))
 		1:
 			for family in UI.FAMILIES:
