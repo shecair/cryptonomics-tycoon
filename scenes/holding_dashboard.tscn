@@ -119,6 +119,10 @@ corner_radius_top_right = 20
 corner_radius_bottom_left = 20
 corner_radius_bottom_right = 20
 
+[sub_resource type="StyleBoxLine" id="HeaderDivider"]
+color = Color(0.863, 0.784, 0.557, 1)
+thickness = 3
+
 [node name="HoldingDashboard" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -194,6 +198,10 @@ theme_override_styles/normal = SubResource("Red")
 theme_override_styles/hover = SubResource("Red")
 theme_override_styles/pressed = SubResource("Red")
 
+[node name="TopDivider" type="HSeparator" parent="Margin/Root/Header/Stack"]
+custom_minimum_size = Vector2(0, 3)
+theme_override_styles/separator = SubResource("HeaderDivider")
+
 [node name="Identity" type="PanelContainer" parent="Margin/Root/Header/Stack"]
 theme_override_styles/panel = SubResource("IdentityCompact")
 
@@ -261,6 +269,8 @@ mouse_filter = 2
 
 
 [node name="Line" type="HSeparator" parent="Margin/Root/Header/Stack/Identity/Content"]
+custom_minimum_size = Vector2(0, 3)
+theme_override_styles/separator = SubResource("HeaderDivider")
 
 
 [node name="Cash" type="HBoxContainer" parent="Margin/Root/Header/Stack/Identity/Content"]
