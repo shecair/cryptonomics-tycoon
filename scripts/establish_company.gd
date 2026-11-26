@@ -18,6 +18,10 @@ var avatar_view: TextureRect
 var holding_view: TextureRect
 var step_tween: Tween
 var completed := false
+var dots: Array[Label] = []
+var checks: Array[Label] = []
+var subtitle: Label
+var amount_label: Label
 
 func _ready() -> void:
 	$Mining.pressed.connect(select_business.bind("mining"))
@@ -59,7 +63,7 @@ func select_size(value: String) -> void:
 func refresh() -> void:
 	var balance := int(data.get("balance_usdt", 0))
 	var cost := int(COSTS[company_size])
-	$Balance.text = "موجودی هلدینگ: %d USDT" % balance if not data.is_empty() else "موجودی هلدینگ: —"
+	amount_label.text = "%s USDT" % str(balance) if not data.is_empty() else "—"
 	$Cost.text = "هزینه تأسیس: %d USDT" % cost
 	if data.is_empty():
 		$Remaining.text = "موجودی پس از تأسیس: —"
@@ -72,10 +76,17 @@ func refresh() -> void:
 		var selected: bool = pair[1] == business or pair[1] == company_size
 		button.modulate = Color.WHITE
 		var style := button.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
-		style.bg_color = Color("087F69") if selected else Color("075440")
-		style.border_color = Color("FFD36A") if selected else Color("B58A39")
+		style.bg_color = Color("087F69") if selected else Color("FFF5D9")
+		style.border_color = Color("DDAA38") if selected else Color("DCC88E")
 		style.set_border_width_all(6 if selected else 3)
 		button.add_theme_stylebox_override("normal", style)
+		button.add_theme_stylebox_override("hover", style)
+		button.add_theme_stylebox_override("pressed", style)
+		for child in button.get_children():
+			if child is Label:
+				child.add_theme_color_override("font_color", Color("FFFFFF") if selected else Color("075440"))
+	for i in range(checks.size()):
+		checks[i].visible = ["mining", "exchange", "blockchain"][i] == business and step == 0
 	update_wizard_state(balance, cost)
 
 func change_logo(direction: int) -> void:
@@ -189,36 +200,75 @@ func make_texture(path: String, x: float, y: float, w: float, h: float) -> Textu
 
 func setup_wizard() -> void:
 	$Title.hide()
-	make_texture("res://assets/loading/logo.png", 310, 10, 460, 220)
-	place($BalancePlate, 35, 245, 1010, 245)
-	avatar_view = make_texture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar", 1)), 1, 6), 65, 260, 145, 145)
-	holding_view = make_texture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo", 1)), 1, 5), 565, 270, 125, 125)
-	player_label = make_label(str(data.get("player_name", "—")), 215, 270, 330, 115, 38, Color("FFF5D9"))
-	holding_label = make_label(str(data.get("holding_name", "—")), 695, 270, 320, 115, 38, Color("FFF5D9"))
-	place($Balance, 65, 405, 950, 75)
-	step_label = make_label("", 35, 505, 1010, 90, 40, Color("075440"))
-	place($BusinessTitle, 35, 605, 1010, 100)
+	$Background.hide()
+	var backdrop := ColorRect.new()
+	backdrop.color = Color("F5E5B0")
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(backdrop)
+	move_child(backdrop, 0)
+	place(backdrop, 0, 0, 1080, 1920)
+	make_label("CRYPTONOMICS", 260, 35, 560, 65, 48, Color("075440"))
+	make_label("TYCOON", 260, 100, 560, 65, 48, Color("A87613"))
+	place($Back, 900, 55, 110, 85)
+	place($Help, 65, 55, 90, 85)
+	place($BalancePlate, 65, 215, 950, 320)
+	avatar_view = make_texture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar", 1)), 1, 6), 845, 235, 140, 140)
+	holding_view = make_texture("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo", 1)), 1, 5), 350, 245, 115, 115)
+	player_label = make_label(str(data.get("player_name", "—")), 500, 240, 330, 65, 38, Color("FFF5D9"))
+	holding_label = make_label(str(data.get("holding_name", "—")), 75, 245, 265, 115, 38, Color("FFF5D9"))
+	make_label("مدیر هلدینگ", 500, 305, 330, 65, 30, Color("F5D68B"))
+	var line := ColorRect.new()
+	line.color = Color("4D8979")
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(line)
+	place(line, 95, 405, 890, 3)
+	place($Balance, 565, 425, 400, 80)
+	$Balance.text = "خزانه هلدینگ"
+	amount_label = make_label("", 95, 425, 440, 80, 42, Color("FFE4A0"))
+	for i in range(3):
+		var x := 850 - i * 365
+		var dot := make_label(str(i + 1), x, 570, 90, 90, 42, Color("075440"))
+		dots.append(dot)
+		make_label(["کسب‌وکار", "هویت شرکت", "تأسیس"][i], x - 80, 660, 250, 60, 30, Color("075440"))
+		if i < 2:
+			var connector := ColorRect.new()
+			connector.color = Color("CDBD8A")
+			connector.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			add_child(connector)
+			place(connector, x - 255, 613, 220, 5)
+	step_label = make_label("", 0, 0, 1, 1, 1, Color.TRANSPARENT)
+	subtitle = make_label("", 65, 800, 950, 70, 34, Color("526B51"))
+	place($BusinessTitle, 35, 720, 1010, 80)
 	$BusinessTitle.text = "آینده‌ات را انتخاب کن!"
 	for i in range(3):
 		var card: Button = [$Mining, $Exchange, $Blockchain][i]
-		place(card, 75, 725 + i * 270, 930, 245)
-		place(card.get_node("Art"), 25, 10, 225, 225)
-		place(card.get_node("Caption"), 260, 20, 640, 205)
-	place($Logo, 360, 770, 360, 360)
-	place($LogoPrev, 180, 900, 110, 110)
-	place($LogoNext, 790, 900, 110, 110)
-	place($LogoCount, 200, 1150, 680, 70)
-	place($CompanyName, 75, 1260, 930, 120)
-	place($SizeTitle, 35, 605, 1010, 100)
+		place(card, 75, 890 + i * 230, 930, 205)
+		card.get_node("Art").hide()
+		var symbol := make_label(["▣", "⇄", "◇"][i], 790, 910 + i * 230, 175, 165, 90, Color("075440"))
+		var icon_style := StyleBoxFlat.new()
+		icon_style.bg_color = Color("E8CE8B")
+		icon_style.set_corner_radius_all(22)
+		symbol.add_theme_stylebox_override("normal", icon_style)
+		symbol.reparent(card, true)
+		place(card.get_node("Caption"), 180, 10, 520, 185)
+		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i]
+		var check := make_label("✓", 95, 945 + i * 230, 90, 90, 50, Color("F5D68B"))
+		checks.append(check)
+	place($Logo, 360, 900, 360, 360)
+	place($LogoPrev, 180, 1025, 110, 110)
+	place($LogoNext, 790, 1025, 110, 110)
+	place($LogoCount, 200, 1280, 680, 70)
+	place($CompanyName, 75, 1370, 930, 120)
+	place($SizeTitle, 35, 720, 1010, 80)
 	$SizeTitle.text = "از کجا شروع می‌کنی؟"
 	for i in range(3):
 		var card: Button = [$Small, $Medium, $Large][i]
-		place(card, 24 + i * 348, 740, 336, 340)
-	place($CostPlate, 55, 1130, 970, 270)
-	place($Cost, 75, 1150, 930, 100)
-	place($Remaining, 75, 1260, 930, 110)
-	place($Create, 75, 1570, 930, 140)
-	place($Status, 45, 1730, 990, 130)
+		place(card, 24 + i * 348, 890, 336, 340)
+	place($CostPlate, 55, 1260, 970, 270)
+	place($Cost, 75, 1270, 930, 100)
+	place($Remaining, 75, 1380, 930, 110)
+	place($Create, 75, 1690, 930, 140)
+	place($Status, 45, 1560, 990, 120)
 	$Status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	show_step(false)
 
@@ -237,7 +287,13 @@ func show_step(animate: bool = true) -> void:
 				step_tween.tween_property(node, "modulate:a", 1.0, 0.25)
 	$BusinessTitle.visible = step != 2
 	$BusinessTitle.text = "آینده‌ات را انتخاب کن!" if step == 0 else "به شرکتت هویت بده!"
-	step_label.text = ["۱ از ۳  •  انتخاب کسب‌وکار", "۲ از ۳  •  هویت شرکت", "۳ از ۳  •  اندازه و تأسیس"][step]
+	subtitle.text = ["دوست داری در چه حوزه‌ای فعالیت کنی؟", "نام و نشان تجاری خودت را انتخاب کن.", "اندازه شرکت و هزینه تأسیس را بررسی کن."][step]
+	for i in range(dots.size()):
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color("087F69") if i <= step else Color("DCC88E")
+		style.set_corner_radius_all(45)
+		dots[i].add_theme_stylebox_override("normal", style)
+		dots[i].add_theme_color_override("font_color", Color.WHITE if i <= step else Color("72581D"))
 	$Create.text = "تأسیس شرکت" if step == 2 else "ادامه"
 
 func update_wizard_state(balance: int, cost: int) -> void:
