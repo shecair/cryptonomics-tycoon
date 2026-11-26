@@ -257,7 +257,12 @@ func update_wizard_state(balance: int, cost: int) -> void:
 	elif step == 2 and balance < cost:
 		warning = "سرمایه کافی برای این اندازه شرکت ندارید."
 	$Create.disabled = busy or completed or not warning.is_empty()
-	$Status.text = warning
+	if step == 1:
+		$CompanyNameGuide.text = warning if not warning.is_empty() else "✓ نام شرکت معتبر است."
+		$CompanyNameGuide.add_theme_color_override("font_color", Color("FFB4A8") if not warning.is_empty() else Color("B8F58A"))
+		$Status.text = ""
+	else:
+		$Status.text = warning
 	$Status.add_theme_color_override("font_color", Color("8B291C"))
 
 func advance_step() -> void:
