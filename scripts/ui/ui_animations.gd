@@ -4,9 +4,10 @@ const DURATIONS = {"button": 0.12, "selection": 0.20, "tab": 0.18, "production":
 static var reduced_motion: bool = false
 
 static func begin(control: Control) -> Tween:
-	var previous = control.get_meta("_game_ui_tween", null)
-	if previous is Tween and previous.is_valid():
-		previous.kill()
+	if control.has_meta("_game_ui_tween"):
+		var previous = control.get_meta("_game_ui_tween")
+		if previous is Tween and previous.is_valid():
+			previous.kill()
 	if not control.has_meta("_game_ui_base_scale"):
 		control.set_meta("_game_ui_base_scale", control.scale)
 		control.set_meta("_game_ui_base_color", control.modulate)
