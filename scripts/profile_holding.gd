@@ -2,7 +2,7 @@ extends Control
 
 const ASSETS = "res://assets/profile_holding/"
 const SAVE = "user://savegame.json"
-const NEXT = "res://scenes/start_company.tscn"
+const NEXT = "res://scenes/establish_company.tscn"
 var avatar_index := 0
 var logo_index := 0
 var animations: Dictionary = {}
@@ -87,10 +87,16 @@ func start_game() -> void:
 		message("ذخیره اطلاعات ناموفق بود.")
 		return
 	file.store_string(JSON.stringify(data, "\t"))
+	file.flush()
+	var err := file.get_error()
 	file.close()
+	if err != OK:
+		message("ذخیره اطلاعات ناموفق بود.")
+		return
 	saved = true
 	update_start("")
 	if ResourceLoader.exists(NEXT):
-		get_tree().change_scene_to_file(NEXT)
+		if get_tree().change_scene_to_file(NEXT) != OK:
+			message("هلدینگ ذخیره شد؛ باز کردن مرحله بعد ناموفق بود. از منوی اصلی ادامه دهید.")
 	else:
 		$Status.text = "هلدینگ ایجاد شد؛ مرحله بعد هنوز آماده نیست."
