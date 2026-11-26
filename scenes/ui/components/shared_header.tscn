@@ -186,6 +186,14 @@ mouse_filter = 2
 [node name="HoldingInfo" type="VBoxContainer" parent="Stack/Identity/Content/Row"]
 size_flags_horizontal = 3
 
+[node name="Title" type="Label" parent="Stack/Identity/Content/Row/HoldingInfo"]
+text = "نام هلدینگ"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
+
+
 [node name="HoldingName" type="Label" parent="Stack/Identity/Content/Row/HoldingInfo"]
 text = "نام هلدینگ"
 horizontal_alignment = 1
@@ -195,16 +203,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="Title" type="Label" parent="Stack/Identity/Content/Row/HoldingInfo"]
-text = "نام هلدینگ"
+[node name="Person" type="VBoxContainer" parent="Stack/Identity/Content/Row"]
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Stack/Identity/Content/Row/Person"]
+text = "نام مدیر"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
 
-
-[node name="Person" type="VBoxContainer" parent="Stack/Identity/Content/Row"]
-size_flags_horizontal = 3
 
 [node name="PlayerName" type="Label" parent="Stack/Identity/Content/Row/Person"]
 text = "نام بازیکن"
@@ -214,14 +222,6 @@ theme_override_font_sizes/font_size = 38
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 clip_text = true
 text_overrun_behavior = 3
-
-[node name="Title" type="Label" parent="Stack/Identity/Content/Row/Person"]
-text = "مدیر هلدینگ"
-horizontal_alignment = 1
-vertical_alignment = 1
-theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(1, 0.894, 0.627, 1)
-
 
 [node name="Avatar" type="TextureRect" parent="Stack/Identity/Content/Row"]
 custom_minimum_size = Vector2(125, 125)
