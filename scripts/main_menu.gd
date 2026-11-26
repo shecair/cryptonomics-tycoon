@@ -2,8 +2,9 @@ extends Control
 
 const SETTINGS_PATH = "user://settings.cfg"
 const SAVE_PATH = "user://savegame.json"
-const START_PATH = "res://scenes/start_company.tscn"
-const CONTINUE_PATH = "res://scenes/dashboard.tscn"
+const START_PATH = "res://scenes/profile_holding.tscn"
+const COMPANY_PATH = "res://scenes/establish_company.tscn"
+const CONTINUE_PATH = "res://scenes/holding_dashboard.tscn"
 @onready var background: TextureRect = $Background
 @onready var menu_panel: Control = $MenuPanel
 @onready var crown: TextureRect = $MenuPanel/Crown
@@ -86,7 +87,7 @@ func play_intro_animation() -> void:
 	await tween.finished
 	for button in menu_buttons:
 		button.disabled = false
-	continue_button.disabled = not (FileAccess.file_exists(SAVE_PATH) and ResourceLoader.exists(CONTINUE_PATH))
+	continue_button.disabled = read_save().is_empty()
 	animation_finished = true
 
 func _on_button_down(button: TextureButton) -> void:
@@ -114,12 +115,26 @@ func animate_button_scale(button: TextureButton, target: Vector2, duration: floa
 func tr_menu(en: String, fa: String) -> String:
 	return fa if language == "fa" else en
 
+func read_save() -> Dictionary:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return {}
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
+	if parsed is Dictionary and parsed.get("companies") is Array and typeof(parsed.get("balance_usdt")) in [TYPE_INT, TYPE_FLOAT]:
+		return parsed
+	return {}
+
 func _on_start_pressed() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		if read_save().is_empty():
+			show_notice(tr_menu("Save is invalid; existing data was preserved.", "فایل ذخیره نامعتبر است؛ اطلاعات موجود حفظ شد."))
+		else:
+			_on_continue_pressed()
+		return
 	open_scene(START_PATH)
 
 func _on_continue_pressed() -> void:
-	if FileAccess.file_exists(SAVE_PATH):
-		open_scene(CONTINUE_PATH)
+	if not read_save().is_empty():
+		open_scene(CONTINUE_PATH if ResourceLoader.exists(CONTINUE_PATH) else COMPANY_PATH)
 
 func open_scene(path: String) -> void:
 	if not ResourceLoader.exists(path):
