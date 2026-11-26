@@ -164,7 +164,7 @@ func refresh_slots() -> void:
 	for i in range(3):
 		var entries := group_companies(i)
 		var group := groups.get_child(i)
-		group.get_node("Content/Heading").text = ["استخراج رمزارز","صرافی رمزارز","توسعه بلاکچین"][i] + "  |  %d/3" % entries.size()
+		group.get_node("Content/HeadingRow/Count").text = "%d/3" % entries.size()
 		for j in range(3):
 			var slot := group.get_node("Content/Slots").get_child(j) as Button
 			var occupied := j < entries.size()
