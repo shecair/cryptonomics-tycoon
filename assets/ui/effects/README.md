@@ -1,0 +1,2 @@
+# Shared motion V1 prototype
+Tween-based opt-in motion, eleven event durations, reduced_motion switch, button binding and floating reward helper. Company/airdrop/upgrade/coin effects currently use simple pulses; dedicated particle art, celebration sequences, scene switching orchestration and persistent accessibility setting are pending. No existing scenes or economic logic changed. Runtime validation pending in UIShowcase.
