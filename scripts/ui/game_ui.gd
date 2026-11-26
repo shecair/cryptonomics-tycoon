@@ -23,17 +23,21 @@ static func apply_panel(control: Control, kind: String = "main") -> void:
 		kind = "main"
 	control.add_theme_stylebox_override("panel", texture_style("res://assets/ui/panels/panel_%s.png" % kind, 48, 48))
 
-static func bold_persian() -> FontVariation:
+static func weighted_font(base: Font, weight: int) -> FontVariation:
 	var font := FontVariation.new()
-	font.base_font = PERSIAN
-	font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): 700}
+	font.base_font = base
+	font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): weight}
 	return font
+
+static func bold_persian() -> FontVariation:
+	return weighted_font(PERSIAN, 700)
 
 static func apply_button(button: Button, family: String = "management") -> void:
 	if not FAMILIES.has(family):
 		family = "management"
 	button.theme = THEME
 	button.add_theme_font_override("font", bold_persian())
+	button.add_theme_font_size_override("font_size", 40)
 	button.custom_minimum_size.y = maxf(button.custom_minimum_size.y, 100.0)
 	var path := "res://assets/ui/buttons/%s/" % family
 	for state in ["normal", "pressed", "disabled"]:
@@ -56,18 +60,22 @@ static func set_selected(button: Button, family: String, selected: bool) -> void
 		button.add_theme_stylebox_override("hover", style)
 
 static func apply_text(label: Label, kind: String = "body") -> void:
-	label.add_theme_font_override("font", PERSIAN)
+	label.add_theme_font_override("font", weighted_font(PERSIAN, 500))
 	match kind:
 		"money":
-			label.add_theme_font_override("font", MONEY)
+			label.add_theme_font_override("font", weighted_font(MONEY, 700))
 			label.text_direction = Control.TEXT_DIRECTION_LTR
-			label.add_theme_font_size_override("font_size", 56)
+			label.add_theme_font_size_override("font_size", 72)
 			label.add_theme_color_override("font_color", Color("#FFE46D"))
 		"english":
-			label.add_theme_font_override("font", ENGLISH)
+			label.add_theme_font_override("font", weighted_font(ENGLISH, 700))
 			label.text_direction = Control.TEXT_DIRECTION_LTR
-			label.add_theme_font_size_override("font_size", 44)
+			label.add_theme_font_size_override("font_size", 48)
+		"hero":
+			label.add_theme_font_override("font", bold_persian())
+			label.add_theme_font_size_override("font_size", 64)
 		"title":
+			label.add_theme_font_override("font", bold_persian())
 			label.add_theme_font_size_override("font_size", 48)
 		"hint":
 			label.add_theme_font_size_override("font_size", 28)
