@@ -25,6 +25,30 @@ func _ready() -> void:
 	$Help.pressed.connect(func(): message("دو نام وارد کنید. آواتار و لوگو اختیاری هستند. سرمایه اولیه هلدینگ ۱۰٬۰۰۰ تتر است."))
 	update_start("")
 
+func place(node: Control, x: float, y: float, w: float, h: float) -> void:
+	node.position = Vector2(x, y)
+	node.size = Vector2(w, h)
+
+func section_panel(y: float, h: float) -> void:
+	var panel := Panel.new()
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(panel)
+	move_child(panel, $GameLogo.get_index())
+	place(panel, 65, y, 950, h)
+	UI.apply_panel(panel, "main")
+
+func guide(value: String, y: float, size_px: int, gold: bool = false) -> void:
+	var label := Label.new()
+	label.text = value
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	add_child(label)
+	place(label, 90, y, 900, 52)
+	UI.apply_text(label, "title" if gold else "body")
+	label.add_theme_font_size_override("font_size", size_px)
+	label.add_theme_color_override("font_color", Color("#FFE46D") if gold else Color("#F9F5E7"))
+
 func apply_profile_art() -> void:
 	theme = UI.THEME
 	for button in [$AvatarPrev, $AvatarNext, $LogoPrev, $LogoNext]:
@@ -33,29 +57,59 @@ func apply_profile_art() -> void:
 	UI.apply_button($Back, "danger")
 	UI.apply_button($Help, "information")
 	UI.apply_button($Start, "primary")
-	$Start.add_theme_font_size_override("font_size", 48)
-	UI.apply_text($Title, "hero")
-	$Title.add_theme_color_override("font_color", Color("#FFE46D"))
-	$Title.add_theme_color_override("font_outline_color", Color("#092E26"))
-	$Title.add_theme_constant_override("outline_size", 8)
-	UI.apply_panel($AvatarHalo, "main")
-	var logo_frame := Panel.new()
-	logo_frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(logo_frame)
-	move_child(logo_frame, $HoldingLogo.get_index())
-	logo_frame.position = $HoldingLogo.position - Vector2(12, 12)
-	logo_frame.size = $HoldingLogo.size + Vector2(24, 24)
-	UI.apply_panel(logo_frame, "main")
+	$Start.add_theme_font_size_override("font_size", 44)
+	$Start.text = "شروع ماجراجویی"
+	place($GameLogo, 265, 15, 550, 235)
+	place($Title, 65, 246, 950, 76)
+	$Title.text = "امپراتوری اقتصادی خودت را بساز!"
+	UI.apply_text($Title, "title")
+	$Title.add_theme_color_override("font_color", Color("#075440"))
+	$Title.add_theme_constant_override("outline_size", 0)
+	section_panel(330, 540)
+	section_panel(910, 490)
+	section_panel(1440, 235)
+	guide("۱ • شخصیت خودت را بساز", 345, 42, true)
+	guide("دوست داری در دنیای کسب‌وکار چه کسی باشی؟", 398, 30)
+	guide("۲ • هلدینگ خودت را تأسیس کن", 925, 42, true)
+	guide("نام و نشان امپراتوری خودت را انتخاب کن.", 978, 30)
+	guide("↓", 866, 42, true)
+	guide("↓", 1396, 42, true)
+	guide("۳ • سرمایه آغاز ماجراجویی", 1450, 40, true)
+	guide("اولین سرمایه برای ساخت آینده اقتصادی تو!", 1610, 30)
+	$AvatarHalo.hide()
+	place($Avatar, 375, 450, 330, 235)
+	place($AvatarPrev, 220, 515, 100, 100)
+	place($AvatarNext, 760, 515, 100, 100)
+	place($AvatarCount, 390, 680, 300, 45)
+	place($PlayerName, 115, 738, 850, 102)
+	place($HoldingLogo, 430, 1030, 220, 180)
+	place($LogoPrev, 295, 1070, 100, 100)
+	place($LogoNext, 685, 1070, 100, 100)
+	place($LogoCount, 390, 1208, 300, 45)
+	place($HoldingName, 115, 1268, 850, 102)
 	for field in [$PlayerName, $HoldingName]:
 		field.add_theme_font_override("font", UI.weighted_font(UI.PERSIAN, 500))
-		field.add_theme_font_size_override("font_size", 48)
-		field.add_theme_stylebox_override("normal", UI.texture_style("res://assets/ui/panels/panel_finance.png", 48, 48))
-	UI.apply_panel($CapitalPlate, "finance")
-	UI.apply_text($CapitalLabel, "title")
+		field.add_theme_font_size_override("font_size", 40)
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color("#FFF8E6")
+		style.border_color = Color("#E9AD32")
+		style.set_border_width_all(2)
+		style.set_corner_radius_all(20)
+		style.content_margin_left = 16
+		style.content_margin_right = 16
+		field.add_theme_stylebox_override("normal", style)
+		var focus := style.duplicate() as StyleBoxFlat
+		focus.border_color = Color("#FFE46D")
+		focus.set_border_width_all(3)
+		field.add_theme_stylebox_override("focus", focus)
+	$CapitalPlate.hide()
+	$CapitalLabel.hide()
+	place($CapitalIcon, 145, 1510, 95, 95)
+	place($Capital, 245, 1505, 700, 105)
 	UI.apply_text($Capital, "money")
-	for label in [$CapitalLabel, $Capital]:
-		label.add_theme_color_override("font_color", Color("#092E26"))
-		label.add_theme_constant_override("outline_size", 0)
+	$Capital.add_theme_constant_override("outline_size", 0)
+	place($Start, 105, 1700, 870, 125)
+	place($Status, 65, 1830, 950, 65)
 	UI.apply_text($Status, "hint")
 	$Status.add_theme_font_size_override("font_size", 32)
 
