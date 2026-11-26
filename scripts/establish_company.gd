@@ -243,13 +243,12 @@ func setup_wizard() -> void:
 	for i in range(3):
 		var card: Button = [$Mining, $Exchange, $Blockchain][i]
 		place(card, 75, 890 + i * 230, 930, 205)
-		card.get_node("Art").hide()
-		var symbol := make_label(["▣", "⇄", "◇"][i], 790, 910 + i * 230, 175, 165, 90, Color("075440"))
-		var icon_style := StyleBoxFlat.new()
-		icon_style.bg_color = Color("E8CE8B")
-		icon_style.set_corner_radius_all(22)
-		symbol.add_theme_stylebox_override("normal", icon_style)
-		symbol.reparent(card, true)
+		var art: TextureRect = card.get_node("Art")
+		art.show()
+		place(art, 715, 15, 175, 175)
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		place(card.get_node("Caption"), 180, 10, 520, 185)
 		card.get_node("Caption").text = ["استخراج رمزارز", "صرافی رمزارز", "توسعه بلاکچین"][i]
 		var check := make_label("✓", 95, 945 + i * 230, 90, 90, 50, Color("F5D68B"))
