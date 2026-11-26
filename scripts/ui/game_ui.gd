@@ -26,7 +26,7 @@ static func apply_panel(control: Control, kind: String = "main") -> void:
 static func bold_persian() -> FontVariation:
 	var font := FontVariation.new()
 	font.base_font = PERSIAN
-	font.variation_opentype = {TextServer.name_to_tag("wght"): 700}
+	font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"): 700}
 	return font
 
 static func apply_button(button: Button, family: String = "management") -> void:
