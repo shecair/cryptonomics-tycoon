@@ -28,8 +28,8 @@ func _ready() -> void:
 	$PlayerName.text_changed.connect(update_start)
 	$HoldingName.text_changed.connect(update_start)
 	$Start.pressed.connect(start_game)
-	$Back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
-	$Help.pressed.connect(func(): message("دو نام وارد کنید. آواتار و لوگو اختیاری هستند. سرمایه اولیه هلدینگ ۱۰٬۰۰۰ تتر است."))
+	$SharedHeader/Stack/Top/Menu.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
+	$SharedHeader/Stack/Top/Help.pressed.connect(func(): message("دو نام وارد کنید. آواتار و لوگو اختیاری هستند. سرمایه اولیه هلدینگ ۱۰٬۰۰۰ تتر است."))
 	update_start("")
 
 func setup_name_field(field: LineEdit, title: Label, hint: Label, limit: int) -> void:

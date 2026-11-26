@@ -35,8 +35,8 @@ func _ready() -> void:
 	$LogoNext.pressed.connect(change_logo.bind(1))
 	$CompanyName.text_changed.connect(func(_text: String): refresh())
 	$Create.pressed.connect(advance_step)
-	$Help.pressed.connect(func(): notice("نوع و اندازه شرکت را انتخاب کنید. هزینه تأسیس از خزانه هلدینگ کسر می‌شود. تجهیزات و کارکنان جداگانه خریداری می‌شوند."))
-	$Back.pressed.connect(go_back)
+	$SharedHeader/Stack/Top/Help.pressed.connect(func(): notice("نوع و اندازه شرکت را انتخاب کنید. هزینه تأسیس از خزانه هلدینگ کسر می‌شود. تجهیزات و کارکنان جداگانه خریداری می‌شوند."))
+	$SharedHeader/Stack/Top/Menu.pressed.connect(go_back)
 	data = read_save()
 	setup_wizard()
 	for kind in Capacity.TYPES:
@@ -200,11 +200,11 @@ func create_company() -> void:
 
 func setup_wizard() -> void:
 	logo_origin_x = $Logo.position.x
-	avatar_view = $AvatarView
-	holding_view = $HoldingView
-	player_label = $PlayerLabel
-	holding_label = $HoldingLabel
-	amount_label = $AmountLabel
+	avatar_view = $SharedHeader/Stack/Identity/Content/Row/Avatar
+	holding_view = $SharedHeader/Stack/Identity/Content/Row/HoldingLogo
+	player_label = $SharedHeader/Stack/Identity/Content/Row/Person/PlayerName
+	holding_label = $SharedHeader/Stack/Identity/Content/Row/HoldingInfo/HoldingName
+	amount_label = $SharedHeader/Stack/Identity/Content/Cash/Amount
 	subtitle = $Subtitle
 	avatar_view.texture = load("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar", 1)), 1, 6)) as Texture2D
 	holding_view.texture = load("res://assets/profile_holding/holding_logo_%02d.png" % clampi(int(data.get("holding_logo", 1)), 1, 5)) as Texture2D
