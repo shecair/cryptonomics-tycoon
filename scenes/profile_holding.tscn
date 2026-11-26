@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=38 format=3]
 
 [ext_resource type="Script" path="res://scripts/profile_holding.gd" id="1"]
 
@@ -10,202 +10,160 @@
 
 [ext_resource type="Texture2D" path="res://assets/profile_holding/holding_logo_01.png" id="5"]
 
-[ext_resource type="Texture2D" path="res://assets/profile_holding/capital_icon.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/profile_holding/tether_simple.svg" id="6"]
+
+[ext_resource type="Theme" path="res://themes/game_theme.tres" id="7"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/Vazirmatn/Vazirmatn.ttf" id="8"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/RobotoMono/RobotoMono.ttf" id="9"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/normal.svg" id="management_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/pressed.svg" id="management_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/management/disabled.svg" id="management_disabled"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/normal.svg" id="danger_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/pressed.svg" id="danger_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/danger/disabled.svg" id="danger_disabled"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/normal.svg" id="information_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/pressed.svg" id="information_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/information/disabled.svg" id="information_disabled"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/normal.svg" id="primary_normal"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/pressed.svg" id="primary_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/primary/disabled.svg" id="primary_disabled"]
+
+[sub_resource type="FontVariation" id="Bold"]
+base_font = ExtResource("8")
+variation_opentype = {2003265652: 700}
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.027, 0.33, 0.25, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_left = 30
+corner_radius_bottom_right = 30
+content_margin_left = 12.0
+content_margin_right = 12.0
 
 [sub_resource type="StyleBoxFlat" id="Cream"]
-bg_color = Color(0.99, 0.96, 0.86, 1)
-border_color = Color(0.83, 0.59, 0.20, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_left = 24
-corner_radius_bottom_right = 24
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 6
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="FieldFocus"]
-bg_color = Color(0, 0, 0, 0)
-border_color = Color(1, 0.80, 0.35, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_left = 24
-corner_radius_bottom_right = 24
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 0
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="Emerald"]
-bg_color = Color(0.03, 0.34, 0.26, 1)
-border_color = Color(0.91, 0.68, 0.23, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_left = 25
-corner_radius_bottom_right = 25
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="EmeraldHover"]
-bg_color = Color(0.05, 0.46, 0.34, 1)
-border_color = Color(1, 0.83, 0.40, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_left = 25
-corner_radius_bottom_right = 25
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="EmeraldPressed"]
-bg_color = Color(0.02, 0.25, 0.19, 1)
-border_color = Color(0.83, 0.59, 0.20, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_left = 25
-corner_radius_bottom_right = 25
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 1
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="Gold"]
-bg_color = Color(0.98, 0.73, 0.23, 1)
-border_color = Color(1, 0.88, 0.53, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_left = 30
-corner_radius_bottom_right = 30
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 8
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="GoldHover"]
-bg_color = Color(1, 0.82, 0.36, 1)
-border_color = Color(1, 0.94, 0.66, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_left = 30
-corner_radius_bottom_right = 30
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 8
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="GoldPressed"]
-bg_color = Color(0.85, 0.57, 0.13, 1)
-border_color = Color(0.98, 0.75, 0.30, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_left = 30
-corner_radius_bottom_right = 30
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 2
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="GoldDisabled"]
-bg_color = Color(0.82, 0.68, 0.36, 1)
-border_color = Color(0.94, 0.80, 0.47, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_left = 30
-corner_radius_bottom_right = 30
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 4
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="CapitalPlate"]
-bg_color = Color(0.02, 0.24, 0.18, 0.92)
-border_color = Color(0.91, 0.68, 0.23, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-corner_radius_top_left = 28
-corner_radius_top_right = 28
-corner_radius_bottom_left = 28
-corner_radius_bottom_right = 28
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 5
-shadow_offset = Vector2(0, 4)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="Halo"]
-bg_color = Color(1, 0.78, 0.25, 0.18)
-border_color = Color(1, 0.85, 0.43, 0.42)
+bg_color = Color(1, 0.973, 0.90, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 180
-corner_radius_top_right = 180
-corner_radius_bottom_left = 180
-corner_radius_bottom_right = 180
-shadow_color = Color(0.02, 0.13, 0.09, 0.35)
-shadow_size = 0
-shadow_offset = Vector2(0, 4)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
 content_margin_left = 12.0
 content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="Badge"]
+bg_color = Color(1, 0.89, 0.43, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_left = 35
+corner_radius_bottom_right = 35
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxTexture" id="management_normal"]
+texture = ExtResource("management_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="management_pressed"]
+texture = ExtResource("management_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="management_disabled"]
+texture = ExtResource("management_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="danger_normal"]
+texture = ExtResource("danger_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="danger_pressed"]
+texture = ExtResource("danger_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="danger_disabled"]
+texture = ExtResource("danger_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_normal"]
+texture = ExtResource("information_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_pressed"]
+texture = ExtResource("information_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="information_disabled"]
+texture = ExtResource("information_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="primary_normal"]
+texture = ExtResource("primary_normal")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="primary_pressed"]
+texture = ExtResource("primary_pressed")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
+
+[sub_resource type="StyleBoxTexture" id="primary_disabled"]
+texture = ExtResource("primary_disabled")
+texture_margin_left = 48.0
+texture_margin_right = 48.0
+texture_margin_top = 32.0
+texture_margin_bottom = 32.0
 
 [node name="ProfileHolding" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+theme = ExtResource("7")
 script = ExtResource("1")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -214,21 +172,48 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 1080.0
 offset_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="PlayerPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 330.0
+offset_right = 1025.0
+offset_bottom = 870.0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="HoldingPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 890.0
+offset_right = 1025.0
+offset_bottom = 1380.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="CapitalPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 1400.0
+offset_right = 1025.0
+offset_bottom = 1655.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Panel")
 
 [node name="GameLogo" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 240.0
-offset_top = 35.0
-offset_right = 840.0
-offset_bottom = 325.0
+offset_left = 265.0
+offset_top = 15.0
+offset_right = 815.0
+offset_bottom = 250.0
+mouse_filter = 2
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
@@ -238,17 +223,15 @@ offset_right = 145.0
 offset_bottom = 155.0
 text = "‹"
 focus_mode = 0
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 72
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("danger_normal")
+theme_override_styles/hover = SubResource("danger_normal")
+theme_override_styles/pressed = SubResource("danger_pressed")
+theme_override_styles/disabled = SubResource("danger_disabled")
+
 
 [node name="Help" type="Button" parent="."]
 layout_mode = 0
@@ -258,282 +241,452 @@ offset_right = 1045.0
 offset_bottom = 155.0
 text = "i"
 focus_mode = 0
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 56
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("information_normal")
+theme_override_styles/hover = SubResource("information_normal")
+theme_override_styles/pressed = SubResource("information_pressed")
+theme_override_styles/disabled = SubResource("information_disabled")
+
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 330.0
-offset_right = 1020.0
-offset_bottom = 420.0
-text = "کسب‌وکار خودت را بساز!"
+offset_left = 65.0
+offset_top = 246.0
+offset_right = 1015.0
+offset_bottom = 322.0
+mouse_filter = 2
+text = "امپراتوری اقتصادی خودت را بساز!"
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_outline_color = Color(1, 0.94, 0.79, 1)
-theme_override_constants/outline_size = 5
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
+
+[node name="PlayerHeading" type="Label" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 345.0
+offset_right = 830.0
+offset_bottom = 415.0
+mouse_filter = 2
+text = "شخصیت خودت را بساز"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
+[node name="PlayerBadge" type="Label" parent="."]
+layout_mode = 0
+offset_left = 835.0
+offset_top = 345.0
+offset_right = 905.0
+offset_bottom = 415.0
+mouse_filter = 2
+text = "۱"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_styles/normal = SubResource("Badge")
+
+[node name="HoldingHeading" type="Label" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 905.0
+offset_right = 830.0
+offset_bottom = 975.0
+mouse_filter = 2
+text = "هلدینگ خودت را تأسیس کن"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
+[node name="HoldingBadge" type="Label" parent="."]
+layout_mode = 0
+offset_left = 835.0
+offset_top = 905.0
+offset_right = 905.0
+offset_bottom = 975.0
+mouse_filter = 2
+text = "۲"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_styles/normal = SubResource("Badge")
+
+[node name="CapitalHeading" type="Label" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 1415.0
+offset_right = 830.0
+offset_bottom = 1485.0
+mouse_filter = 2
+text = "سرمایه آغاز ماجراجویی"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
+[node name="CapitalBadge" type="Label" parent="."]
+layout_mode = 0
+offset_left = 835.0
+offset_top = 1415.0
+offset_right = 905.0
+offset_bottom = 1485.0
+mouse_filter = 2
+text = "۳"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_styles/normal = SubResource("Badge")
+
+[node name="PlayerGuide" type="Label" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 410.0
+offset_right = 990.0
+offset_bottom = 455.0
+mouse_filter = 2
+text = "دوست داری در دنیای کسب‌وکار چه کسی باشی؟"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
+[node name="HoldingGuide" type="Label" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 970.0
+offset_right = 990.0
+offset_bottom = 1015.0
+mouse_filter = 2
+text = "نام و نشان امپراتوری خودت را انتخاب کن."
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
 [node name="AvatarHalo" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 375.0
-offset_top = 435.0
-offset_right = 705.0
-offset_bottom = 765.0
+offset_left = 415.0
+offset_top = 460.0
+offset_right = 665.0
+offset_bottom = 680.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("Halo")
+theme_override_styles/panel = SubResource("Panel")
 
 [node name="Avatar" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 375.0
-offset_top = 435.0
+offset_top = 460.0
 offset_right = 705.0
-offset_bottom = 765.0
+offset_bottom = 680.0
+mouse_filter = 2
 texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
 [node name="AvatarPrev" type="Button" parent="."]
 layout_mode = 0
-offset_left = 220.0
-offset_top = 545.0
-offset_right = 320.0
-offset_bottom = 645.0
+offset_left = 210.0
+offset_top = 510.0
+offset_right = 330.0
+offset_bottom = 630.0
 text = "‹"
 focus_mode = 0
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("management_normal")
+theme_override_styles/hover = SubResource("management_normal")
+theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/disabled = SubResource("management_disabled")
+
 
 [node name="AvatarNext" type="Button" parent="."]
 layout_mode = 0
-offset_left = 760.0
-offset_top = 545.0
-offset_right = 860.0
-offset_bottom = 645.0
+offset_left = 750.0
+offset_top = 510.0
+offset_right = 870.0
+offset_bottom = 630.0
 text = "›"
 focus_mode = 0
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("management_normal")
+theme_override_styles/hover = SubResource("management_normal")
+theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/disabled = SubResource("management_disabled")
+
 
 [node name="AvatarCount" type="Label" parent="."]
 layout_mode = 0
 offset_left = 390.0
-offset_top = 765.0
+offset_top = 680.0
 offset_right = 690.0
-offset_bottom = 820.0
+offset_bottom = 725.0
+mouse_filter = 2
 text = "● ○ ○ ○ ○ ○"
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 35
-theme_override_colors/font_color = Color(1, 0.85, 0.36, 1)
-theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 5
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerName" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 105.0
-offset_top = 835.0
-offset_right = 975.0
-offset_bottom = 960.0
-placeholder_text = "نام بازیکن"
-max_length = 20
-alignment = 1
-theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_placeholder_color = Color(0.35, 0.39, 0.35, 1)
-theme_override_styles/normal = SubResource("Cream")
-theme_override_styles/focus = SubResource("FieldFocus")
 
 [node name="HoldingLogo" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 430.0
-offset_top = 995.0
+offset_top = 1015.0
 offset_right = 650.0
-offset_bottom = 1215.0
+offset_bottom = 1195.0
+mouse_filter = 2
 texture = ExtResource("5")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
 [node name="LogoPrev" type="Button" parent="."]
 layout_mode = 0
-offset_left = 295.0
-offset_top = 1055.0
+offset_left = 275.0
+offset_top = 1045.0
 offset_right = 395.0
-offset_bottom = 1155.0
+offset_bottom = 1165.0
 text = "‹"
 focus_mode = 0
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("management_normal")
+theme_override_styles/hover = SubResource("management_normal")
+theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/disabled = SubResource("management_disabled")
+
 
 [node name="LogoNext" type="Button" parent="."]
 layout_mode = 0
 offset_left = 685.0
-offset_top = 1055.0
-offset_right = 785.0
-offset_bottom = 1155.0
+offset_top = 1045.0
+offset_right = 805.0
+offset_bottom = 1165.0
 text = "›"
 focus_mode = 0
-theme_override_font_sizes/font_size = 64
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_focus_color = Color(1, 0.94, 0.79, 1)
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/focus = SubResource("Emerald")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 68
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("management_normal")
+theme_override_styles/hover = SubResource("management_normal")
+theme_override_styles/pressed = SubResource("management_pressed")
+theme_override_styles/disabled = SubResource("management_disabled")
+
 
 [node name="LogoCount" type="Label" parent="."]
 layout_mode = 0
 offset_left = 390.0
-offset_top = 1215.0
+offset_top = 1195.0
 offset_right = 690.0
-offset_bottom = 1270.0
+offset_bottom = 1240.0
+mouse_filter = 2
 text = "● ○ ○ ○ ○"
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 35
-theme_override_colors/font_color = Color(1, 0.85, 0.36, 1)
-theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 5
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
+
+
+[node name="PlayerName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 738.0
+offset_right = 715.0
+offset_bottom = 808.0
+max_length = 12
+alignment = 2
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("Cream")
+
+[node name="PlayerNameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 725.0
+offset_top = 738.0
+offset_right = 970.0
+offset_bottom = 808.0
+mouse_filter = 2
+text = "نام بازیکن:"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+
+[node name="PlayerNameHint" type="Label" parent="."]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 810.0
+offset_right = 970.0
+offset_bottom = 855.0
+mouse_filter = 2
+text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
 
 [node name="HoldingName" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 105.0
-offset_top = 1280.0
-offset_right = 975.0
-offset_bottom = 1405.0
-placeholder_text = "نام هلدینگ"
-max_length = 30
-alignment = 1
-theme_override_font_sizes/font_size = 48
-theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_placeholder_color = Color(0.35, 0.39, 0.35, 1)
+offset_top = 1245.0
+offset_right = 715.0
+offset_bottom = 1315.0
+max_length = 12
+alignment = 2
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_styles/normal = SubResource("Cream")
-theme_override_styles/focus = SubResource("FieldFocus")
 
-[node name="CapitalPlate" type="Panel" parent="."]
+[node name="HoldingNameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 725.0
+offset_top = 1245.0
+offset_right = 970.0
+offset_bottom = 1315.0
+mouse_filter = 2
+text = "نام هلدینگ:"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+
+[node name="HoldingNameHint" type="Label" parent="."]
 layout_mode = 0
 offset_left = 105.0
-offset_top = 1430.0
-offset_right = 975.0
-offset_bottom = 1630.0
+offset_top = 1317.0
+offset_right = 970.0
+offset_bottom = 1362.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("CapitalPlate")
+text = "۲ تا ۱۲ حرف، عدد یا فاصله | 0/12"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
 
 [node name="CapitalIcon" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 150.0
+offset_left = 140.0
 offset_top = 1490.0
-offset_right = 260.0
-offset_bottom = 1600.0
+offset_right = 245.0
+offset_bottom = 1595.0
 mouse_filter = 2
 texture = ExtResource("6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CapitalLabel" type="Label" parent="."]
+[node name="CapitalSeparator" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 275.0
-offset_top = 1450.0
-offset_right = 945.0
-offset_bottom = 1510.0
-text = "سرمایه اولیه"
-theme_override_font_sizes/font_size = 40
-theme_override_colors/font_color = Color(1, 0.89, 0.61, 1)
-theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 5
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 265.0
+offset_top = 1500.0
+offset_right = 268.0
+offset_bottom = 1580.0
+mouse_filter = 2
+color = Color(1, 0.89, 0.43, 1)
 
 [node name="Capital" type="Label" parent="."]
 layout_mode = 0
-offset_left = 275.0
-offset_top = 1510.0
+offset_left = 285.0
+offset_top = 1485.0
 offset_right = 945.0
-offset_bottom = 1610.0
+offset_bottom = 1590.0
+mouse_filter = 2
 text = "10,000 USDT"
-theme_override_font_sizes/font_size = 76
-theme_override_colors/font_color = Color(1, 0.89, 0.61, 1)
-theme_override_colors/font_outline_color = Color(0.02, 0.24, 0.18, 1)
-theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(1, 0.89, 0.43, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+text_direction = 1
+
+[node name="CapitalGuide" type="Label" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 1595.0
+offset_right = 990.0
+offset_bottom = 1640.0
+mouse_filter = 2
+text = "اولین سرمایه برای ساخت آینده اقتصادی تو!"
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
+
 [node name="Start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 105.0
-offset_top = 1660.0
-offset_right = 975.0
-offset_bottom = 1795.0
-text = "شروع بازی"
+offset_left = 65.0
+offset_top = 1690.0
+offset_right = 1015.0
+offset_bottom = 1825.0
+text = "شروع ماجراجویی"
 focus_mode = 0
-theme_override_font_sizes/font_size = 58
-theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_hover_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_pressed_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_focus_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_styles/normal = SubResource("Gold")
-theme_override_styles/hover = SubResource("GoldHover")
-theme_override_styles/pressed = SubResource("GoldPressed")
-theme_override_styles/focus = SubResource("Gold")
-theme_override_styles/disabled = SubResource("GoldDisabled")
-theme_override_colors/font_disabled_color = Color(0.35, 0.35, 0.35, 1)
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 54
+theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
+theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
+theme_override_styles/normal = SubResource("primary_normal")
+theme_override_styles/hover = SubResource("primary_normal")
+theme_override_styles/pressed = SubResource("primary_pressed")
+theme_override_styles/disabled = SubResource("primary_disabled")
+disabled = true
 
 [node name="Status" type="Label" parent="."]
 layout_mode = 0
 offset_left = 65.0
-offset_top = 1805.0
+offset_top = 1830.0
 offset_right = 1015.0
-offset_bottom = 1880.0
+offset_bottom = 1895.0
+mouse_filter = 2
 text = ""
+theme_override_fonts/font = SubResource("Bold")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(0.03, 0.33, 0.25, 1)
-theme_override_colors/font_outline_color = Color(1, 0.94, 0.79, 1)
-theme_override_constants/outline_size = 5
+theme_override_colors/font_color = Color(0.035, 0.18, 0.15, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
+
 
 [node name="Notice" type="AcceptDialog" parent="."]
 title = "راهنما"
