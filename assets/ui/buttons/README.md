@@ -1,0 +1,2 @@
+# Button texture prototypes
+24 SVG textures, 512x128, transparent exterior. SVG chosen for compact scalable source; Godot imports as textures. Families: primary, upgrade, management, information, danger, neutral. States: normal, pressed, selected, disabled. Use StyleBoxTexture, suggested margins 40 left/right and 32 top/bottom; verify in showcase. Disabled reasons must be provided by UI logic. No runtime changes; visual testing pending.
