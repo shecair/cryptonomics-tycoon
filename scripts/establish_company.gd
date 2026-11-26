@@ -216,7 +216,7 @@ func setup_wizard() -> void:
 	show_step(false)
 
 func show_step(animate: bool = true) -> void:
-	var groups := [[$Mining, $Exchange, $Blockchain], [$Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $Cost, $Remaining]]
+	var groups := [[$Mining, $Exchange, $Blockchain], [$CompanyIdentityPanel, $CompanyLogoFrame, $CompanyLogoTitle, $Logo, $LogoPrev, $LogoNext, $LogoCount, $CompanyNameTitle, $CompanyNameGuide, $CompanyName], [$SizeTitle, $Small, $Medium, $Large, $CostPlate, $Cost, $Remaining]]
 	if step_tween and step_tween.is_valid():
 		step_tween.kill()
 	if animate:

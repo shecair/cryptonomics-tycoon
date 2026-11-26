@@ -509,12 +509,47 @@ text_overrun_behavior = 3
 theme_override_fonts/font = SubResource("Bold")
 
 
+[node name="CompanyIdentityPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 65.0
+offset_top = 890.0
+offset_right = 1015.0
+offset_bottom = 1550.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("CapitalPlate")
+
+[node name="CompanyLogoFrame" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 365.0
+offset_top = 970.0
+offset_right = 715.0
+offset_bottom = 1260.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Emerald")
+
+[node name="CompanyLogoTitle" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 100.0
+offset_top = 900.0
+offset_right = 980.0
+offset_bottom = 965.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 44
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "نشان تجاری شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Logo" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 360.0
-offset_top = 900.0
-offset_right = 720.0
-offset_bottom = 1260.0
+offset_left = 390.0
+offset_top = 985.0
+offset_right = 690.0
+offset_bottom = 1245.0
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 5
@@ -525,19 +560,19 @@ visible = false
 [node name="LogoPrev" type="Button" parent="."]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 1025.0
+offset_top = 1055.0
 offset_right = 290.0
-offset_bottom = 1135.0
+offset_bottom = 1165.0
 text = "‹"
 focus_mode = 0
 theme_override_font_sizes/font_size = 65
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+theme_override_styles/normal = SubResource("Gold")
+theme_override_styles/hover = SubResource("GoldHover")
+theme_override_styles/pressed = SubResource("GoldPressed")
+theme_override_styles/disabled = SubResource("Gold")
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.02, 0.24, 0.18, 1)
 visible = false
 theme_override_fonts/font = SubResource("Bold")
 
@@ -545,19 +580,19 @@ theme_override_fonts/font = SubResource("Bold")
 [node name="LogoNext" type="Button" parent="."]
 layout_mode = 0
 offset_left = 790.0
-offset_top = 1025.0
+offset_top = 1055.0
 offset_right = 900.0
-offset_bottom = 1135.0
+offset_bottom = 1165.0
 text = "›"
 focus_mode = 0
 theme_override_font_sizes/font_size = 65
-theme_override_styles/normal = SubResource("Emerald")
-theme_override_styles/hover = SubResource("EmeraldHover")
-theme_override_styles/pressed = SubResource("EmeraldPressed")
-theme_override_styles/disabled = SubResource("Emerald")
-theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_hover_color = Color(1, 0.94, 0.79, 1)
-theme_override_colors/font_pressed_color = Color(1, 0.94, 0.79, 1)
+theme_override_styles/normal = SubResource("Gold")
+theme_override_styles/hover = SubResource("GoldHover")
+theme_override_styles/pressed = SubResource("GoldPressed")
+theme_override_styles/disabled = SubResource("Gold")
+theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_hover_color = Color(0.02, 0.24, 0.18, 1)
+theme_override_colors/font_pressed_color = Color(0.02, 0.24, 0.18, 1)
 visible = false
 theme_override_fonts/font = SubResource("Bold")
 
@@ -565,9 +600,9 @@ theme_override_fonts/font = SubResource("Bold")
 [node name="LogoCount" type="Label" parent="."]
 layout_mode = 0
 offset_left = 200.0
-offset_top = 1280.0
+offset_top = 1260.0
 offset_right = 880.0
-offset_bottom = 1350.0
+offset_bottom = 1320.0
 text = "● ○ ○ ○ ○"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -580,16 +615,46 @@ visible = false
 theme_override_fonts/font = SubResource("Bold")
 
 
+[node name="CompanyNameTitle" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 735.0
+offset_top = 1350.0
+offset_right = 980.0
+offset_bottom = 1450.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "نام شرکت"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompanyNameGuide" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 105.0
+offset_top = 1460.0
+offset_right = 975.0
+offset_bottom = 1525.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("Bold")
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+text = "نام شرکت باید بین ۲ تا ۳۰ حرف باشد."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CompanyName" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 1370.0
-offset_right = 1005.0
-offset_bottom = 1490.0
-placeholder_text = "نام شرکت"
+offset_left = 105.0
+offset_top = 1350.0
+offset_right = 720.0
+offset_bottom = 1450.0
+placeholder_text = "نام شرکت را وارد کنید"
 max_length = 30
-alignment = 1
-theme_override_font_sizes/font_size = 48
+alignment = 2
+theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(0.02, 0.24, 0.18, 1)
 theme_override_colors/font_placeholder_color = Color(0.3, 0.35, 0.3, 1)
 theme_override_styles/normal = SubResource("Cream")
