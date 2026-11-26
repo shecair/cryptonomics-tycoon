@@ -11,6 +11,11 @@ var create: Button
 var list_header: PanelContainer
 var funding_hint: Label
 var tab := 0
+var business_tab := "mining"
+var business_tabs: HBoxContainer
+var company_scroll: ScrollContainer
+const BUSINESS_KEYS = ["mining","exchange","blockchain"]
+const BUSINESS_NAMES = ["استخراج","صرافی","بلاکچین"]
 
 func _ready() -> void:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAVE)) if FileAccess.file_exists(SAVE) else null
@@ -93,6 +98,11 @@ func _ready() -> void:
 		value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		accent.add_child(value)
 		card.add_child(label(item[1],32,GREEN))
+	create = action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
+	root.add_child(create)
+	funding_hint = label("موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT",28,Color("8B291C"))
+	var hint_panel := panel(root,CREAM)
+	hint_panel.add_child(funding_hint)
 	var header := panel(root,GREEN)
 	list_header = header.get_parent() as PanelContainer
 	var header_row := HBoxContainer.new()
@@ -102,7 +112,12 @@ func _ready() -> void:
 	header_row.add_child(heading)
 	var count := label(str(companies.size()) + " شرکت",34,GOLD)
 	header_row.add_child(count)
+	business_tabs = HBoxContainer.new()
+	business_tabs.layout_direction = Control.LAYOUT_DIRECTION_RTL
+	business_tabs.add_theme_constant_override("separation",12)
+	root.add_child(business_tabs)
 	var scroll := ScrollContainer.new()
+	company_scroll = scroll
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	root.add_child(scroll)
@@ -110,11 +125,6 @@ func _ready() -> void:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation",22)
 	scroll.add_child(body)
-	create = action("+ تأسیس شرکت جدید",func(): get_tree().change_scene_to_file("res://scenes/establish_company.tscn"),true)
-	root.add_child(create)
-	funding_hint = label("موجودی ناکافی؛ حداقل سرمایه لازم ۱٬۰۰۰ USDT",28,Color("8B291C"))
-	var hint_panel := panel(root,CREAM)
-	hint_panel.add_child(funding_hint)
 	nav = HBoxContainer.new()
 	nav.layout_direction = Control.LAYOUT_DIRECTION_RTL
 	root.add_child(nav)
@@ -197,6 +207,8 @@ func render() -> void:
 	create.visible = tab == 0 and not data.is_empty()
 	create.disabled = int(data.get("balance_usdt",0)) < 1000
 	list_header.visible = tab == 0 and not data.is_empty()
+	business_tabs.visible = list_header.visible
+	refresh_business_tabs()
 	funding_hint.get_parent().get_parent().visible = create.visible and create.disabled
 	for i in [2,1,0]:
 		var b := action(["▥\nهلدینگ","▤\nمالی","♙\nپروفایل"][i],select_tab.bind(i),tab==i)
@@ -206,11 +218,16 @@ func render() -> void:
 		body.add_child(label("فایل ذخیره معتبر نیست. به منوی اصلی بازگردید.",36,GREEN))
 		return
 	if tab == 0:
+		var shown := 0
 		for c in companies:
-			if c is Dictionary:
+			if c is Dictionary and c.get("business","") == business_tab:
 				company_card(c)
-		if companies.is_empty():
-			body.add_child(label("هنوز شرکتی تأسیس نکرده‌اید.",34,GREEN))
+				shown += 1
+		if shown == 0:
+			var empty := panel(body,CREAM)
+			var msg := label("هنوز در این حوزه شرکتی تأسیس نکرده‌اید.",34,GREEN)
+			msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			empty.add_child(msg)
 		if int(data.get("balance_usdt",0)) < 1000:
 			create.disabled = true
 	elif tab == 1:
@@ -230,6 +247,35 @@ func render() -> void:
 		p.add_child(picture("res://assets/profile_holding/avatar_%02d.png" % clampi(int(data.get("avatar",1)),1,6),Vector2(0,280)))
 		p.add_child(label(str(data.get("player_name","—")),48,GREEN))
 		p.add_child(label("مدیر " + str(data.get("holding_name","—")),36,GREEN))
+
+func refresh_business_tabs() -> void:
+	for child in business_tabs.get_children():
+		business_tabs.remove_child(child)
+		child.queue_free()
+	for i in range(BUSINESS_KEYS.size()):
+		var key: String = BUSINESS_KEYS[i]
+		var count := 0
+		for c in companies:
+			if c is Dictionary and c.get("business","") == key:
+				count += 1
+		var selected := business_tab == key
+		var b := action(BUSINESS_NAMES[i] + "\n" + str(count) + " شرکت",select_business.bind(key),false,Vector2(0,112))
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_theme_font_size_override("font_size",30)
+		for state in ["normal","hover","pressed"]:
+			var skin := style(Color("087F69") if selected else CREAM)
+			skin.border_color = Color("DDAA38")
+			for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:
+				skin.set_content_margin(side,8)
+			b.add_theme_stylebox_override(state,skin)
+		for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:
+			b.add_theme_color_override(state,Color.WHITE if selected else GREEN)
+		business_tabs.add_child(b)
+
+func select_business(key: String) -> void:
+	business_tab = key
+	render()
+	company_scroll.set_deferred("scroll_vertical",0)
 
 func select_tab(value: int) -> void:
 	tab = value
