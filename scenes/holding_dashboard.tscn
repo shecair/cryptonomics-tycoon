@@ -15,6 +15,8 @@
 
 [ext_resource type="Texture2D" path="res://assets/establish_company/blockchain.webp" id="blockchain_art"]
 
+[ext_resource type="Texture2D" path="res://assets/ui/panels/panel_main.png" id="gold_panel_art"]
+
 [sub_resource type="StyleBoxFlat" id="Green"]
 bg_color = Color(0.027, 0.329, 0.251, 1)
 border_color = Color(0.86, 0.78, 0.56, 1)
@@ -131,21 +133,16 @@ corner_radius_bottom_right = 20
 color = Color(0.863, 0.784, 0.557, 1)
 thickness = 3
 
-[sub_resource type="StyleBoxFlat" id="GroupSkin"]
-bg_color = Color(0.027, 0.329, 0.251, 1)
-border_color = Color(0.86, 0.78, 0.56, 1)
-border_width_left = 3
-content_margin_left = 10.0
-border_width_top = 3
-content_margin_top = 10.0
-border_width_right = 3
-content_margin_right = 10.0
-border_width_bottom = 3
-content_margin_bottom = 10.0
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_left = 26
-corner_radius_bottom_right = 26
+[sub_resource type="StyleBoxTexture" id="GroupSkin"]
+texture = ExtResource("gold_panel_art")
+texture_margin_left = 48.0
+content_margin_left = 18.0
+texture_margin_top = 48.0
+content_margin_top = 18.0
+texture_margin_right = 48.0
+content_margin_right = 18.0
+texture_margin_bottom = 48.0
+content_margin_bottom = 18.0
 
 
 [node name="HoldingDashboard" type="Control"]

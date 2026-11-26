@@ -6,21 +6,19 @@
 [ext_resource type="Texture2D" path="res://assets/profile_holding/avatar_01.png" id="5"]
 [ext_resource type="Theme" path="res://themes/game_theme.tres" id="6"]
 
-[sub_resource type="StyleBoxFlat" id="Green"]
-bg_color = Color(0.027, 0.329, 0.251, 1)
-border_color = Color(0.86, 0.78, 0.56, 1)
-border_width_left = 3
+[ext_resource type="Texture2D" path="res://assets/ui/panels/panel_main.png" id="gold_panel_art"]
+
+[sub_resource type="StyleBoxTexture" id="Green"]
+texture = ExtResource("gold_panel_art")
+texture_margin_left = 48.0
 content_margin_left = 22.0
-border_width_top = 3
+texture_margin_top = 48.0
 content_margin_top = 22.0
-border_width_right = 3
+texture_margin_right = 48.0
 content_margin_right = 22.0
-border_width_bottom = 3
+texture_margin_bottom = 48.0
 content_margin_bottom = 22.0
-corner_radius_top_left = 26
-corner_radius_top_right = 26
-corner_radius_bottom_left = 26
-corner_radius_bottom_right = 26
+
 
 [sub_resource type="StyleBoxFlat" id="Cream"]
 bg_color = Color(1, 0.961, 0.851, 1)
@@ -103,7 +101,7 @@ corner_radius_bottom_left = 20
 corner_radius_bottom_right = 20
 
 [sub_resource type="StyleBoxFlat" id="IdentityCompact"]
-bg_color = Color(0.027, 0.329, 0.251, 1)
+bg_color = Color(0, 0, 0, 0)
 border_color = Color(0.91, 0.68, 0.20, 1)
 border_width_left = 0
 content_margin_left = 0.0
