@@ -165,6 +165,40 @@ corner_radius_top_right = 26
 corner_radius_bottom_left = 26
 corner_radius_bottom_right = 26
 
+[sub_resource type="StyleBoxFlat" id="HeaderRed"]
+bg_color = Color(0.85, 0.24, 0.20, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 3
+content_margin_left = 8.0
+border_width_top = 3
+content_margin_top = 8.0
+border_width_right = 3
+content_margin_right = 8.0
+border_width_bottom = 3
+content_margin_bottom = 8.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+
+[sub_resource type="StyleBoxFlat" id="HeaderBlue"]
+bg_color = Color(0.08, 0.61, 0.84, 1)
+border_color = Color(0.91, 0.68, 0.20, 1)
+border_width_left = 3
+content_margin_left = 8.0
+border_width_top = 3
+content_margin_top = 8.0
+border_width_right = 3
+content_margin_right = 8.0
+border_width_bottom = 3
+content_margin_bottom = 8.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+
+
 [node name="ProfileHolding" type="Control" unique_id=1395934244]
 layout_mode = 3
 anchors_preset = 15
@@ -252,11 +286,11 @@ focus_mode = 0
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("danger_normal")
-theme_override_styles/pressed = SubResource("danger_pressed")
-theme_override_styles/hover = SubResource("danger_normal")
-theme_override_styles/disabled = SubResource("danger_disabled")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("HeaderRed")
+theme_override_styles/pressed = SubResource("HeaderRed")
+theme_override_styles/hover = SubResource("HeaderRed")
+theme_override_styles/disabled = SubResource("HeaderRed")
 text = "‹"
 
 [node name="Help" type="Button" parent="." unique_id=173503155]
@@ -269,11 +303,11 @@ focus_mode = 0
 theme_override_colors/font_color = Color(0.98, 0.96, 0.91, 1)
 theme_override_colors/font_disabled_color = Color(0.035, 0.18, 0.15, 1)
 theme_override_fonts/font = SubResource("Bold")
-theme_override_font_sizes/font_size = 56
-theme_override_styles/normal = SubResource("information_normal")
-theme_override_styles/pressed = SubResource("information_pressed")
-theme_override_styles/hover = SubResource("information_normal")
-theme_override_styles/disabled = SubResource("information_disabled")
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("HeaderBlue")
+theme_override_styles/pressed = SubResource("HeaderBlue")
+theme_override_styles/hover = SubResource("HeaderBlue")
+theme_override_styles/disabled = SubResource("HeaderBlue")
 text = "i"
 
 [node name="Title" type="Label" parent="." unique_id=1489738176]
