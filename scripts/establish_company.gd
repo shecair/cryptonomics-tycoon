@@ -28,6 +28,7 @@ func _ready() -> void:
 	refresh()
 	if data.is_empty():
 		$Status.text = "فایل ذخیره نامعتبر است." if FileAccess.file_exists(SAVE) else "ابتدا هلدینگ را ایجاد کنید (F5)."
+		push_warning("Holding save unavailable: " + ProjectSettings.globalize_path(SAVE))
 
 func read_save() -> Dictionary:
 	if not FileAccess.file_exists(SAVE):
@@ -51,7 +52,12 @@ func refresh() -> void:
 	var cost := int(COSTS[company_size])
 	$Balance.text = "موجودی هلدینگ: %d USDT" % balance if not data.is_empty() else "موجودی هلدینگ: —"
 	$Cost.text = "هزینه تأسیس: %d USDT" % cost
-	$Remaining.text = "موجودی پس از تأسیس: %d USDT" % (balance - cost) if not data.is_empty() else "موجودی پس از تأسیس: —"
+	if data.is_empty():
+		$Remaining.text = "موجودی پس از تأسیس: —"
+	elif balance < cost:
+		$Remaining.text = "کمبود سرمایه: %d USDT" % (cost - balance)
+	else:
+		$Remaining.text = "موجودی پس از تأسیس: %d USDT" % (balance - cost)
 	for pair in [[$Mining,"mining"],[$Exchange,"exchange"],[$Blockchain,"blockchain"],[$Small,"small"],[$Medium,"medium"],[$Large,"large"]]:
 		var button: Button = pair[0]
 		var selected: bool = pair[1] == business or pair[1] == company_size
@@ -71,10 +77,10 @@ func change_logo(direction: int) -> void:
 		$LogoCount.text += "● " if i == logo_index else "○ "
 	if animation and animation.is_valid():
 		animation.kill()
-	$Logo.position.x = 435.0 + direction * 45.0
+	$Logo.position.x = 450.0 + direction * 45.0
 	$Logo.modulate.a = 0.4
 	animation = create_tween().set_parallel(true)
-	animation.tween_property($Logo, "position:x", 435.0, 0.2)
+	animation.tween_property($Logo, "position:x", 450.0, 0.2)
 	animation.tween_property($Logo, "modulate:a", 1.0, 0.2)
 
 func _input(event: InputEvent) -> void:
